@@ -66,3 +66,12 @@ jobs:
 
       - name: Build
         run: bun run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: bun run test:e2e
+        env:
+          NUGET_USER: ${{ github.actor }}
+          NUGET_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}

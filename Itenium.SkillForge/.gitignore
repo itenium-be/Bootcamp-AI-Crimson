@@ -1,0 +1,31 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.cache
+
+# Rider
+.idea/
+
+# Node
+node_modules/
+dist/
+
+# Databases
+*.db
+*.db-journal
+
+# Environment
+.env
+.env.local
+
+# Test artifacts
+e2e/.test-state.json
+test-results/
+playwright-report/

@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Itenium.Forge.Controllers" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.HealthChecks" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Logging" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Security" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Security.OpenIddict" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Settings" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Swagger" Version="0.3.11" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
+  </ItemGroup>
+
+</Project>

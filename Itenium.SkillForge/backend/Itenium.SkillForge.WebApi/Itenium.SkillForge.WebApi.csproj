@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Itenium.Forge.Controllers" />
+    <PackageReference Include="Itenium.Forge.HealthChecks" />
+    <PackageReference Include="Itenium.Forge.Logging" />
+    <PackageReference Include="Itenium.Forge.Security.OpenIddict" />
+    <PackageReference Include="Itenium.Forge.Settings" />
+    <PackageReference Include="Itenium.Forge.Swagger" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Itenium.SkillForge.Data\Itenium.SkillForge.Data.csproj" />
+    <ProjectReference Include="..\Itenium.SkillForge.Entities\Itenium.SkillForge.Entities.csproj" />
+    <ProjectReference Include="..\Itenium.SkillForge.Services\Itenium.SkillForge.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
+</Project>

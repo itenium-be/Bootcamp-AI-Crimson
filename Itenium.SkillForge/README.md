@@ -99,12 +99,6 @@ The frontend will be available at http://localhost:5173
 | dotnet     | UserPassword123!  | local      | .NET            |
 | multi      | UserPassword123!  | local      | Java + .NET     |
 
-## Teams
-
-- Java
-- .NET
-- PO & Analysis
-- QA
 
 ## Database Migrations
 
@@ -133,6 +127,8 @@ dotnet ef migrations script \
 
 ## Running Tests
 
+### Backend Tests
+
 Tests use Testcontainers to spin up a PostgreSQL container automatically:
 
 ```bash
@@ -140,4 +136,26 @@ cd backend
 dotnet test
 ```
 
-**Note:** Docker must be running for the tests to work.
+
+### E2E Tests
+
+E2E tests use Playwright and Testcontainers to spin up both PostgreSQL and the backend:
+
+```bash
+cd frontend
+
+# Option 1: Use Docker (full e2e setup)
+# Set environment variables for GitHub Packages authentication:
+$env:NUGET_USER="your-github-username"
+$env:NUGET_TOKEN="your-github-pat-with-read:packages"
+bun run test:e2e
+
+# Option 2: Use locally running backend (faster for development)
+# Start the backend first, then:
+bun run test:e2e:local
+
+# Other test commands:
+bun run test:e2e:ui        # Run with Playwright UI
+bun run test:e2e:headed    # Run with visible browser
+bun run test:e2e:debug     # Debug mode
+```

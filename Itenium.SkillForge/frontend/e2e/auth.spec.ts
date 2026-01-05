@@ -22,8 +22,8 @@ test.describe('Authentication', () => {
     await expect(page.getByText('Welcome back')).toBeVisible();
 
     // Fill in credentials using placeholder text
-    await page.getByPlaceholder(/enter your username/i).fill(testUsers.central.username);
-    await page.getByPlaceholder(/enter your password/i).fill(testUsers.central.password);
+    await page.getByPlaceholder(/enter your username/i).fill(testUsers.backoffice.username);
+    await page.getByPlaceholder(/enter your password/i).fill(testUsers.backoffice.password);
     await page.getByRole('button', { name: /sign in/i }).click();
 
     // Should be redirected to dashboard after successful login
@@ -50,8 +50,8 @@ test.describe('Authentication', () => {
     // Wait for dashboard to load
     await expect(authenticatedPage.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
-    // Click on user menu button (matches "C central" format)
-    await authenticatedPage.getByRole('button', { name: 'C central' }).click();
+    // Click on user menu button (matches "B backoffice" format)
+    await authenticatedPage.getByRole('button', { name: 'B backoffice' }).click();
 
     // Click on Sign Out in the dropdown
     await authenticatedPage.getByRole('menuitem', { name: /sign out/i }).click();

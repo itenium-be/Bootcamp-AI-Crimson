@@ -11,13 +11,17 @@ RUN dotnet nuget add source https://nuget.pkg.github.com/Itenium-Forge/index.jso
     --password ${NUGET_TOKEN} \
     --store-password-in-clear-text
 
-# Copy project files
+# Copy project files for restore
 COPY nuget.config ./
-COPY Itenium.SkillForge.sln ./
+COPY Directory.Build.props ./
+COPY Directory.Packages.props ./
 COPY Itenium.SkillForge.WebApi/*.csproj ./Itenium.SkillForge.WebApi/
+COPY Itenium.SkillForge.Data/*.csproj ./Itenium.SkillForge.Data/
+COPY Itenium.SkillForge.Entities/*.csproj ./Itenium.SkillForge.Entities/
+COPY Itenium.SkillForge.Services/*.csproj ./Itenium.SkillForge.Services/
 
 # Restore dependencies
-RUN dotnet restore
+RUN dotnet restore ./Itenium.SkillForge.WebApi/Itenium.SkillForge.WebApi.csproj
 
 # Copy source code and build
 COPY . .

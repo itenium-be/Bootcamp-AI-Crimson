@@ -1,4 +1,4 @@
-import { GenericContainer, Wait } from 'testcontainers';
+import { GenericContainer, Network, Wait } from 'testcontainers';
 import * as path from 'path';
 import * as fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -11,13 +11,13 @@ export default async function globalSetup() {
   const backendUrl = process.env.BACKEND_URL;
   if (backendUrl) {
     console.log(`Using existing backend at ${backendUrl}`);
-    const state = { apiUrl: backendUrl, containerId: null };
+    const state = { apiUrl: backendUrl, backendContainerId: null, postgresContainerId: null, networkId: null };
     fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
     return;
   }
 
-  // Option 2: Start backend in Docker using Testcontainers
-  console.log('Starting backend container...');
+  // Option 2: Start backend + PostgreSQL in Docker using Testcontainers
+  console.log('Starting e2e test environment...');
 
   const nugetUser = process.env.NUGET_USER;
   const nugetToken = process.env.NUGET_TOKEN;
@@ -36,36 +36,58 @@ export default async function globalSetup() {
     );
   }
 
-  const backendPath = path.resolve(__dirname, '../../backend');
+  // Create a network for containers to communicate
+  const network = await new Network().start();
 
+  // Start PostgreSQL container
+  console.log('Starting PostgreSQL container...');
+  const postgresContainer = await new GenericContainer('postgres:17')
+    .withNetwork(network)
+    .withNetworkAliases('postgres')
+    .withEnvironment({
+      POSTGRES_USER: 'skillforge',
+      POSTGRES_PASSWORD: 'skillforge',
+      POSTGRES_DB: 'skillforge',
+    })
+    .withExposedPorts(5432)
+    .withWaitStrategy(Wait.forLogMessage(/database system is ready to accept connections/))
+    .start();
+
+  console.log('PostgreSQL started');
+
+  // Build backend Docker image
+  const backendPath = path.resolve(__dirname, '../../backend');
   console.log('Building backend Docker image (this may take a few minutes)...');
 
-  // Build and start the container
-  const container = await GenericContainer.fromDockerfile(backendPath)
+  const backendImage = await GenericContainer.fromDockerfile(backendPath)
     .withBuildArgs({
       NUGET_USER: nugetUser,
       NUGET_TOKEN: nugetToken,
     })
     .build('skillforge-backend-test', { deleteOnExit: false });
 
-  const startedContainer = await container
+  // Start backend container connected to PostgreSQL
+  const backendContainer = await backendImage
+    .withNetwork(network)
     .withExposedPorts(8080)
     .withEnvironment({
       ASPNETCORE_ENVIRONMENT: 'Development',
-      ConnectionStrings__DefaultConnection: 'Data Source=:memory:',
+      ConnectionStrings__DefaultConnection: 'Host=postgres;Port=5432;Database=skillforge;Username=skillforge;Password=skillforge',
     })
-    .withWaitStrategy(Wait.forHttp('/health', 8080).forStatusCode(200))
+    .withWaitStrategy(Wait.forHttp('/health/live', 8080).forStatusCode(200))
     .start();
 
-  const apiPort = startedContainer.getMappedPort(8080);
-  const apiHost = startedContainer.getHost();
+  const apiPort = backendContainer.getMappedPort(8080);
+  const apiHost = backendContainer.getHost();
   const apiUrl = `http://${apiHost}:${apiPort}`;
 
   console.log(`Backend started at ${apiUrl}`);
 
   // Save state for tests and teardown
   const state = {
-    containerId: startedContainer.getId(),
+    backendContainerId: backendContainer.getId(),
+    postgresContainerId: postgresContainer.getId(),
+    networkId: network.getId(),
     apiUrl,
   };
 

@@ -13,15 +13,32 @@ export default async function globalTeardown() {
     }
 
     const state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'));
+    const client = await getContainerRuntimeClient();
 
-    // Only stop container if we started one (not when using local backend)
-    if (state.containerId) {
+    // Stop backend container
+    if (state.backendContainerId) {
       console.log('Stopping backend container...');
-      const client = await getContainerRuntimeClient();
-      const container = client.container.getById(state.containerId);
-      await container.stop();
-      await container.remove();
+      const backendContainer = client.container.getById(state.backendContainerId);
+      await backendContainer.stop();
+      await backendContainer.remove();
       console.log('Backend container stopped and removed');
+    }
+
+    // Stop PostgreSQL container
+    if (state.postgresContainerId) {
+      console.log('Stopping PostgreSQL container...');
+      const postgresContainer = client.container.getById(state.postgresContainerId);
+      await postgresContainer.stop();
+      await postgresContainer.remove();
+      console.log('PostgreSQL container stopped and removed');
+    }
+
+    // Remove network
+    if (state.networkId) {
+      console.log('Removing network...');
+      const network = client.network.getById(state.networkId);
+      await network.remove();
+      console.log('Network removed');
     }
 
     fs.unlinkSync(STATE_FILE);

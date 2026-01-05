@@ -38,7 +38,7 @@ export const test = base.extend<TestFixtures>({
     await page.waitForSelector('text=Welcome back');
 
     // Fill in credentials
-    await page.getByPlaceholder(/enter your username/i).fill('central');
+    await page.getByPlaceholder(/enter your username/i).fill('backoffice');
     await page.getByPlaceholder(/enter your password/i).fill('AdminPassword123!');
 
     // Click sign in button
@@ -56,24 +56,24 @@ export { expect };
 
 // Test users available in the seeded database
 export const testUsers = {
-  central: {
-    username: 'central',
+  backoffice: {
+    username: 'backoffice',
     password: 'AdminPassword123!',
-    email: 'central@test.local',
+    email: 'backoffice@test.local',
   },
-  acme: {
-    username: 'acme',
+  java: {
+    username: 'java',
     password: 'UserPassword123!',
-    email: 'acme@test.local',
+    email: 'java@test.local',
   },
-  techstart: {
-    username: 'techstart',
+  dotnet: {
+    username: 'dotnet',
     password: 'UserPassword123!',
-    email: 'techstart@test.local',
+    email: 'dotnet@test.local',
   },
-  regional: {
-    username: 'regional',
+  multi: {
+    username: 'multi',
     password: 'UserPassword123!',
-    email: 'regional@test.local',
+    email: 'multi@test.local',
   },
 };

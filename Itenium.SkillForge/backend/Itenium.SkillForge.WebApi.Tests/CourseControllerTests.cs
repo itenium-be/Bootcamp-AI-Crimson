@@ -2,7 +2,6 @@ using Itenium.SkillForge.Data;
 using Itenium.SkillForge.Entities;
 using Itenium.SkillForge.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Itenium.SkillForge.WebApi.Tests;
 
@@ -13,14 +12,13 @@ public class CourseControllerTests
     private CourseController _sut = null!;
 
     [SetUp]
-    public void Setup()
+    public async Task Setup()
     {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-            .Options;
-
-        _db = new AppDbContext(options);
+        _db = new AppDbContext(PostgresFixture.CreateDbContextOptions());
         _sut = new CourseController(_db);
+
+        _db.Courses.RemoveRange(_db.Courses);
+        await _db.SaveChangesAsync();
     }
 
     [TearDown]
@@ -33,8 +31,8 @@ public class CourseControllerTests
     public async Task GetCourses_ReturnsAllCourses()
     {
         _db.Courses.AddRange(
-            new CourseEntity { Id = 1, Name = "C# Basics" },
-            new CourseEntity { Id = 2, Name = "Advanced .NET" }
+            new CourseEntity { Name = "C# Basics" },
+            new CourseEntity { Name = "Advanced .NET" }
         );
         await _db.SaveChangesAsync();
 
@@ -60,11 +58,11 @@ public class CourseControllerTests
     [Test]
     public async Task GetCourse_WhenExists_ReturnsCourse()
     {
-        var course = new CourseEntity { Id = 1, Name = "C# Basics", Description = "Learn C#" };
+        var course = new CourseEntity { Name = "C# Basics", Description = "Learn C#" };
         _db.Courses.Add(course);
         await _db.SaveChangesAsync();
 
-        var result = await _sut.GetCourse(1);
+        var result = await _sut.GetCourse(course.Id);
 
         var okResult = result.Result as OkObjectResult;
         Assert.That(okResult, Is.Not.Null);
@@ -103,12 +101,12 @@ public class CourseControllerTests
     [Test]
     public async Task UpdateCourse_WhenExists_UpdatesAndReturnsOk()
     {
-        var course = new CourseEntity { Id = 1, Name = "Old Name", Description = "Old Desc" };
+        var course = new CourseEntity { Name = "Old Name", Description = "Old Desc" };
         _db.Courses.Add(course);
         await _db.SaveChangesAsync();
         var request = new UpdateCourseRequest("New Name", "New Desc", "New Category", "Advanced");
 
-        var result = await _sut.UpdateCourse(1, request);
+        var result = await _sut.UpdateCourse(course.Id, request);
 
         var okResult = result.Result as OkObjectResult;
         Assert.That(okResult, Is.Not.Null);
@@ -130,14 +128,14 @@ public class CourseControllerTests
     [Test]
     public async Task DeleteCourse_WhenExists_RemovesAndReturnsNoContent()
     {
-        var course = new CourseEntity { Id = 1, Name = "To Delete" };
+        var course = new CourseEntity { Name = "To Delete" };
         _db.Courses.Add(course);
         await _db.SaveChangesAsync();
 
-        var result = await _sut.DeleteCourse(1);
+        var result = await _sut.DeleteCourse(course.Id);
 
         Assert.That(result, Is.TypeOf<NoContentResult>());
-        var deletedCourse = await _db.Courses.FindAsync(1);
+        var deletedCourse = await _db.Courses.FindAsync(course.Id);
         Assert.That(deletedCourse, Is.Null);
     }
 

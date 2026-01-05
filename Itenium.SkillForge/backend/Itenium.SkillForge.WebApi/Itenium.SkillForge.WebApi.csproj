@@ -11,7 +11,11 @@
     <PackageReference Include="Itenium.Forge.Security.OpenIddict" />
     <PackageReference Include="Itenium.Forge.Settings" />
     <PackageReference Include="Itenium.Forge.Swagger" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

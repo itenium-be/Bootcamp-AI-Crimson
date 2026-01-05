@@ -20,7 +20,7 @@ try
     builder.AddForgeLogging();
 
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    builder.AddForgeOpenIddict<AppDbContext>(options => options.UseSqlite(connectionString));
+    builder.AddForgeOpenIddict<AppDbContext>(options => options.UseNpgsql(connectionString));
 
     builder.Services.AddScoped<ISkillForgeUser, SkillForgeUser>();
 
@@ -34,7 +34,7 @@ try
     using (var scope = app.Services.CreateScope())
     {
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        await db.Database.EnsureCreatedAsync();
+        await db.Database.MigrateAsync();
     }
     await app.SeedOpenIddictDataAsync();
     await app.SeedDevelopmentData();

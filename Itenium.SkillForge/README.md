@@ -44,6 +44,21 @@ This only needs to be done once. The credentials are stored in your user-level N
 
 ## Getting Started
 
+### PostgreSQL Database
+
+Start PostgreSQL using Docker:
+
+```bash
+docker compose up -d
+```
+
+This starts a PostgreSQL container with:
+- **Host:** localhost
+- **Port:** 5432
+- **Database:** skillforge
+- **Username:** skillforge
+- **Password:** skillforge
+
 ### Backend
 
 ```bash
@@ -54,6 +69,8 @@ dotnet run --project Itenium.SkillForge.WebApi
 # Or watch changes and rebuild+restart:
 dotnet watch run --project Itenium.SkillForge.WebApi
 ```
+
+Migrations run automatically at startup.
 
 - [API at :5000](http://localhost:5000)
 - [Swagger](http://localhost:5000/swagger)
@@ -88,3 +105,39 @@ The frontend will be available at http://localhost:5173
 - .NET
 - PO & Analysis
 - QA
+
+## Database Migrations
+
+Migrations run automatically at startup. To create new migrations after modifying entities:
+
+```bash
+cd backend
+
+# Add a new migration
+dotnet ef migrations add <MigrationName> \
+  --project Itenium.SkillForge.Data \
+  --startup-project Itenium.SkillForge.WebApi \
+  --output-dir Migrations
+
+# Remove the last migration (if not yet applied)
+dotnet ef migrations remove \
+  --project Itenium.SkillForge.Data \
+  --startup-project Itenium.SkillForge.WebApi
+
+# Generate SQL script for all migrations
+dotnet ef migrations script \
+  --project Itenium.SkillForge.Data \
+  --startup-project Itenium.SkillForge.WebApi \
+  --output migrations.sql
+```
+
+## Running Tests
+
+Tests use Testcontainers to spin up a PostgreSQL container automatically:
+
+```bash
+cd backend
+dotnet test
+```
+
+**Note:** Docker must be running for the tests to work.

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Itenium.Forge.Security.OpenIddict" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Itenium.SkillForge.Entities\Itenium.SkillForge.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

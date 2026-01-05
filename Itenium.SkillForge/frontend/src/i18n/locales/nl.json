@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "Itenium SkillForge",
+    "central": "Centraal",
+    "local": "Lokaal"
+  },
+  "nav": {
+    "navigation": "Navigatie",
+    "dashboard": "Dashboard",
+    "courses": "Cursussen",
+    "learners": "Leerlingen",
+    "settings": "Instellingen",
+    "signOut": "Uitloggen",
+    "admin": "Admin",
+    "users": "Gebruikers",
+    "organizations": "Organisaties",
+    "operations": "Operaties",
+    "enrollments": "Inschrijvingen",
+    "progress": "Voortgang",
+    "certificates": "Certificaten"
+  },
+  "auth": {
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "username": "Gebruikersnaam",
+    "password": "Wachtwoord",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "enterUsername": "Voer uw gebruikersnaam in",
+    "enterPassword": "Voer uw wachtwoord in",
+    "welcome": "Welkom terug",
+    "signInDescription": "Voer uw gegevens in om in te loggen",
+    "invalidCredentials": "Ongeldige gebruikersnaam of wachtwoord"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welkom bij Itenium SkillForge",
+    "totalCourses": "Totaal Cursussen",
+    "activeLearners": "Actieve Leerlingen",
+    "completedCourses": "Voltooide Cursussen"
+  },
+  "courses": {
+    "title": "Cursussen",
+    "name": "Naam",
+    "description": "Beschrijving",
+    "category": "Categorie",
+    "level": "Niveau",
+    "status": "Status",
+    "active": "Actief",
+    "inactive": "Inactief",
+    "actions": "Acties",
+    "addCourse": "Cursus Toevoegen",
+    "editCourse": "Cursus Bewerken",
+    "deleteCourse": "Cursus Verwijderen",
+    "noCourses": "Geen cursussen gevonden"
+  },
+  "learners": {
+    "title": "Leerlingen",
+    "name": "Naam",
+    "email": "E-mail",
+    "progress": "Voortgang",
+    "noLearners": "Geen leerlingen gevonden"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "appearance": "Uiterlijk",
+    "language": "Taal",
+    "theme": "Thema",
+    "light": "Licht",
+    "dark": "Donker",
+    "system": "Systeem",
+    "save": "Opslaan"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "search": "Zoeken",
+    "filter": "Filteren",
+    "noResults": "Geen resultaten gevonden"
+  }
+}

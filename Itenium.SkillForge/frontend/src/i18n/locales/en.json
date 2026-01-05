@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "Itenium SkillForge",
+    "central": "Central",
+    "local": "Local"
+  },
+  "nav": {
+    "navigation": "Navigation",
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "learners": "Learners",
+    "settings": "Settings",
+    "signOut": "Sign Out",
+    "admin": "Admin",
+    "users": "Users",
+    "organizations": "Organizations",
+    "operations": "Operations",
+    "enrollments": "Enrollments",
+    "progress": "Progress",
+    "certificates": "Certificates"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "username": "Username",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "enterUsername": "Enter your username",
+    "enterPassword": "Enter your password",
+    "welcome": "Welcome back",
+    "signInDescription": "Enter your credentials to sign in",
+    "invalidCredentials": "Invalid username or password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to Itenium SkillForge",
+    "totalCourses": "Total Courses",
+    "activeLearners": "Active Learners",
+    "completedCourses": "Completed Courses"
+  },
+  "courses": {
+    "title": "Courses",
+    "name": "Name",
+    "description": "Description",
+    "category": "Category",
+    "level": "Level",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "actions": "Actions",
+    "addCourse": "Add Course",
+    "editCourse": "Edit Course",
+    "deleteCourse": "Delete Course",
+    "noCourses": "No courses found"
+  },
+  "learners": {
+    "title": "Learners",
+    "name": "Name",
+    "email": "Email",
+    "progress": "Progress",
+    "noLearners": "No learners found"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "save": "Save"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "noResults": "No results found"
+  }
+}

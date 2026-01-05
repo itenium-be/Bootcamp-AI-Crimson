@@ -27,8 +27,8 @@ The API will be available at http://localhost:5000
 
 ```bash
 cd frontend
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 The frontend will be available at http://localhost:5173

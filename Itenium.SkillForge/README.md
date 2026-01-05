@@ -50,6 +50,9 @@ This only needs to be done once. The credentials are stored in your user-level N
 cd backend
 dotnet restore
 dotnet run --project Itenium.SkillForge.WebApi
+
+# Or watch changes and rebuild+restart:
+dotnet watch run --project Itenium.SkillForge.WebApi
 ```
 
 The API will be available at http://localhost:5000

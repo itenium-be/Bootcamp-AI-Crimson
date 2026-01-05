@@ -1,6 +1,18 @@
 Preparation
 ===========
 
+Tryout
+------
+
+With Olivier, follow all instructions step by step
+and check that
+- Can start local dev
+- Can run tests locally
+- Can add backend migration
+- Can push something and have it built on CI
+
+
+
 BackOffice
 ----------
 

@@ -11,6 +11,37 @@ Itenium.SkillForge/
 └── frontend/        # React + Vite + TypeScript
 ```
 
+## Prerequisites
+
+### GitHub NuGet Authentication
+
+This project uses private NuGet packages from GitHub Packages. You need to authenticate before running `dotnet restore`.
+
+#### Step 1: Create a Personal Access Token (PAT)
+
+1. Go to https://github.com/settings/tokens?type=beta
+2. Click **Generate new token**
+3. Give it a name (e.g., "NuGet packages")
+4. Set expiration (e.g., 90 days)
+5. Under **Repository access**, select "Public Repositories (read-only)"
+6. Under **Permissions** → **Account permissions** → **Packages**, select **Read**
+7. Click **Generate token**
+8. Copy the token (you won't see it again!)
+
+#### Step 2: Configure NuGet
+
+Run this command (replace `YOUR_GITHUB_USERNAME` and `YOUR_PAT`):
+
+```bash
+dotnet nuget update source itenium \
+  --username YOUR_GITHUB_USERNAME \
+  --password YOUR_PAT \
+  --store-password-in-clear-text \
+  --configfile backend/nuget.config
+```
+
+This only needs to be done once. The credentials are stored in your user-level NuGet config.
+
 ## Getting Started
 
 ### Backend

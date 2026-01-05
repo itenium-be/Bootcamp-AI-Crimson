@@ -22,6 +22,9 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      - name: Authenticate to GitHub Packages
+        run: dotnet nuget update source itenium --username laoujin --password ${{ secrets.NUGET_AUTH_TOKEN }} --store-password-in-clear-text
+
       - name: Restore dependencies
         run: dotnet restore
 

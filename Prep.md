@@ -13,6 +13,7 @@ BackOffice
 Consultants
 -----------
 
+- Doorgeven van Github username (push rechten op de git repository)
 - Meebrengen
   - Eigen scherm
 - Installatie Docker
@@ -26,7 +27,8 @@ Consultants
 
 ### Optioneel
 
-- Installatie Visual Studio & Visual Studio Code
+- Installatie Visual Studio 2026 & Visual Studio Code
+  - Or .NET 10 SDK
 - Visual Studio Code: Claude Plugin & Postgres Plugin
 - Postgres Desktop UI (of voorzien we een Docker image daarvoor?)
 - Visual Studio Plugins nodig?

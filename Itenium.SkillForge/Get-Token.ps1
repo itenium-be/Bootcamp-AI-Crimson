@@ -2,7 +2,7 @@
 # Helper script to get an access token for testing the API
 
 param(
-    [string]$Username = "central",
+    [string]$Username = "backoffice",
     [string]$Password = "AdminPassword123!",
     [string]$BaseUrl = "http://localhost:5000"
 )

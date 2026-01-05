@@ -66,8 +66,8 @@ export const useAuthStore = create<AuthState>()(
           user: null,
           isAuthenticated: false,
         });
-        // Clear organization store on logout
-        localStorage.removeItem('organization-storage');
+        // Clear team store on logout
+        localStorage.removeItem('team-storage');
       },
     }),
     {

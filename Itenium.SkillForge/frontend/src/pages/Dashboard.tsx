@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { BookOpen, Users, Award } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '@itenium-forge/ui';
-import { useOrganizationStore } from '@/stores';
+import { useTeamStore } from '@/stores';
 
 export function Dashboard() {
   const { t } = useTranslation();
-  const { mode, selectedOrganization } = useOrganizationStore();
+  const { mode, selectedTeam } = useTeamStore();
 
   return (
     <div className="space-y-6">
@@ -13,7 +13,7 @@ export function Dashboard() {
         <h1 className="text-3xl font-bold">{t('dashboard.title')}</h1>
         <p className="text-muted-foreground">
           {t('dashboard.welcome')}
-          {mode === 'local' && selectedOrganization && ` - ${selectedOrganization.name}`}
+          {mode === 'local' && selectedTeam && ` - ${selectedTeam.name}`}
         </p>
       </div>
 

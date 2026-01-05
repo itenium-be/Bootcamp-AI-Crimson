@@ -9,17 +9,17 @@ public class SkillForgeUser : CurrentUser, ISkillForgeUser
     {
     }
 
-    public bool IsCentral => User?.IsInRole("central") ?? false;
+    public bool IsBackOffice => User?.IsInRole("backoffice") ?? false;
 
-    public IEnumerable<int> Organizations
+    public IEnumerable<int> Teams
     {
         get
         {
             if (User == null)
                 return [];
 
-            var organizations = User.FindAll("organization").Select(c => int.Parse(c.Value)).ToArray();
-            return organizations;
+            var teams = User.FindAll("team").Select(c => int.Parse(c.Value)).ToArray();
+            return teams;
         }
     }
 }

@@ -35,53 +35,53 @@ import {
   LogOut,
   Sun,
   Moon,
-  Building2,
+  Users2,
   ChevronsUpDown,
-  Globe,
+  Briefcase,
   Search,
   BookOpen,
   GraduationCap,
   Award,
   Settings,
 } from 'lucide-react';
-import { useAuthStore, useOrganizationStore, useThemeStore, type Organization } from '@/stores';
-import { fetchUserOrganizations } from '@/api/client';
+import { useAuthStore, useTeamStore, useThemeStore, type Team } from '@/stores';
+import { fetchUserTeams } from '@/api/client';
 
 const languages = [
   { code: 'nl', name: 'NL' },
   { code: 'en', name: 'EN' },
 ];
 
-function OrganizationSwitcher() {
+function TeamSwitcher() {
   const { t } = useTranslation();
   const { isMobile } = useSidebar();
-  const { mode, setMode, selectedOrganization, setSelectedOrganization, organizations, isCentral } = useOrganizationStore();
+  const { mode, setMode, selectedTeam, setSelectedTeam, teams, isBackOffice } = useTeamStore();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredOrganizations = organizations.filter((org) =>
-    org.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTeams = teams.filter((team) =>
+    team.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const displayName = mode === 'central' ? t('app.central') : selectedOrganization?.name || '';
+  const displayName = mode === 'backoffice' ? t('app.backoffice') : selectedTeam?.name || '';
 
-  // Disable switcher if user only has access to one organization and is not central
-  const canSwitch = isCentral || organizations.length > 1;
+  // Disable switcher if user only has access to one team and is not backoffice
+  const canSwitch = isBackOffice || teams.length > 1;
 
-  const handleSelectCentral = () => {
-    setMode('central');
+  const handleSelectBackOffice = () => {
+    setMode('backoffice');
     setSearchQuery('');
   };
 
-  const handleSelectOrganization = (organization: Organization) => {
+  const handleSelectTeam = (team: Team) => {
     setMode('local');
-    setSelectedOrganization(organization);
+    setSelectedTeam(team);
     setSearchQuery('');
   };
 
   const buttonContent = (
     <>
       <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-        {mode === 'central' ? <Globe className="size-4" /> : <Building2 className="size-4" />}
+        {mode === 'backoffice' ? <Briefcase className="size-4" /> : <Users2 className="size-4" />}
       </div>
       <div className="grid flex-1 text-start text-sm leading-tight">
         <span className="truncate font-semibold">SkillForge</span>
@@ -91,7 +91,7 @@ function OrganizationSwitcher() {
     </>
   );
 
-  // If user can only access one organization, show static display without dropdown
+  // If user can only access one team, show static display without dropdown
   if (!canSwitch) {
     return (
       <SidebarMenu>
@@ -138,45 +138,45 @@ function OrganizationSwitcher() {
               </div>
             </div>
             <DropdownMenuSeparator />
-            {isCentral && (
+            {isBackOffice && (
               <>
                 <DropdownMenuItem
-                  onClick={handleSelectCentral}
+                  onClick={handleSelectBackOffice}
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <Globe className="size-4 shrink-0" />
+                    <Briefcase className="size-4 shrink-0" />
                   </div>
-                  <span className="font-medium">{t('app.central')}</span>
-                  {mode === 'central' && (
+                  <span className="font-medium">{t('app.backoffice')}</span>
+                  {mode === 'backoffice' && (
                     <span className="ml-auto text-xs text-muted-foreground">Active</span>
                   )}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
               </>
             )}
-            {isCentral && (
+            {isBackOffice && (
               <DropdownMenuLabel className="text-xs text-muted-foreground">
-                {t('app.local')}
+                {t('app.teams')}
               </DropdownMenuLabel>
             )}
             <ScrollArea className="max-h-[200px]">
-              {filteredOrganizations.map((org) => (
+              {filteredTeams.map((team) => (
                 <DropdownMenuItem
-                  key={org.id}
-                  onClick={() => handleSelectOrganization(org)}
+                  key={team.id}
+                  onClick={() => handleSelectTeam(team)}
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <Building2 className="size-4 shrink-0" />
+                    <Users2 className="size-4 shrink-0" />
                   </div>
-                  {org.name}
-                  {mode === 'local' && selectedOrganization?.id === org.id && (
+                  {team.name}
+                  {mode === 'local' && selectedTeam?.id === team.id && (
                     <span className="ml-auto text-xs text-muted-foreground">Active</span>
                   )}
                 </DropdownMenuItem>
               ))}
-              {filteredOrganizations.length === 0 && (
+              {filteredTeams.length === 0 && (
                 <div className="p-2 text-sm text-muted-foreground text-center">
                   {t('common.noResults')}
                 </div>
@@ -194,19 +194,19 @@ export function Layout() {
   const router = useRouter();
   const { user, logout } = useAuthStore();
   const { resolvedTheme, setTheme } = useThemeStore();
-  const { mode, setOrganizations } = useOrganizationStore();
+  const { mode, setTeams } = useTeamStore();
 
-  // Fetch organizations on mount
-  const { data: organizationsData } = useQuery({
-    queryKey: ['organizations'],
-    queryFn: fetchUserOrganizations,
+  // Fetch teams on mount
+  const { data: teamsData } = useQuery({
+    queryKey: ['teams'],
+    queryFn: fetchUserTeams,
   });
 
   useEffect(() => {
-    if (organizationsData) {
-      setOrganizations(organizationsData.organizations, organizationsData.central);
+    if (teamsData) {
+      setTeams(teamsData.teams, teamsData.backOffice);
     }
-  }, [organizationsData, setOrganizations]);
+  }, [teamsData, setTeams]);
 
   const handleLogout = () => {
     logout();
@@ -219,10 +219,10 @@ export function Layout() {
     { path: '/courses', icon: BookOpen, label: t('nav.courses') },
   ];
 
-  // Central-only navigation items
-  const centralNavItems = [
+  // BackOffice-only navigation items
+  const backofficeNavItems = [
     { path: '/admin/users', icon: Users, label: t('nav.users') },
-    { path: '/admin/organizations', icon: Building2, label: t('nav.organizations') },
+    { path: '/admin/teams', icon: Users2, label: t('nav.teams') },
   ];
 
   // Local-only navigation items
@@ -235,7 +235,7 @@ export function Layout() {
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <OrganizationSwitcher />
+          <TeamSwitcher />
         </SidebarHeader>
 
         <SidebarContent>
@@ -261,13 +261,13 @@ export function Layout() {
             </SidebarGroupContent>
           </SidebarGroup>
 
-          {/* Central-only: Admin section */}
-          {mode === 'central' && (
+          {/* BackOffice-only: Admin section */}
+          {mode === 'backoffice' && (
             <SidebarGroup>
               <SidebarGroupLabel>{t('nav.admin')}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {centralNavItems.map((item) => (
+                  {backofficeNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
                         <Link

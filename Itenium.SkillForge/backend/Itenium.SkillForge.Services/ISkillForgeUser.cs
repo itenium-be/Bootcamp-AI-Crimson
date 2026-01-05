@@ -8,12 +8,12 @@ namespace Itenium.SkillForge.Services;
 public interface ISkillForgeUser : ICurrentUser
 {
     /// <summary>
-    /// Whether the current user is central management.
+    /// Whether the current user is BackOffice management.
     /// </summary>
-    bool IsCentral { get; }
+    bool IsBackOffice { get; }
 
     /// <summary>
-    /// Ids of the Organizations the user has access to.
+    /// Ids of the Teams the user has access to.
     /// </summary>
-    IEnumerable<int> Organizations { get; }
+    IEnumerable<int> Teams { get; }
 }

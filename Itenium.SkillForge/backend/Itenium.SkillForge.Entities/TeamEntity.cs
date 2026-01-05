@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Itenium.SkillForge.Entities;
 
 /// <summary>
-/// Represents an organization (tenant) in the system.
+/// Represents a team (tenant) in the system.
 /// </summary>
-public class OrganizationEntity
+public class TeamEntity
 {
     [Key]
     public int Id { get; set; }

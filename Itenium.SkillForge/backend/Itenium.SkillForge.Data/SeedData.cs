@@ -15,19 +15,20 @@ public static class SeedData
         using var scope = app.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-        await SeedOrganizations(db);
+        await SeedTeams(db);
         await SeedCourses(db);
         await app.SeedTestUsers();
     }
 
-    private static async Task SeedOrganizations(AppDbContext db)
+    private static async Task SeedTeams(AppDbContext db)
     {
-        if (!await db.Organizations.AnyAsync())
+        if (!await db.Teams.AnyAsync())
         {
-            db.Organizations.AddRange(
-                new OrganizationEntity { Id = 1, Name = "Acme Corp" },
-                new OrganizationEntity { Id = 2, Name = "TechStart Inc" },
-                new OrganizationEntity { Id = 3, Name = "Global Learning" }
+            db.Teams.AddRange(
+                new TeamEntity { Id = 1, Name = "Java" },
+                new TeamEntity { Id = 2, Name = ".NET" },
+                new TeamEntity { Id = 3, Name = "PO & Analysis" },
+                new TeamEntity { Id = 4, Name = "QA" }
             );
             await db.SaveChangesAsync();
         }
@@ -52,79 +53,79 @@ public static class SeedData
         using var scope = app.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ForgeUser>>();
 
-        // Central admin - no organization claim (manages all)
-        if (await userManager.FindByEmailAsync("central@test.local") == null)
+        // BackOffice admin - no team claim (manages all)
+        if (await userManager.FindByEmailAsync("backoffice@test.local") == null)
         {
             var admin = new ForgeUser
             {
-                UserName = "central",
-                Email = "central@test.local",
+                UserName = "backoffice",
+                Email = "backoffice@test.local",
                 EmailConfirmed = true,
-                FirstName = "Central",
+                FirstName = "BackOffice",
                 LastName = "Admin"
             };
             var result = await userManager.CreateAsync(admin, "AdminPassword123!");
             if (result.Succeeded)
             {
-                await userManager.AddToRolesAsync(admin, ["central"]);
+                await userManager.AddToRolesAsync(admin, ["backoffice"]);
             }
         }
 
-        // Local user for Acme Corp only
-        if (await userManager.FindByEmailAsync("acme@test.local") == null)
+        // Local user for Java team only
+        if (await userManager.FindByEmailAsync("java@test.local") == null)
         {
             var user = new ForgeUser
             {
-                UserName = "acme",
-                Email = "acme@test.local",
+                UserName = "java",
+                Email = "java@test.local",
                 EmailConfirmed = true,
-                FirstName = "Local",
-                LastName = "Acme"
+                FirstName = "Java",
+                LastName = "Developer"
             };
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, "local");
-                await userManager.AddClaimAsync(user, new Claim("organization", "1")); // Acme Corp
+                await userManager.AddClaimAsync(user, new Claim("team", "1")); // Java
             }
         }
 
-        // Local user for TechStart only
-        if (await userManager.FindByEmailAsync("techstart@test.local") == null)
+        // Local user for .NET team only
+        if (await userManager.FindByEmailAsync("dotnet@test.local") == null)
         {
             var user = new ForgeUser
             {
-                UserName = "techstart",
-                Email = "techstart@test.local",
+                UserName = "dotnet",
+                Email = "dotnet@test.local",
                 EmailConfirmed = true,
-                FirstName = "Local",
-                LastName = "TechStart"
+                FirstName = "DotNet",
+                LastName = "Developer"
             };
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, "local");
-                await userManager.AddClaimAsync(user, new Claim("organization", "2")); // TechStart
+                await userManager.AddClaimAsync(user, new Claim("team", "2")); // .NET
             }
         }
 
-        // Regional user with access to multiple organizations (Acme + TechStart)
-        if (await userManager.FindByEmailAsync("regional@test.local") == null)
+        // User with access to multiple teams (Java + .NET)
+        if (await userManager.FindByEmailAsync("multi@test.local") == null)
         {
             var user = new ForgeUser
             {
-                UserName = "regional",
-                Email = "regional@test.local",
+                UserName = "multi",
+                Email = "multi@test.local",
                 EmailConfirmed = true,
-                FirstName = "Regional",
-                LastName = "Manager"
+                FirstName = "Multi",
+                LastName = "Team"
             };
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, "local");
-                await userManager.AddClaimAsync(user, new Claim("organization", "1")); // Acme Corp
-                await userManager.AddClaimAsync(user, new Claim("organization", "2")); // TechStart
+                await userManager.AddClaimAsync(user, new Claim("team", "1")); // Java
+                await userManager.AddClaimAsync(user, new Claim("team", "2")); // .NET
             }
         }
     }

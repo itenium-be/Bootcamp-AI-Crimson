@@ -10,19 +10,19 @@ public class AppDbContext : ForgeIdentityDbContext
     {
     }
 
-    public DbSet<OrganizationEntity> Organizations => Set<OrganizationEntity>();
+    public DbSet<TeamEntity> Teams => Set<TeamEntity>();
     public DbSet<CourseEntity> Courses => Set<CourseEntity>();
-    public DbSet<OrganizationCourseEntity> OrganizationCourses => Set<OrganizationCourseEntity>();
+    public DbSet<TeamCourseEntity> TeamCourses => Set<TeamCourseEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<OrganizationCourseEntity>(entity =>
+        builder.Entity<TeamCourseEntity>(entity =>
         {
-            entity.HasOne(oc => oc.Course)
-                .WithMany(c => c.OrganizationCourses)
-                .HasForeignKey(oc => oc.CourseId)
+            entity.HasOne(tc => tc.Course)
+                .WithMany(c => c.TeamCourses)
+                .HasForeignKey(tc => tc.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }

@@ -42,5 +42,5 @@ public class CourseEntity
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     [JsonIgnore]
-    public ICollection<OrganizationCourseEntity> OrganizationCourses { get; set; } = new List<OrganizationCourseEntity>();
+    public ICollection<TeamCourseEntity> TeamCourses { get; set; } = new List<TeamCourseEntity>();
 }

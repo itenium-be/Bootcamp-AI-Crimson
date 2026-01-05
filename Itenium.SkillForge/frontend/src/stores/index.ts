@@ -1,3 +1,3 @@
 export { useAuthStore } from './authStore';
-export { useOrganizationStore, type Organization } from './organizationStore';
+export { useTeamStore, type Team } from './teamStore';
 export { useThemeStore } from './themeStore';

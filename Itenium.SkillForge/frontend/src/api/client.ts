@@ -54,19 +54,19 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
-export interface Organization {
+export interface Team {
   id: number;
   code: string;
   name: string;
 }
 
-export interface UserOrganizationsResponse {
-  central: boolean;
-  organizations: Organization[];
+export interface UserTeamsResponse {
+  backOffice: boolean;
+  teams: Team[];
 }
 
-export async function fetchUserOrganizations(): Promise<UserOrganizationsResponse> {
-  const response = await api.get<UserOrganizationsResponse>('/api/organization');
+export async function fetchUserTeams(): Promise<UserTeamsResponse> {
+  const response = await api.get<UserTeamsResponse>('/api/team');
   return response.data;
 }
 

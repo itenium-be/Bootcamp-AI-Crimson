@@ -126,8 +126,8 @@ export function SignIn() {
           </Form>
         </CardContent>
         <CardFooter className="flex flex-col gap-2 text-center text-xs text-muted-foreground">
-          <div>Test users: central / acme / techstart / regional</div>
-          <div>Passwords: AdminPassword123! (central) / UserPassword123! (others)</div>
+          <div>Test users: backoffice / java / dotnet / multi</div>
+          <div>Passwords: AdminPassword123! (backoffice) / UserPassword123! (others)</div>
         </CardFooter>
       </Card>
     </div>

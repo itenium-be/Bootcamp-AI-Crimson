@@ -20,6 +20,7 @@ dist/
 # Databases
 *.db
 *.db-journal
+skillforge.db-*
 
 # Environment
 .env

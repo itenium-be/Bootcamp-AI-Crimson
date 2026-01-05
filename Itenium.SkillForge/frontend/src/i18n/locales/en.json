@@ -1,8 +1,8 @@
 {
   "app": {
     "title": "Itenium SkillForge",
-    "central": "Central",
-    "local": "Local"
+    "backoffice": "BackOffice",
+    "teams": "Teams"
   },
   "nav": {
     "navigation": "Navigation",
@@ -13,7 +13,7 @@
     "signOut": "Sign Out",
     "admin": "Admin",
     "users": "Users",
-    "organizations": "Organizations",
+    "teams": "Teams",
     "operations": "Operations",
     "enrollments": "Enrollments",
     "progress": "Progress",

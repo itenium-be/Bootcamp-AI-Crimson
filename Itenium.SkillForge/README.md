@@ -55,7 +55,13 @@ dotnet run --project Itenium.SkillForge.WebApi
 dotnet watch run --project Itenium.SkillForge.WebApi
 ```
 
-The API will be available at http://localhost:5000
+- [API at :5000](http://localhost:5000)
+- [Swagger](http://localhost:5000/swagger)
+  - Run `.\Get-Token.ps1` to create a JWT
+- Health
+  - [Live](http://localhost:5000/health/live)
+  - [Ready](http://localhost:5000/health/ready)
+
 
 ### Frontend
 

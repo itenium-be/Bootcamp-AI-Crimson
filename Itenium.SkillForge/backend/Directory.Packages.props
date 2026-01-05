@@ -11,7 +11,7 @@
     <PackageVersion Include="Itenium.Forge.Security" Version="0.3.11" />
     <PackageVersion Include="Itenium.Forge.Security.OpenIddict" Version="0.3.11" />
     <PackageVersion Include="Itenium.Forge.Settings" Version="0.3.11" />
-    <PackageVersion Include="Itenium.Forge.Swagger" Version="0.3.11" />
+    <PackageVersion Include="Itenium.Forge.Swagger" Version="0.3.13" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />

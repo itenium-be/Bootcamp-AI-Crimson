@@ -1,6 +1,5 @@
 using Itenium.SkillForge.Data;
 using Itenium.SkillForge.Entities;
-using Itenium.SkillForge.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +12,10 @@ namespace Itenium.SkillForge.WebApi.Controllers;
 public class CourseController : ControllerBase
 {
     private readonly AppDbContext _db;
-    private readonly ISkillForgeUser _user;
 
-    public CourseController(AppDbContext db, ISkillForgeUser user)
+    public CourseController(AppDbContext db)
     {
         _db = db;
-        _user = user;
     }
 
     /// <summary>

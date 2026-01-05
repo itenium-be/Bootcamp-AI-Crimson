@@ -1,6 +1,20 @@
 Preparation
 ===========
 
+BackOffice
+----------
+
+- Zoveel mogelijk grote schermen & HDMI kabels
+- Extra laptop om te sharen op groot scherm
+- Stekkerblokken
+- Zaal: Wifi op voorhand bevragen
+
+
+Consultants
+-----------
+
+- Meebrengen
+  - Eigen scherm
 - Installatie Docker
   - Docker pull van de nodige images
   - `docker compose up -d`
@@ -10,8 +24,7 @@ Preparation
   - Clone van deze repository
   - `bun install` & `dotnet build`
 
-Optioneel
----------
+### Optioneel
 
 - Installatie Visual Studio & Visual Studio Code
 - Visual Studio Code: Claude Plugin & Postgres Plugin

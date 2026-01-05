@@ -91,4 +91,8 @@ export default async function globalSetup() {
   };
 
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+
+  // Write .env.e2e for Vite to pick up
+  const envFile = path.resolve(__dirname, '../.env.e2e');
+  fs.writeFileSync(envFile, `VITE_API_URL=${apiUrl}\n`);
 }

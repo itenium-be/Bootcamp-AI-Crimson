@@ -25,6 +25,7 @@ skillforge.db-*
 # Environment
 .env
 .env.local
+.env.e2e
 
 # Test artifacts
 e2e/.test-state.json

@@ -42,6 +42,12 @@ export default async function globalTeardown() {
     }
 
     fs.unlinkSync(STATE_FILE);
+
+    // Clean up .env.e2e file
+    const envFile = path.resolve(__dirname, '../.env.e2e');
+    if (fs.existsSync(envFile)) {
+      fs.unlinkSync(envFile);
+    }
   } catch (error) {
     console.error('Error during teardown:', error);
   }

@@ -20,7 +20,7 @@ Consultants
   - `docker compose up -d`
 - Installatie Claude Code
   - Ook de plugins
-- Installatie Git
+- Installatie Git, nvm en bun
   - Clone van deze repository
   - `bun install` & `dotnet build`
 

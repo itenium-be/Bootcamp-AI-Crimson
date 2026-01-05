@@ -1,4 +1,3 @@
-using Itenium.SkillForge.Data;
 using Itenium.SkillForge.Entities;
 using Itenium.SkillForge.WebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -6,35 +5,24 @@ using Microsoft.AspNetCore.Mvc;
 namespace Itenium.SkillForge.WebApi.Tests;
 
 [TestFixture]
-public class CourseControllerTests
+public class CourseControllerTests : DatabaseTestBase
 {
-    private AppDbContext _db = null!;
     private CourseController _sut = null!;
 
     [SetUp]
-    public async Task Setup()
+    public void Setup()
     {
-        _db = new AppDbContext(PostgresFixture.CreateDbContextOptions());
-        _sut = new CourseController(_db);
-
-        _db.Courses.RemoveRange(_db.Courses);
-        await _db.SaveChangesAsync();
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _db.Dispose();
+        _sut = new CourseController(Db);
     }
 
     [Test]
     public async Task GetCourses_ReturnsAllCourses()
     {
-        _db.Courses.AddRange(
+        Db.Courses.AddRange(
             new CourseEntity { Name = "C# Basics" },
             new CourseEntity { Name = "Advanced .NET" }
         );
-        await _db.SaveChangesAsync();
+        await Db.SaveChangesAsync();
 
         var result = await _sut.GetCourses();
 
@@ -59,8 +47,8 @@ public class CourseControllerTests
     public async Task GetCourse_WhenExists_ReturnsCourse()
     {
         var course = new CourseEntity { Name = "C# Basics", Description = "Learn C#" };
-        _db.Courses.Add(course);
-        await _db.SaveChangesAsync();
+        Db.Courses.Add(course);
+        await Db.SaveChangesAsync();
 
         var result = await _sut.GetCourse(course.Id);
 
@@ -93,7 +81,7 @@ public class CourseControllerTests
         Assert.That(course.Category, Is.EqualTo("Programming"));
         Assert.That(course.Level, Is.EqualTo("Beginner"));
 
-        var savedCourse = await _db.Courses.FindAsync(course.Id);
+        var savedCourse = await Db.Courses.FindAsync(course.Id);
         Assert.That(savedCourse, Is.Not.Null);
         Assert.That(savedCourse!.Name, Is.EqualTo("New Course"));
     }
@@ -102,8 +90,8 @@ public class CourseControllerTests
     public async Task UpdateCourse_WhenExists_UpdatesAndReturnsOk()
     {
         var course = new CourseEntity { Name = "Old Name", Description = "Old Desc" };
-        _db.Courses.Add(course);
-        await _db.SaveChangesAsync();
+        Db.Courses.Add(course);
+        await Db.SaveChangesAsync();
         var request = new UpdateCourseRequest("New Name", "New Desc", "New Category", "Advanced");
 
         var result = await _sut.UpdateCourse(course.Id, request);
@@ -129,13 +117,13 @@ public class CourseControllerTests
     public async Task DeleteCourse_WhenExists_RemovesAndReturnsNoContent()
     {
         var course = new CourseEntity { Name = "To Delete" };
-        _db.Courses.Add(course);
-        await _db.SaveChangesAsync();
+        Db.Courses.Add(course);
+        await Db.SaveChangesAsync();
 
         var result = await _sut.DeleteCourse(course.Id);
 
         Assert.That(result, Is.TypeOf<NoContentResult>());
-        var deletedCourse = await _db.Courses.FindAsync(course.Id);
+        var deletedCourse = await Db.Courses.FindAsync(course.Id);
         Assert.That(deletedCourse, Is.Null);
     }
 

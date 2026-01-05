@@ -55,8 +55,10 @@ const languages = [
 function TeamSwitcher() {
   const { t } = useTranslation();
   const { isMobile } = useSidebar();
-  const { mode, setMode, selectedTeam, setSelectedTeam, teams, isBackOffice } = useTeamStore();
+  const { user } = useAuthStore();
+  const { mode, setMode, selectedTeam, setSelectedTeam, teams } = useTeamStore();
   const [searchQuery, setSearchQuery] = useState('');
+  const isBackOffice = user?.isBackOffice ?? false;
 
   const filteredTeams = teams.filter((team) =>
     team.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -196,17 +198,19 @@ export function Layout() {
   const { resolvedTheme, setTheme } = useThemeStore();
   const { mode, setTeams } = useTeamStore();
 
+  const isBackOffice = user?.isBackOffice ?? false;
+
   // Fetch teams on mount
-  const { data: teamsData } = useQuery({
+  const { data: teams } = useQuery({
     queryKey: ['teams'],
     queryFn: fetchUserTeams,
   });
 
   useEffect(() => {
-    if (teamsData) {
-      setTeams(teamsData.teams, teamsData.backOffice);
+    if (teams) {
+      setTeams(teams, isBackOffice);
     }
-  }, [teamsData, setTeams]);
+  }, [teams, isBackOffice, setTeams]);
 
   const handleLogout = () => {
     logout();

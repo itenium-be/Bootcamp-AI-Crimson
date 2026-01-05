@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware';
 
 export interface Team {
   id: number;
-  code: string;
   name: string;
 }
 
@@ -13,7 +12,6 @@ interface TeamState {
   mode: Mode;
   selectedTeam: Team | null;
   teams: Team[];
-  isBackOffice: boolean;
   setMode: (mode: Mode) => void;
   setSelectedTeam: (team: Team | null) => void;
   setTeams: (teams: Team[], isBackOffice: boolean) => void;
@@ -26,20 +24,10 @@ export const useTeamStore = create<TeamState>()(
       mode: 'backoffice',
       selectedTeam: null,
       teams: [],
-      isBackOffice: false,
 
-      setMode: (mode: Mode) => {
-        const { isBackOffice } = get();
-        // Non-backoffice users cannot switch to backoffice mode
-        if (mode === 'backoffice' && !isBackOffice) {
-          return;
-        }
-        set({ mode });
-      },
+      setMode: (mode: Mode) => set({ mode }),
 
-      setSelectedTeam: (team: Team | null) => {
-        set({ selectedTeam: team });
-      },
+      setSelectedTeam: (team: Team | null) => set({ selectedTeam: team }),
 
       setTeams: (teams: Team[], isBackOffice: boolean) => {
         const currentState = get();
@@ -53,15 +41,11 @@ export const useTeamStore = create<TeamState>()(
 
           set({
             teams,
-            isBackOffice,
             mode: 'local',
             selectedTeam,
           });
         } else {
-          set({
-            teams,
-            isBackOffice,
-          });
+          set({ teams });
         }
       },
 
@@ -70,7 +54,6 @@ export const useTeamStore = create<TeamState>()(
           mode: 'backoffice',
           selectedTeam: null,
           teams: [],
-          isBackOffice: false,
         });
       },
     }),

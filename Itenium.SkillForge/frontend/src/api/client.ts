@@ -56,17 +56,11 @@ export async function loginApi(username: string, password: string): Promise<Logi
 
 export interface Team {
   id: number;
-  code: string;
   name: string;
 }
 
-export interface UserTeamsResponse {
-  backOffice: boolean;
-  teams: Team[];
-}
-
-export async function fetchUserTeams(): Promise<UserTeamsResponse> {
-  const response = await api.get<UserTeamsResponse>('/api/team');
+export async function fetchUserTeams(): Promise<Team[]> {
+  const response = await api.get<Team[]>('/api/team');
   return response.data;
 }
 

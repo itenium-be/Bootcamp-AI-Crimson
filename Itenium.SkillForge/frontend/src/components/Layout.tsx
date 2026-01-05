@@ -35,7 +35,7 @@ import {
   LogOut,
   Sun,
   Moon,
-  Users2,
+  Component,
   ChevronsUpDown,
   Briefcase,
   Search,
@@ -81,7 +81,7 @@ function TeamSwitcher() {
   const buttonContent = (
     <>
       <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-        {mode === 'backoffice' ? <Briefcase className="size-4" /> : <Users2 className="size-4" />}
+        {mode === 'backoffice' ? <Briefcase className="size-4" /> : <Component className="size-4" />}
       </div>
       <div className="grid flex-1 text-start text-sm leading-tight">
         <span className="truncate font-semibold">SkillForge</span>
@@ -168,7 +168,7 @@ function TeamSwitcher() {
                   className="gap-2 p-2"
                 >
                   <div className="flex size-6 items-center justify-center rounded-sm border">
-                    <Users2 className="size-4 shrink-0" />
+                    <Component className="size-4 shrink-0" />
                   </div>
                   {team.name}
                   {mode === 'local' && selectedTeam?.id === team.id && (
@@ -222,7 +222,7 @@ export function Layout() {
   // BackOffice-only navigation items
   const backofficeNavItems = [
     { path: '/admin/users', icon: Users, label: t('nav.users') },
-    { path: '/admin/teams', icon: Users2, label: t('nav.teams') },
+    { path: '/admin/teams', icon: Component, label: t('nav.teams') },
   ];
 
   // Local-only navigation items

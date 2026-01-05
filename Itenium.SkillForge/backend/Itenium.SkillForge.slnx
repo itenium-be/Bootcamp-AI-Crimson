@@ -3,6 +3,11 @@
     <File Path="../.gitignore" />
     <File Path="../Get-Token.ps1" />
     <File Path="../README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="Dockerfile" />
+    <File Path="Itenium.SkillForge.sln.DotSettings" />
+    <File Path="nuget.config" />
   </Folder>
   <Project Path="Itenium.SkillForge.Entities/Itenium.SkillForge.Entities.csproj" />
   <Project Path="Itenium.SkillForge.Data/Itenium.SkillForge.Data.csproj" />

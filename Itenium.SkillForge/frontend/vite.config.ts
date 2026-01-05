@@ -3,6 +3,10 @@ import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import path from 'path';
+import fs from 'fs';
+
+const localUiPath = path.resolve(__dirname, '../../../itenium-ui/libs/ui/src');
+const useLocalUi = fs.existsSync(localUiPath);
 
 export default defineConfig({
   plugins: [
@@ -15,7 +19,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@itenium-forge/ui': path.resolve(__dirname, '../../../itenium-ui/libs/ui/src'),
+      ...(useLocalUi && { '@itenium-forge/ui': localUiPath }),
       '@': path.resolve(__dirname, './src'),
     },
     dedupe: ['react', 'react-dom'],

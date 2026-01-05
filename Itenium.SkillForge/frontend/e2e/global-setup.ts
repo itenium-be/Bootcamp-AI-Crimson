@@ -50,7 +50,7 @@ export default async function globalSetup() {
       POSTGRES_DB: 'skillforge',
     })
     .withExposedPorts(5432)
-    .withWaitStrategy(Wait.forLogMessage(/database system is ready to accept connections/))
+    .withWaitStrategy(Wait.forListeningPorts())
     .start();
 
   console.log('PostgreSQL started');
@@ -67,14 +67,13 @@ export default async function globalSetup() {
     .build('skillforge-backend-test', { deleteOnExit: false });
 
   // Start backend container connected to PostgreSQL
+  // Uses DOTNET_ENVIRONMENT=Docker from Dockerfile -> appsettings.Docker.json (Host=postgres)
+  console.log('Starting backend container...');
   const backendContainer = await backendImage
     .withNetwork(network)
     .withExposedPorts(8080)
-    .withEnvironment({
-      ASPNETCORE_ENVIRONMENT: 'Development',
-      ConnectionStrings__DefaultConnection: 'Host=postgres;Port=5432;Database=skillforge;Username=skillforge;Password=skillforge',
-    })
-    .withWaitStrategy(Wait.forHttp('/health/live', 8080).forStatusCode(200))
+    .withStartupTimeout(120000)
+    .withWaitStrategy(Wait.forHttp('/health/live', 8080).forStatusCode(200).withStartupTimeout(120000))
     .start();
 
   const apiPort = backendContainer.getMappedPort(8080);

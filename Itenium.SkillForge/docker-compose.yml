@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:17
-    container_name: skillforge-postgres
+    container_name: postgres
     environment:
       POSTGRES_USER: skillforge
       POSTGRES_PASSWORD: skillforge

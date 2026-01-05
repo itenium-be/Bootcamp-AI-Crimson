@@ -35,9 +35,8 @@ public class TeamController : ControllerBase
         }
         else
         {
-            var teamIds = _user.Teams.ToList();
             teams = await _db.Teams
-                .Where(t => teamIds.Contains(t.Id))
+                .Where(t => _user.Teams.Contains(t.Id))
                 .ToListAsync();
         }
 

@@ -15,5 +15,5 @@ public interface ISkillForgeUser : ICurrentUser
     /// <summary>
     /// Ids of the Teams the user has access to.
     /// </summary>
-    IEnumerable<int> Teams { get; }
+    ICollection<int> Teams { get; }
 }

@@ -233,7 +233,7 @@ export function Layout() {
 
   return (
     <SidebarProvider>
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarHeader>
           <OrganizationSwitcher />
         </SidebarHeader>

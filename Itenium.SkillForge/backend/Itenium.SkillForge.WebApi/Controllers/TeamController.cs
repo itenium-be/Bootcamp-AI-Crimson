@@ -25,23 +25,15 @@ public class TeamController : ControllerBase
     /// Get the teams the current user has access to.
     /// </summary>
     [HttpGet]
-    public async Task<ActionResult<UserTeamsResponse>> GetUserTeams()
+    public async Task<ActionResult<List<TeamEntity>>> GetUserTeams()
     {
-        List<TeamEntity> teams;
-
         if (_user.IsBackOffice)
         {
-            teams = await _db.Teams.ToListAsync();
-        }
-        else
-        {
-            teams = await _db.Teams
-                .Where(t => _user.Teams.Contains(t.Id))
-                .ToListAsync();
+            return await _db.Teams.ToListAsync();
         }
 
-        return Ok(new UserTeamsResponse(_user.IsBackOffice, teams));
+        return await _db.Teams
+            .Where(t => _user.Teams.Contains(t.Id))
+            .ToListAsync();
     }
 }
-
-public record UserTeamsResponse(bool BackOffice, List<TeamEntity> Teams);

@@ -15,6 +15,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  isBackOffice: boolean;
 }
 
 interface AuthState {
@@ -27,10 +28,12 @@ interface AuthState {
 
 function parseUserFromToken(token: string): User {
   const decoded = jwtDecode<JwtPayload>(token);
+  const roles = Array.isArray(decoded.role) ? decoded.role : decoded.role ? [decoded.role] : [];
   return {
     id: decoded.sub,
     email: decoded.email || decoded.preferred_username || '',
     name: decoded.name || decoded.preferred_username || 'User',
+    isBackOffice: roles.includes('backoffice'),
   };
 }
 

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Itenium.SkillForge.Data;
 using Microsoft.EntityFrameworkCore;
 using Testcontainers.PostgreSql;
@@ -9,7 +10,7 @@ public class PostgresFixture
 {
     private static PostgreSqlContainer _container = null!;
     public static string ConnectionString { get; private set; } = null!;
-    private const string MigrationAssembly = "Itenium.SkillForge.Data";
+    private static readonly Assembly MigrationAssembly = typeof(AppDbContext).Assembly;
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
@@ -21,10 +22,7 @@ public class PostgresFixture
         await _container.StartAsync();
         ConnectionString = _container.GetConnectionString();
 
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql(ConnectionString, x => x.MigrationsAssembly(MigrationAssembly))
-            .Options;
-
+        var options = CreateDbContextOptions();
         await using var db = new AppDbContext(options);
         await db.Database.MigrateAsync();
     }

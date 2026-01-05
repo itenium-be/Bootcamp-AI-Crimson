@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @source "../node_modules/@itenium-forge/ui";
-@source "../../../itenium-ui/libs/ui/src";
 
 @custom-variant dark (&:is(.dark *));
 

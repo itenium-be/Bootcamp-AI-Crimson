@@ -36,6 +36,7 @@ const testUsers = [
   { username: 'java', password: 'UserPassword123!' },
   { username: 'dotnet', password: 'UserPassword123!' },
   { username: 'multi', password: 'UserPassword123!' },
+  { username: 'learner', password: 'UserPassword123!' },
 ];
 
 export function SignIn() {

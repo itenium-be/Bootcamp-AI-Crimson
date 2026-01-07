@@ -128,5 +128,23 @@ public static class SeedData
                 await userManager.AddClaimAsync(user, new Claim("team", "2")); // .NET
             }
         }
+
+        // Learner user - basic learner role
+        if (await userManager.FindByEmailAsync("learner@test.local") == null)
+        {
+            var user = new ForgeUser
+            {
+                UserName = "learner",
+                Email = "learner@test.local",
+                EmailConfirmed = true,
+                FirstName = "Test",
+                LastName = "Learner"
+            };
+            var result = await userManager.CreateAsync(user, "UserPassword123!");
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, "learner");
+            }
+        }
     }
 }

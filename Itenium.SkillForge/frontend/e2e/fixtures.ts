@@ -76,4 +76,9 @@ export const testUsers = {
     password: 'UserPassword123!',
     email: 'multi@test.local',
   },
+  learner: {
+    username: 'learner',
+    password: 'UserPassword123!',
+    email: 'learner@test.local',
+  },
 };

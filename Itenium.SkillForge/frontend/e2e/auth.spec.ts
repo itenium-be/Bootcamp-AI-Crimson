@@ -12,14 +12,14 @@ test.describe('Authentication', () => {
     await page.goto('/');
 
     await expect(page).toHaveURL(/sign-in/);
-    await expect(page.getByText('Welcome back')).toBeVisible();
+    await expect(page.getByText('Welcome')).toBeVisible();
   });
 
   test('should login with valid credentials', async ({ page }) => {
     await page.goto('/sign-in');
 
     // Wait for the form to be visible
-    await expect(page.getByText('Welcome back')).toBeVisible();
+    await expect(page.getByText('Welcome')).toBeVisible();
 
     // Fill in credentials using placeholder text
     await page.getByPlaceholder(/enter your username/i).fill(testUsers.backoffice.username);
@@ -34,7 +34,7 @@ test.describe('Authentication', () => {
   test('should show error for invalid credentials', async ({ page }) => {
     await page.goto('/sign-in');
 
-    await expect(page.getByText('Welcome back')).toBeVisible();
+    await expect(page.getByText('Welcome')).toBeVisible();
 
     await page.getByPlaceholder(/enter your username/i).fill('invalid');
     await page.getByPlaceholder(/enter your password/i).fill('wrongpassword');

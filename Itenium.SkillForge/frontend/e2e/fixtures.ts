@@ -35,7 +35,7 @@ export const test = base.extend<TestFixtures>({
     await page.goto('/sign-in');
 
     // Wait for the login form to appear
-    await page.waitForSelector('text=Welcome back');
+    await page.waitForSelector('text=Welcome');
 
     // Fill in credentials
     await page.getByPlaceholder(/enter your username/i).fill('backoffice');

@@ -7,7 +7,7 @@ Backlog
 -------
 
 ### Team 1
-User & Access Management
+User & Access Management  
 Focus: Backoffice administration
 
 - As a user, I want to sign in with SSO or login/pwd
@@ -18,7 +18,7 @@ Focus: Backoffice administration
 
 
 ### Team 2
-Course Catalog & Content
+Course Catalog & Content  
 Focus: Course creation and browsing
 
 - Course Catalog
@@ -37,7 +37,7 @@ Focus: Course creation and browsing
 
 
 ### Team 3
-Enrollment & Learning Experience
+Enrollment & Learning Experience  
 Focus: Learner journey
 
 - Learning Experience
@@ -57,7 +57,7 @@ Focus: Learner journey
 
  
 ### Team 4
-Assessments & Quizzes
+Assessments & Quizzes  
 Focus: Knowledge validation
 
 - As a learner, I want to complete quizzes so I can validate my knowledge.

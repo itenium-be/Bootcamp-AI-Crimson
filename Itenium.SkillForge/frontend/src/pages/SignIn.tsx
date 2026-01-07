@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { LogIn, Loader2, GraduationCap } from 'lucide-react';
+import { LogIn, Loader2 } from 'lucide-react';
 import {
   Button,
   Input,
@@ -93,7 +93,7 @@ export function SignIn() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
         <div className="relative z-20 flex items-center gap-2 text-lg font-medium">
-          <GraduationCap className="size-6" />
+          <img src="/favicon.png" alt="SkillForge" className="size-6" />
           <span>Itenium SkillForge</span>
         </div>
         <div className="relative z-20 mt-auto">
@@ -113,7 +113,7 @@ export function SignIn() {
         <Card className="w-full max-w-[400px]">
           {/* Mobile logo */}
           <div className="flex items-center justify-center gap-2 pt-6 lg:hidden">
-            <GraduationCap className="size-6 text-primary" />
+            <img src="/favicon.png" alt="SkillForge" className="size-6" />
             <span className="text-xl font-medium">Itenium SkillForge</span>
           </div>
 

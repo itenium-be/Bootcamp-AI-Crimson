@@ -31,6 +31,13 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+const testUsers = [
+  { username: 'backoffice', password: 'AdminPassword123!' },
+  { username: 'java', password: 'UserPassword123!' },
+  { username: 'dotnet', password: 'UserPassword123!' },
+  { username: 'multi', password: 'UserPassword123!' },
+];
+
 export function SignIn() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -67,6 +74,11 @@ export function SignIn() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const fillTestUser = (username: string, password: string) => {
+    form.setValue('username', username);
+    form.setValue('password', password);
   };
 
   return (
@@ -159,8 +171,20 @@ export function SignIn() {
             </Form>
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-1 text-center text-xs text-muted-foreground">
-            <div>Test users: backoffice / java / dotnet / multi</div>
+          <CardFooter className="flex flex-col gap-2 text-center text-xs text-muted-foreground">
+            <div>Test users:</div>
+            <div className="flex flex-wrap justify-center gap-2">
+              {testUsers.map((user) => (
+                <button
+                  key={user.username}
+                  type="button"
+                  onClick={() => fillTestUser(user.username, user.password)}
+                  className="px-2 py-1 rounded bg-muted hover:bg-muted/80 transition-colors"
+                >
+                  {user.username}
+                </button>
+              ))}
+            </div>
             <div>Passwords: AdminPassword123! (backoffice) / UserPassword123! (others)</div>
           </CardFooter>
         </Card>

@@ -70,15 +70,15 @@ export function SignIn() {
   };
 
   return (
-    <div className="relative container grid h-svh flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0">
+    <div className="relative container grid h-svh flex-col items-center justify-center lg:max-w-none lg:grid-cols-[40%_1fr] lg:px-0">
       {/* Left side - Image panel */}
-      <div className="relative hidden h-full flex-col bg-sidebar p-10 text-sidebar-foreground lg:flex">
+      <div className="relative hidden h-full flex-col bg-[#EFE3D3] p-10 text-sidebar-foreground lg:flex">
         <img
           src="/login-bg.png"
           alt="Login background"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain object-center"
         />
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
         <div className="relative z-20 flex items-center gap-2 text-lg font-medium">
           <GraduationCap className="size-6" />
           <span>Itenium SkillForge</span>

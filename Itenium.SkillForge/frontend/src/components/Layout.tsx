@@ -43,6 +43,12 @@ import {
   GraduationCap,
   Award,
   Settings,
+  Library,
+  TrendingUp,
+  BarChart3,
+  ClipboardList,
+  MessageSquare,
+  CheckCircle,
 } from 'lucide-react';
 import { useAuthStore, useTeamStore, useThemeStore, type Team } from '@/stores';
 import { fetchUserTeams } from '@/api/client';
@@ -59,15 +65,26 @@ function TeamSwitcher() {
   const { mode, setMode, selectedTeam, setSelectedTeam, teams } = useTeamStore();
   const [searchQuery, setSearchQuery] = useState('');
   const isBackOffice = user?.isBackOffice ?? false;
+  const isLearner = !isBackOffice && teams.length === 0;
 
   const filteredTeams = teams.filter((team) =>
     team.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const displayName = mode === 'backoffice' ? t('app.backoffice') : selectedTeam?.name || '';
+  const getDisplayName = () => {
+    if (isLearner) return t('app.learner');
+    if (mode === 'backoffice') return t('app.backoffice');
+    return selectedTeam?.name || '';
+  };
 
-  // Disable switcher if user only has access to one team and is not backoffice
-  const canSwitch = isBackOffice || teams.length > 1;
+  const getIcon = () => {
+    if (isLearner) return <GraduationCap className="size-4" />;
+    if (mode === 'backoffice') return <Briefcase className="size-4" />;
+    return <Component className="size-4" />;
+  };
+
+  // Disable switcher if user is learner or only has access to one team and is not backoffice
+  const canSwitch = !isLearner && (isBackOffice || teams.length > 1);
 
   const handleSelectBackOffice = () => {
     setMode('backoffice');
@@ -83,17 +100,17 @@ function TeamSwitcher() {
   const buttonContent = (
     <>
       <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-        {mode === 'backoffice' ? <Briefcase className="size-4" /> : <Component className="size-4" />}
+        {getIcon()}
       </div>
       <div className="grid flex-1 text-start text-sm leading-tight">
         <span className="truncate font-semibold">SkillForge</span>
-        <span className="truncate text-xs">{displayName}</span>
+        <span className="truncate text-xs">{getDisplayName()}</span>
       </div>
       {canSwitch && <ChevronsUpDown className="ms-auto size-4" />}
     </>
   );
 
-  // If user can only access one team, show static display without dropdown
+  // If user cannot switch (learner or single team), show static display without dropdown
   if (!canSwitch) {
     return (
       <SidebarMenu>
@@ -217,22 +234,52 @@ export function Layout() {
     router.navigate({ to: '/sign-in' });
   };
 
-  // Common navigation items
-  const commonNavItems = [
-    { path: '/', icon: LayoutDashboard, label: t('nav.dashboard') },
+  // Determine if user is learner only (no team management access)
+  const isLearnerOnly = !isBackOffice && (!teams || teams.length === 0);
+
+  // Dashboard - always shown
+  const dashboardItem = { path: '/', icon: LayoutDashboard, label: t('nav.dashboard') };
+
+  // My Learning section - shown for learners and managers
+  const myLearningNavItems = [
+    { path: '/my-courses', icon: BookOpen, label: t('nav.myCourses') },
+    { path: '/my-progress', icon: TrendingUp, label: t('nav.myProgress') },
+    { path: '/my-certificates', icon: Award, label: t('nav.myCertificates') },
+  ];
+
+  // Catalog - shown for all users
+  const catalogNavItems = [
+    { path: '/catalog', icon: Library, label: t('nav.catalog') },
+  ];
+
+  // Team section - shown for managers
+  const teamNavItems = [
+    { path: '/team/members', icon: Users, label: t('nav.teamMembers') },
+    { path: '/team/progress', icon: BarChart3, label: t('nav.teamProgress') },
+    { path: '/team/assignments', icon: ClipboardList, label: t('nav.assignments') },
+  ];
+
+  // Courses management - shown for managers
+  const coursesNavItems = [
     { path: '/courses', icon: BookOpen, label: t('nav.courses') },
   ];
 
-  // BackOffice-only navigation items
-  const backofficeNavItems = [
+  // Administration - shown for backoffice
+  const adminNavItems = [
     { path: '/admin/users', icon: Users, label: t('nav.users') },
     { path: '/admin/teams', icon: Component, label: t('nav.teams') },
   ];
 
-  // Manager-only navigation items
-  const managerNavItems = [
-    { path: '/enrollments', icon: GraduationCap, label: t('nav.enrollments') },
-    { path: '/progress', icon: Award, label: t('nav.progress') },
+  // Reports - shown for backoffice
+  const reportsNavItems = [
+    { path: '/reports/usage', icon: BarChart3, label: t('nav.usage') },
+    { path: '/reports/completion', icon: CheckCircle, label: t('nav.completion') },
+    { path: '/reports/feedback', icon: MessageSquare, label: t('nav.feedback') },
+  ];
+
+  // Settings - shown for backoffice
+  const settingsNavItems = [
+    { path: '/settings/certificates', icon: GraduationCap, label: t('nav.certificateTemplates') },
   ];
 
   return (
@@ -243,35 +290,32 @@ export function Layout() {
         </SidebarHeader>
 
         <SidebarContent>
-          {/* Common navigation items */}
+          {/* Dashboard - always shown */}
           <SidebarGroup>
-            <SidebarGroupLabel>{t('nav.navigation')}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {commonNavItems.map((item) => (
-                  <SidebarMenuItem key={item.path}>
-                    <SidebarMenuButton asChild>
-                      <Link
-                        to={item.path}
-                        activeProps={{ className: 'bg-accent' }}
-                      >
-                        <item.icon className="size-4" />
-                        <span>{item.label}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link
+                      to={dashboardItem.path}
+                      activeProps={{ className: 'bg-accent' }}
+                    >
+                      <dashboardItem.icon className="size-4" />
+                      <span>{dashboardItem.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
 
-          {/* BackOffice-only: Admin section */}
-          {mode === 'backoffice' && (
+          {/* My Learning - shown for learners only */}
+          {isLearnerOnly && (
             <SidebarGroup>
-              <SidebarGroupLabel>{t('nav.admin')}</SidebarGroupLabel>
+              <SidebarGroupLabel>{t('nav.myLearning')}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {backofficeNavItems.map((item) => (
+                  {myLearningNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
                         <Link
@@ -289,13 +333,131 @@ export function Layout() {
             </SidebarGroup>
           )}
 
-          {/* Manager-only navigation items */}
-          {mode === 'manager' && (
+          {/* Catalog - shown for all users */}
+          <SidebarGroup>
+            <SidebarGroupLabel>{t('nav.catalogSection')}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {catalogNavItems.map((item) => (
+                  <SidebarMenuItem key={item.path}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        to={item.path}
+                        activeProps={{ className: 'bg-accent' }}
+                      >
+                        <item.icon className="size-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          {/* Team - shown for managers (not learners) */}
+          {mode === 'manager' && !isLearnerOnly && (
             <SidebarGroup>
-              <SidebarGroupLabel>{t('nav.operations')}</SidebarGroupLabel>
+              <SidebarGroupLabel>{t('nav.team')}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {managerNavItems.map((item) => (
+                  {teamNavItems.map((item) => (
+                    <SidebarMenuItem key={item.path}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          to={item.path}
+                          activeProps={{ className: 'bg-accent' }}
+                        >
+                          <item.icon className="size-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
+          {/* Courses management - shown for managers (not learners) */}
+          {mode === 'manager' && !isLearnerOnly && (
+            <SidebarGroup>
+              <SidebarGroupLabel>{t('nav.coursesSection')}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {coursesNavItems.map((item) => (
+                    <SidebarMenuItem key={item.path}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          to={item.path}
+                          activeProps={{ className: 'bg-accent' }}
+                        >
+                          <item.icon className="size-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
+          {/* Administration - shown for backoffice */}
+          {mode === 'backoffice' && (
+            <SidebarGroup>
+              <SidebarGroupLabel>{t('nav.administration')}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {adminNavItems.map((item) => (
+                    <SidebarMenuItem key={item.path}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          to={item.path}
+                          activeProps={{ className: 'bg-accent' }}
+                        >
+                          <item.icon className="size-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
+          {/* Reports - shown for backoffice */}
+          {mode === 'backoffice' && (
+            <SidebarGroup>
+              <SidebarGroupLabel>{t('nav.reports')}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {reportsNavItems.map((item) => (
+                    <SidebarMenuItem key={item.path}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          to={item.path}
+                          activeProps={{ className: 'bg-accent' }}
+                        >
+                          <item.icon className="size-4" />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
+
+          {/* Settings - shown for backoffice */}
+          {mode === 'backoffice' && (
+            <SidebarGroup>
+              <SidebarGroupLabel>{t('nav.settingsSection')}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {settingsNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
                         <Link

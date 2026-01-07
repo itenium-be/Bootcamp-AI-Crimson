@@ -2,7 +2,8 @@
   "app": {
     "title": "Itenium SkillForge",
     "backoffice": "BackOffice",
-    "teams": "Teams"
+    "teams": "Teams",
+    "learner": "Learner"
   },
   "nav": {
     "navigation": "Navigation",
@@ -17,7 +18,25 @@
     "operations": "Operations",
     "enrollments": "Enrollments",
     "progress": "Progress",
-    "certificates": "Certificates"
+    "certificates": "Certificates",
+    "myLearning": "My Learning",
+    "myCourses": "My Courses",
+    "myProgress": "My Progress",
+    "myCertificates": "My Certificates",
+    "catalogSection": "Catalog",
+    "catalog": "Browse Courses",
+    "team": "Team",
+    "teamMembers": "Members",
+    "teamProgress": "Progress",
+    "assignments": "Assignments",
+    "coursesSection": "Courses",
+    "administration": "Administration",
+    "reports": "Reports",
+    "usage": "Usage",
+    "completion": "Completion",
+    "feedback": "Feedback",
+    "settingsSection": "Settings",
+    "certificateTemplates": "Certificate Templates"
   },
   "auth": {
     "signIn": "Sign In",

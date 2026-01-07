@@ -2,7 +2,8 @@
   "app": {
     "title": "Itenium SkillForge",
     "backoffice": "BackOffice",
-    "teams": "Teams"
+    "teams": "Teams",
+    "learner": "Leerling"
   },
   "nav": {
     "navigation": "Navigatie",
@@ -17,7 +18,25 @@
     "operations": "Operaties",
     "enrollments": "Inschrijvingen",
     "progress": "Voortgang",
-    "certificates": "Certificaten"
+    "certificates": "Certificaten",
+    "myLearning": "Mijn Leertraject",
+    "myCourses": "Mijn Cursussen",
+    "myProgress": "Mijn Voortgang",
+    "myCertificates": "Mijn Certificaten",
+    "catalogSection": "Catalogus",
+    "catalog": "Cursussen Bekijken",
+    "team": "Team",
+    "teamMembers": "Leden",
+    "teamProgress": "Voortgang",
+    "assignments": "Toewijzingen",
+    "coursesSection": "Cursussen",
+    "administration": "Administratie",
+    "reports": "Rapporten",
+    "usage": "Gebruik",
+    "completion": "Voltooiing",
+    "feedback": "Feedback",
+    "settingsSection": "Instellingen",
+    "certificateTemplates": "Certificaat Sjablonen"
   },
   "auth": {
     "signIn": "Inloggen",

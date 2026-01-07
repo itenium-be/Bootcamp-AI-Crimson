@@ -9,6 +9,8 @@ Issues
 - User & Access Management
     - As a user, I want to sign in with SSO or login/pwd
     - As backoffice, I want to manage user roles (learner, team manager, backoffice) so access is controlled.
+    - As backoffice, I want to manage the different teams
+    - As backoffice, I want to assign learners to teams
     - As team manager, I want to see my team members (learners) so I can track their learning.
 - Learning Catalog
     - As a learner, I want to browse published courses so I can choose what to learn.
@@ -26,7 +28,7 @@ Issues
 - Progress & Tracking
     - As a learner, I want to see completed courses so I know what I’ve finished.
     - As team manager, I want to see my team’s learning progress.
-    - As team manager, I want reporting on course usage and completion rates.
+    - As backoffice, I want reporting on course usage and completion rates.
 - Assessments
     - As a learner, I want to complete quizzes so I can validate my knowledge.
     - As team manager, I want to create quizzes with multiple question types.

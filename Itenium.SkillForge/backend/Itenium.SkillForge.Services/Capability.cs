@@ -7,6 +7,6 @@ namespace Itenium.SkillForge.Services;
 public enum Capability
 {
     ReadCourse,
-    ManageLocalCourse,
+    ManageManagerCourse,
     ManageCourse,
 }

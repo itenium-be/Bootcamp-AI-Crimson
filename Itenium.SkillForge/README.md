@@ -95,9 +95,10 @@ The frontend will be available at http://localhost:5173
 | Username   | Password          | Role       | Teams           |
 |------------|-------------------|------------|-----------------|
 | backoffice | AdminPassword123! | backoffice | All             |
-| java       | UserPassword123!  | local      | Java            |
-| dotnet     | UserPassword123!  | local      | .NET            |
-| multi      | UserPassword123!  | local      | Java + .NET     |
+| java       | UserPassword123!  | manager    | Java            |
+| dotnet     | UserPassword123!  | manager    | .NET            |
+| multi      | UserPassword123!  | manager    | Java + .NET     |
+| learner    | UserPassword123!  | learner    | -               |
 
 
 ## Database Migrations

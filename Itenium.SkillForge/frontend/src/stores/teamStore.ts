@@ -6,7 +6,7 @@ export interface Team {
   name: string;
 }
 
-type Mode = 'backoffice' | 'local';
+type Mode = 'backoffice' | 'manager';
 
 interface TeamState {
   mode: Mode;
@@ -41,7 +41,7 @@ export const useTeamStore = create<TeamState>()(
 
           set({
             teams,
-            mode: 'local',
+            mode: 'manager',
             selectedTeam,
           });
         } else {

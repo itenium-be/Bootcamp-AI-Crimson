@@ -85,7 +85,7 @@ public static class SeedData
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "local");
+                await userManager.AddToRoleAsync(user, "manager");
                 await userManager.AddClaimAsync(user, new Claim("team", "1")); // Java
             }
         }
@@ -104,7 +104,7 @@ public static class SeedData
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "local");
+                await userManager.AddToRoleAsync(user, "manager");
                 await userManager.AddClaimAsync(user, new Claim("team", "2")); // .NET
             }
         }
@@ -123,7 +123,7 @@ public static class SeedData
             var result = await userManager.CreateAsync(user, "UserPassword123!");
             if (result.Succeeded)
             {
-                await userManager.AddToRoleAsync(user, "local");
+                await userManager.AddToRoleAsync(user, "manager");
                 await userManager.AddClaimAsync(user, new Claim("team", "1")); // Java
                 await userManager.AddClaimAsync(user, new Claim("team", "2")); // .NET
             }

@@ -75,7 +75,7 @@ function TeamSwitcher() {
   };
 
   const handleSelectTeam = (team: Team) => {
-    setMode('local');
+    setMode('manager');
     setSelectedTeam(team);
     setSearchQuery('');
   };
@@ -173,7 +173,7 @@ function TeamSwitcher() {
                     <Component className="size-4 shrink-0" />
                   </div>
                   {team.name}
-                  {mode === 'local' && selectedTeam?.id === team.id && (
+                  {mode === 'manager' && selectedTeam?.id === team.id && (
                     <span className="ml-auto text-xs text-muted-foreground">Active</span>
                   )}
                 </DropdownMenuItem>
@@ -229,8 +229,8 @@ export function Layout() {
     { path: '/admin/teams', icon: Component, label: t('nav.teams') },
   ];
 
-  // Local-only navigation items
-  const localNavItems = [
+  // Manager-only navigation items
+  const managerNavItems = [
     { path: '/enrollments', icon: GraduationCap, label: t('nav.enrollments') },
     { path: '/progress', icon: Award, label: t('nav.progress') },
   ];
@@ -289,13 +289,13 @@ export function Layout() {
             </SidebarGroup>
           )}
 
-          {/* Local-only navigation items */}
-          {mode === 'local' && (
+          {/* Manager-only navigation items */}
+          {mode === 'manager' && (
             <SidebarGroup>
               <SidebarGroupLabel>{t('nav.operations')}</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {localNavItems.map((item) => (
+                  {managerNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
                         <Link

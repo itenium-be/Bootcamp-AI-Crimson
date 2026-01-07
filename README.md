@@ -6,7 +6,7 @@ Creating the **SkillForge**
 Backlog
 -------
 
-### Team 1
+### Team 1: The Gatekeepers
 User & Access Management  
 Focus: Backoffice administration
 
@@ -20,7 +20,7 @@ Focus: Backoffice administration
 - As a user, I want to reset my password via email.
 
 
-### Team 2
+### Team 2: The Pathmakers
 Course Catalog & Content  
 Focus: Course creation and browsing
 
@@ -39,7 +39,7 @@ Focus: Course creation and browsing
     - As a learner I want to see the lessons inside a course and my completion rate therein.
 
 
-### Team 3
+### Team 3: The Trailblazers
 Enrollment & Learning Experience  
 Focus: Learner journey
 
@@ -59,7 +59,7 @@ Focus: Learner journey
     - As a learner, I want to add context (personal experience, content rating, ...) to a lesson for other learners.
 
 
-### Team 4
+### Team 4: The Crucible
 Assessments & Quizzes  
 Focus: Knowledge validation
 

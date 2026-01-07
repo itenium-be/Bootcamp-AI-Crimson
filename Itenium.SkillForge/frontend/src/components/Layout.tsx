@@ -277,11 +277,6 @@ export function Layout() {
     { path: '/reports/feedback', icon: MessageSquare, label: t('nav.feedback') },
   ];
 
-  // Settings - shown for backoffice
-  const settingsNavItems = [
-    { path: '/settings/certificates', icon: GraduationCap, label: t('nav.certificateTemplates') },
-  ];
-
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -451,29 +446,6 @@ export function Layout() {
             </SidebarGroup>
           )}
 
-          {/* Settings - shown for backoffice */}
-          {mode === 'backoffice' && (
-            <SidebarGroup>
-              <SidebarGroupLabel>{t('nav.settingsSection')}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {settingsNavItems.map((item) => (
-                    <SidebarMenuItem key={item.path}>
-                      <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
-                          <item.icon className="size-4" />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          )}
         </SidebarContent>
 
         <SidebarFooter>

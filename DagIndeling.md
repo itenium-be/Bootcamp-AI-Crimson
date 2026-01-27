@@ -30,6 +30,8 @@ SkillForge
 
 Rest van de dag: Vibe Coding
 
+- Na de middag: 5-10min demo per team
+
 
 Final Hour
 ----------

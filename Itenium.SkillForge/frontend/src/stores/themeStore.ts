@@ -48,8 +48,8 @@ export const useThemeStore = create<ThemeState>()(
           state.resolvedTheme = resolvedTheme;
         }
       },
-    }
-  )
+    },
+  ),
 );
 
 // Listen for system theme changes

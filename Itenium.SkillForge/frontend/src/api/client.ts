@@ -24,7 +24,7 @@ api.interceptors.response.use(
       useAuthStore.getState().logout();
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export interface LoginResponse {
@@ -41,15 +41,11 @@ export async function loginApi(username: string, password: string): Promise<Logi
   params.append('client_id', 'skillforge-spa');
   params.append('scope', 'openid profile email');
 
-  const response = await axios.post<LoginResponse>(
-    `${API_BASE_URL}/connect/token`,
-    params,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    }
-  );
+  const response = await axios.post<LoginResponse>(`${API_BASE_URL}/connect/token`, params, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
 
   return response.data;
 }

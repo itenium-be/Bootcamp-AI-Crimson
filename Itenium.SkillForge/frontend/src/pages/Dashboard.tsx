@@ -20,46 +20,34 @@ export function Dashboard() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t('dashboard.totalCourses')}
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.totalCourses')}</CardTitle>
             <BookOpen className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">24</div>
-            <p className="text-xs text-muted-foreground">
-              +3 from last month
-            </p>
+            <p className="text-xs text-muted-foreground">+3 from last month</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t('dashboard.activeLearners')}
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.activeLearners')}</CardTitle>
             <Users className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">156</div>
-            <p className="text-xs text-muted-foreground">
-              Active this month
-            </p>
+            <p className="text-xs text-muted-foreground">Active this month</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t('dashboard.completedCourses')}
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">{t('dashboard.completedCourses')}</CardTitle>
             <Award className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">89</div>
-            <p className="text-xs text-muted-foreground">
-              Certificates issued
-            </p>
+            <p className="text-xs text-muted-foreground">Certificates issued</p>
           </CardContent>
         </Card>
       </div>

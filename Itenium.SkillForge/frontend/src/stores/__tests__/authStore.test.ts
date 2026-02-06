@@ -54,7 +54,7 @@ describe('useAuthStore', () => {
 
       useAuthStore.getState().setToken(token);
 
-      expect(useAuthStore.getState().user!.isBackOffice).toBe(true);
+      expect(useAuthStore.getState().user?.isBackOffice).toBe(true);
     });
 
     it('sets isBackOffice to false when role does not include backoffice', () => {
@@ -67,7 +67,7 @@ describe('useAuthStore', () => {
 
       useAuthStore.getState().setToken(token);
 
-      expect(useAuthStore.getState().user!.isBackOffice).toBe(false);
+      expect(useAuthStore.getState().user?.isBackOffice).toBe(false);
     });
 
     it('sets isBackOffice to false when role is missing', () => {
@@ -79,7 +79,7 @@ describe('useAuthStore', () => {
 
       useAuthStore.getState().setToken(token);
 
-      expect(useAuthStore.getState().user!.isBackOffice).toBe(false);
+      expect(useAuthStore.getState().user?.isBackOffice).toBe(false);
     });
 
     it('falls back to preferred_username for email and name', () => {
@@ -90,9 +90,9 @@ describe('useAuthStore', () => {
 
       useAuthStore.getState().setToken(token);
 
-      const user = useAuthStore.getState().user!;
-      expect(user.email).toBe('jane.doe');
-      expect(user.name).toBe('jane.doe');
+      const user = useAuthStore.getState().user;
+      expect(user?.email).toBe('jane.doe');
+      expect(user?.name).toBe('jane.doe');
     });
 
     it('falls back to defaults when no name or username', () => {
@@ -102,9 +102,9 @@ describe('useAuthStore', () => {
 
       useAuthStore.getState().setToken(token);
 
-      const user = useAuthStore.getState().user!;
-      expect(user.email).toBe('');
-      expect(user.name).toBe('User');
+      const user = useAuthStore.getState().user;
+      expect(user?.email).toBe('');
+      expect(user?.name).toBe('User');
     });
   });
 

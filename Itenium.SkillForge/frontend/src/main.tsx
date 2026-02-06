@@ -1,33 +1,25 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { AxiosError } from 'axios';
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { toast } from 'sonner';
-import { useAuthStore } from '@/stores';
-// Generated Routes
 import { routeTree } from './routeTree.gen';
-// Styles
 import './styles.css';
 import i18n from './i18n';
+import { useAuthStore } from '@/stores';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: (failureCount, error) => {
+        // eslint-disable-next-line no-console
         if (import.meta.env.DEV) console.log({ failureCount, error });
 
         if (failureCount >= 0 && import.meta.env.DEV) return false;
         if (failureCount > 3 && import.meta.env.PROD) return false;
 
-        return !(
-          error instanceof AxiosError &&
-          [401, 403].includes(error.response?.status ?? 0)
-        );
+        return !(error instanceof AxiosError && [401, 403].includes(error.response?.status ?? 0));
       },
       refetchOnWindowFocus: import.meta.env.PROD,
       staleTime: 10 * 1000, // 10s
@@ -35,9 +27,7 @@ const queryClient = new QueryClient({
     mutations: {
       onError: (error) => {
         if (error instanceof AxiosError) {
-          const message = error.response?.data?.error_description
-            || error.response?.data?.message
-            || error.message;
+          const message = error.response?.data?.error_description || error.response?.data?.message || error.message;
           toast.error(message);
         }
       },
@@ -75,6 +65,7 @@ declare module '@tanstack/react-router' {
 }
 
 // Render the app
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const rootElement = document.getElementById('root')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
@@ -83,6 +74,6 @@ if (!rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </StrictMode>
+    </StrictMode>,
   );
 }

@@ -4,6 +4,8 @@ import { vi } from 'vitest';
 import { useAuthStore } from '@/stores/authStore';
 import { useTeamStore } from '@/stores/teamStore';
 import { useThemeStore } from '@/stores/themeStore';
+// eslint-disable-next-line import-x/order -- must come after vi.mock calls
+import { Layout } from '../Layout';
 
 // Mock react-i18next: return the key as the translation
 vi.mock('react-i18next', () => ({
@@ -16,9 +18,7 @@ vi.mock('react-i18next', () => ({
 // Mock TanStack Router
 vi.mock('@tanstack/react-router', () => ({
   Outlet: () => <div data-testid="outlet" />,
-  Link: ({ children, to }: { children: React.ReactNode; to: string }) => (
-    <a href={to}>{children}</a>
-  ),
+  Link: ({ children, to }: { children: React.ReactNode; to: string }) => <a href={to}>{children}</a>,
   useRouter: () => ({ navigate: vi.fn() }),
 }));
 
@@ -33,15 +33,31 @@ vi.mock('@tanstack/react-query', () => ({
 vi.mock('@itenium-forge/ui', () => {
   const S = ({ children }: { children?: React.ReactNode }) => <div>{children}</div>;
   return {
-    SidebarProvider: S, Sidebar: S, SidebarHeader: S, SidebarContent: S,
-    SidebarFooter: S, SidebarMenu: S, SidebarMenuItem: S, SidebarMenuButton: S,
-    SidebarGroup: S, SidebarGroupLabel: S, SidebarGroupContent: S,
-    SidebarInset: S, SidebarTrigger: S,
+    SidebarProvider: S,
+    Sidebar: S,
+    SidebarHeader: S,
+    SidebarContent: S,
+    SidebarFooter: S,
+    SidebarMenu: S,
+    SidebarMenuItem: S,
+    SidebarMenuButton: S,
+    SidebarGroup: S,
+    SidebarGroupLabel: S,
+    SidebarGroupContent: S,
+    SidebarInset: S,
+    SidebarTrigger: S,
     useSidebar: () => ({ isMobile: false }),
-    Button: S, Input: () => <input />,
-    DropdownMenu: S, DropdownMenuTrigger: S, DropdownMenuContent: S,
-    DropdownMenuItem: S, DropdownMenuLabel: S, DropdownMenuSeparator: () => <hr />,
-    Avatar: S, AvatarFallback: S, ScrollArea: S,
+    Button: S,
+    Input: () => <input />,
+    DropdownMenu: S,
+    DropdownMenuTrigger: S,
+    DropdownMenuContent: S,
+    DropdownMenuItem: S,
+    DropdownMenuLabel: S,
+    DropdownMenuSeparator: () => <hr />,
+    Avatar: S,
+    AvatarFallback: S,
+    ScrollArea: S,
   };
 });
 
@@ -49,10 +65,25 @@ vi.mock('@itenium-forge/ui', () => {
 vi.mock('lucide-react', () => {
   const I = () => <span />;
   return {
-    LayoutDashboard: I, Users: I, LogOut: I, Sun: I, Moon: I, Component: I,
-    ChevronsUpDown: I, Briefcase: I, Search: I, BookOpen: I, GraduationCap: I,
-    Award: I, Settings: I, Library: I, TrendingUp: I, BarChart3: I,
-    ClipboardList: I, MessageSquare: I, CheckCircle: I,
+    LayoutDashboard: I,
+    Users: I,
+    LogOut: I,
+    Sun: I,
+    Moon: I,
+    Component: I,
+    ChevronsUpDown: I,
+    Briefcase: I,
+    Search: I,
+    BookOpen: I,
+    GraduationCap: I,
+    Award: I,
+    Settings: I,
+    Library: I,
+    TrendingUp: I,
+    BarChart3: I,
+    ClipboardList: I,
+    MessageSquare: I,
+    CheckCircle: I,
   };
 });
 
@@ -60,8 +91,6 @@ vi.mock('lucide-react', () => {
 vi.mock('@/api/client', () => ({
   fetchUserTeams: vi.fn(),
 }));
-
-import { Layout } from '../Layout';
 
 function setupStores(options: {
   isBackOffice?: boolean;

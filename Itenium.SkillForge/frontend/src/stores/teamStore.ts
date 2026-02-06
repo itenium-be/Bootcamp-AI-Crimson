@@ -34,10 +34,10 @@ export const useTeamStore = create<TeamState>()(
 
         // If user is not backoffice, automatically switch to local mode
         if (!isBackOffice) {
-          const selectedTeam = currentState.selectedTeam
-            && teams.some(t => t.id === currentState.selectedTeam?.id)
-            ? currentState.selectedTeam
-            : teams[0] || null;
+          const selectedTeam =
+            currentState.selectedTeam && teams.some((t) => t.id === currentState.selectedTeam?.id)
+              ? currentState.selectedTeam
+              : teams[0] || null;
 
           set({
             teams,
@@ -63,6 +63,6 @@ export const useTeamStore = create<TeamState>()(
         mode: state.mode,
         selectedTeam: state.selectedTeam,
       }),
-    }
-  )
+    },
+  ),
 );

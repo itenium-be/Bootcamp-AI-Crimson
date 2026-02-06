@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @source "../node_modules/@itenium-forge/ui";
 
@@ -8,55 +8,55 @@
   --radius: 0.625rem;
 
   /* Itenium Brand Colors - Light Mode */
-  --background: #FFFAF8;           /* Soap - warm white */
-  --foreground: #2D2A28;           /* Dune - dark brown */
-  --card: #FFFFFF;
-  --card-foreground: #2D2A28;
-  --popover: #FFFFFF;
-  --popover-foreground: #2D2A28;
-  --primary: #E78200;              /* Gold/Rust - main brand orange */
-  --primary-foreground: #FFFFFF;
-  --secondary: #F3F3F3;            /* Neutrals 30 */
-  --secondary-foreground: #2D2A28;
-  --muted: #F3F3F3;                /* Neutrals 30 */
-  --muted-foreground: #707070;     /* Neutrals 70 */
-  --accent: #2E8F6B;               /* Leaf Dark - teal green */
-  --accent-foreground: #FFFFFF;
-  --destructive: #DC2626;
-  --border: #EAEAEA;               /* Neutrals 40 */
-  --input: #EAEAEA;
-  --ring: #E78200;                 /* Gold/Rust */
+  --background: #fffaf8; /* Soap - warm white */
+  --foreground: #2d2a28; /* Dune - dark brown */
+  --card: #ffffff;
+  --card-foreground: #2d2a28;
+  --popover: #ffffff;
+  --popover-foreground: #2d2a28;
+  --primary: #e78200; /* Gold/Rust - main brand orange */
+  --primary-foreground: #ffffff;
+  --secondary: #f3f3f3; /* Neutrals 30 */
+  --secondary-foreground: #2d2a28;
+  --muted: #f3f3f3; /* Neutrals 30 */
+  --muted-foreground: #707070; /* Neutrals 70 */
+  --accent: #2e8f6b; /* Leaf Dark - teal green */
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: #eaeaea; /* Neutrals 40 */
+  --input: #eaeaea;
+  --ring: #e78200; /* Gold/Rust */
 
-  --sidebar: #2D2A28;              /* Dune - dark sidebar */
-  --sidebar-foreground: #FFFAF8;   /* Soap */
-  --sidebar-primary: #E78200;      /* Gold/Rust */
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #494949;       /* Neutrals 80 */
-  --sidebar-accent-foreground: #FFFAF8;
-  --sidebar-border: #494949;       /* Neutrals 80 */
-  --sidebar-ring: #E78200;
+  --sidebar: #2d2a28; /* Dune - dark sidebar */
+  --sidebar-foreground: #fffaf8; /* Soap */
+  --sidebar-primary: #e78200; /* Gold/Rust */
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #494949; /* Neutrals 80 */
+  --sidebar-accent-foreground: #fffaf8;
+  --sidebar-border: #494949; /* Neutrals 80 */
+  --sidebar-ring: #e78200;
 }
 
 .dark {
   /* Itenium Brand Colors - Dark Mode */
-  --background: #2D2A28;           /* Dune */
-  --foreground: #FFFAF8;           /* Soap */
-  --card: #3D3A38;                 /* Slightly lighter than Dune */
-  --card-foreground: #FFFAF8;
-  --popover: #3D3A38;
-  --popover-foreground: #FFFAF8;
-  --primary: #F09749;              /* Jaffa - lighter orange for dark mode */
-  --primary-foreground: #2D2A28;
-  --secondary: #494949;            /* Neutrals 80 */
-  --secondary-foreground: #FFFAF8;
+  --background: #2d2a28; /* Dune */
+  --foreground: #fffaf8; /* Soap */
+  --card: #3d3a38; /* Slightly lighter than Dune */
+  --card-foreground: #fffaf8;
+  --popover: #3d3a38;
+  --popover-foreground: #fffaf8;
+  --primary: #f09749; /* Jaffa - lighter orange for dark mode */
+  --primary-foreground: #2d2a28;
+  --secondary: #494949; /* Neutrals 80 */
+  --secondary-foreground: #fffaf8;
   --muted: #494949;
-  --muted-foreground: #A7A7A7;     /* Neutrals 60 */
-  --accent: #6EBCA5;               /* Leaf Medium */
-  --accent-foreground: #2D2A28;
-  --destructive: #EF4444;
+  --muted-foreground: #a7a7a7; /* Neutrals 60 */
+  --accent: #6ebca5; /* Leaf Medium */
+  --accent-foreground: #2d2a28;
+  --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
-  --ring: #F09749;
+  --ring: #f09749;
 }
 
 @theme inline {

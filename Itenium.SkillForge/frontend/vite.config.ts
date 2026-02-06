@@ -1,10 +1,10 @@
 /// <reference types="vitest/config" />
+import path from 'path';
+import fs from 'fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
-import path from 'path';
-import fs from 'fs';
 
 const localUiPath = path.resolve(__dirname, '../../../itenium-ui/libs/ui/src');
 const useLocalUi = fs.existsSync(localUiPath);

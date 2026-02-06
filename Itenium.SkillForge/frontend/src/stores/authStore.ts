@@ -81,6 +81,6 @@ export const useAuthStore = create<AuthState>()(
           state.logout();
         }
       },
-    }
-  )
+    },
+  ),
 );

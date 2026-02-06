@@ -67,9 +67,7 @@ function TeamSwitcher() {
   const isBackOffice = user?.isBackOffice ?? false;
   const isLearner = !isBackOffice && teams.length === 0;
 
-  const filteredTeams = teams.filter((team) =>
-    team.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredTeams = teams.filter((team) => team.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const getDisplayName = () => {
     if (isLearner) return t('app.learner');
@@ -115,10 +113,7 @@ function TeamSwitcher() {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton
-            size="lg"
-            className="cursor-default"
-          >
+          <SidebarMenuButton size="lg" className="cursor-default">
             {buttonContent}
           </SidebarMenuButton>
         </SidebarMenuItem>
@@ -159,10 +154,7 @@ function TeamSwitcher() {
             <DropdownMenuSeparator />
             {isBackOffice && (
               <>
-                <DropdownMenuItem
-                  onClick={handleSelectBackOffice}
-                  className="gap-2 p-2"
-                >
+                <DropdownMenuItem onClick={handleSelectBackOffice} className="gap-2 p-2">
                   <div className="flex size-6 items-center justify-center rounded-sm border">
                     <Briefcase className="size-4 shrink-0" />
                   </div>
@@ -175,17 +167,11 @@ function TeamSwitcher() {
               </>
             )}
             {isBackOffice && (
-              <DropdownMenuLabel className="text-xs text-muted-foreground">
-                {t('app.teams')}
-              </DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs text-muted-foreground">{t('app.teams')}</DropdownMenuLabel>
             )}
             <ScrollArea className="max-h-[200px]">
               {filteredTeams.map((team) => (
-                <DropdownMenuItem
-                  key={team.id}
-                  onClick={() => handleSelectTeam(team)}
-                  className="gap-2 p-2"
-                >
+                <DropdownMenuItem key={team.id} onClick={() => handleSelectTeam(team)} className="gap-2 p-2">
                   <div className="flex size-6 items-center justify-center rounded-sm border">
                     <Component className="size-4 shrink-0" />
                   </div>
@@ -196,9 +182,7 @@ function TeamSwitcher() {
                 </DropdownMenuItem>
               ))}
               {filteredTeams.length === 0 && (
-                <div className="p-2 text-sm text-muted-foreground text-center">
-                  {t('common.noResults')}
-                </div>
+                <div className="p-2 text-sm text-muted-foreground text-center">{t('common.noResults')}</div>
               )}
             </ScrollArea>
           </DropdownMenuContent>
@@ -248,9 +232,7 @@ export function Layout() {
   ];
 
   // Catalog - shown for all users
-  const catalogNavItems = [
-    { path: '/catalog', icon: Library, label: t('nav.catalog') },
-  ];
+  const catalogNavItems = [{ path: '/catalog', icon: Library, label: t('nav.catalog') }];
 
   // Team section - shown for managers
   const teamNavItems = [
@@ -260,9 +242,7 @@ export function Layout() {
   ];
 
   // Courses management - shown for managers
-  const coursesNavItems = [
-    { path: '/courses', icon: BookOpen, label: t('nav.courses') },
-  ];
+  const coursesNavItems = [{ path: '/courses', icon: BookOpen, label: t('nav.courses') }];
 
   // Administration - shown for backoffice
   const adminNavItems = [
@@ -291,10 +271,7 @@ export function Layout() {
               <SidebarMenu>
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <Link
-                      to={dashboardItem.path}
-                      activeProps={{ className: 'bg-accent' }}
-                    >
+                    <Link to={dashboardItem.path} activeProps={{ className: 'bg-accent' }}>
                       <dashboardItem.icon className="size-4" />
                       <span>{dashboardItem.label}</span>
                     </Link>
@@ -313,10 +290,7 @@ export function Layout() {
                   {myLearningNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
+                        <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                           <item.icon className="size-4" />
                           <span>{item.label}</span>
                         </Link>
@@ -336,10 +310,7 @@ export function Layout() {
                 {catalogNavItems.map((item) => (
                   <SidebarMenuItem key={item.path}>
                     <SidebarMenuButton asChild>
-                      <Link
-                        to={item.path}
-                        activeProps={{ className: 'bg-accent' }}
-                      >
+                      <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                         <item.icon className="size-4" />
                         <span>{item.label}</span>
                       </Link>
@@ -359,10 +330,7 @@ export function Layout() {
                   {teamNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
+                        <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                           <item.icon className="size-4" />
                           <span>{item.label}</span>
                         </Link>
@@ -383,10 +351,7 @@ export function Layout() {
                   {coursesNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
+                        <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                           <item.icon className="size-4" />
                           <span>{item.label}</span>
                         </Link>
@@ -407,10 +372,7 @@ export function Layout() {
                   {adminNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
+                        <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                           <item.icon className="size-4" />
                           <span>{item.label}</span>
                         </Link>
@@ -431,10 +393,7 @@ export function Layout() {
                   {reportsNavItems.map((item) => (
                     <SidebarMenuItem key={item.path}>
                       <SidebarMenuButton asChild>
-                        <Link
-                          to={item.path}
-                          activeProps={{ className: 'bg-accent' }}
-                        >
+                        <Link to={item.path} activeProps={{ className: 'bg-accent' }}>
                           <item.icon className="size-4" />
                           <span>{item.label}</span>
                         </Link>
@@ -445,7 +404,6 @@ export function Layout() {
               </SidebarGroupContent>
             </SidebarGroup>
           )}
-
         </SidebarContent>
 
         <SidebarFooter>
@@ -455,13 +413,9 @@ export function Layout() {
                 <DropdownMenuTrigger asChild>
                   <SidebarMenuButton className="w-full">
                     <Avatar className="size-6">
-                      <AvatarFallback>
-                        {user?.name?.charAt(0).toUpperCase() || 'U'}
-                      </AvatarFallback>
+                      <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                     </Avatar>
-                    <span className="flex-1 text-left truncate">
-                      {user?.name || t('common.user')}
-                    </span>
+                    <span className="flex-1 text-left truncate">{user?.name || t('common.user')}</span>
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="top" align="start" className="w-56">
@@ -508,16 +462,8 @@ export function Layout() {
             </div>
 
             {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            >
-              {resolvedTheme === 'dark' ? (
-                <Sun className="size-4" />
-              ) : (
-                <Moon className="size-4" />
-              )}
+            <Button variant="ghost" size="sm" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
+              {resolvedTheme === 'dark' ? <Sun className="size-4" /> : <Moon className="size-4" />}
             </Button>
           </div>
         </header>

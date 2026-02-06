@@ -1,0 +1,1 @@
+cd Itenium.SkillForge/frontend && npx lint-staged

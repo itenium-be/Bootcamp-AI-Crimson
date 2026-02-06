@@ -24,12 +24,13 @@ import {
 import { useAuthStore } from '@/stores';
 import { loginApi } from '@/api/client';
 
-const createFormSchema = (t: (key: string) => string) => z.object({
-  username: z.string().min(1, t('auth.usernameRequired')),
-  password: z.string().min(1, t('auth.passwordRequired')),
-});
+const createFormSchema = (t: (key: string) => string) =>
+  z.object({
+    username: z.string().min(1, t('auth.usernameRequired')),
+    password: z.string().min(1, t('auth.passwordRequired')),
+  });
 
-type FormData = z.infer<typeof formSchema>;
+type FormData = z.infer<ReturnType<typeof createFormSchema>>;
 
 const testUsers = [
   { username: 'backoffice', password: 'AdminPassword123!' },
@@ -100,11 +101,11 @@ export function SignIn() {
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              <i>"Empower your team with continuous learning. Track progress, manage courses, and build skills together."</i>
+              <i>
+                "Empower your team with continuous learning. Track progress, manage courses, and build skills together."
+              </i>
             </p>
-            <footer className="text-sm text-sidebar-foreground/70">
-              Steven Robijns
-            </footer>
+            <footer className="text-sm text-sidebar-foreground/70">Steven Robijns</footer>
           </blockquote>
         </div>
       </div>
@@ -126,11 +127,7 @@ export function SignIn() {
           <CardContent>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                {error && (
-                  <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-                    {error}
-                  </div>
-                )}
+                {error && <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">{error}</div>}
                 <FormField
                   control={form.control}
                   name="username"
@@ -151,22 +148,14 @@ export function SignIn() {
                     <FormItem>
                       <FormLabel>{t('auth.password')}</FormLabel>
                       <FormControl>
-                        <Input
-                          type="password"
-                          placeholder={t('auth.enterPassword')}
-                          {...field}
-                        />
+                        <Input type="password" placeholder={t('auth.enterPassword')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    <LogIn className="size-4" />
-                  )}
+                  {isLoading ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
                   <span className="ml-2">{t('auth.signIn')}</span>
                 </Button>
               </form>

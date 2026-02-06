@@ -137,6 +137,13 @@ cd backend
 dotnet test
 ```
 
+### Frontend Tests
+
+```bash
+cd frontend
+bun run test
+```
+
 
 ### E2E Tests
 

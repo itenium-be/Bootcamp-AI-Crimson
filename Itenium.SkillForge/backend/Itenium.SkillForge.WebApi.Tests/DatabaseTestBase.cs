@@ -5,8 +5,9 @@ namespace Itenium.SkillForge.WebApi.Tests;
 
 public abstract class DatabaseTestBase
 {
-    protected AppDbContext Db { get; private set; } = null!;
     private IDbContextTransaction _transaction = null!;
+
+    protected AppDbContext Db { get; private set; } = null!;
 
     [SetUp]
     public async Task BaseSetUp()

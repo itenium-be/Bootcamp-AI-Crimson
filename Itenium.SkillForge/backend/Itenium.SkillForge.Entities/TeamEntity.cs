@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Itenium.SkillForge.Entities;
 
 /// <summary>
-/// A team is a CompetenceCenter like Java or PO-Analysis
+/// A team is a CompetenceCenter like Java or PO-Analysis.
 /// </summary>
 public class TeamEntity
 {

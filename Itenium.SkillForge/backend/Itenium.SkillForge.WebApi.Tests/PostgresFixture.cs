@@ -8,9 +8,10 @@ namespace Itenium.SkillForge.WebApi.Tests;
 [SetUpFixture]
 public class PostgresFixture
 {
-    private static PostgreSqlContainer _container = null!;
-    public static string ConnectionString { get; private set; } = null!;
     private static readonly Assembly MigrationAssembly = typeof(AppDbContext).Assembly;
+    private static PostgreSqlContainer _container = null!;
+
+    public static string ConnectionString { get; private set; } = null!;
 
     [OneTimeSetUp]
     public async Task OneTimeSetUp()

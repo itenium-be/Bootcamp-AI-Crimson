@@ -1,0 +1,21 @@
+root = true
+
+[*.cs]
+
+# CA - Naming
+dotnet_diagnostic.CA1707.severity = none  # Remove underscores from member name (conflicts with test naming conventions)
+
+# Meziantou
+dotnet_diagnostic.MA0004.severity = none  # Use ConfigureAwait(false) (not needed in ASP.NET Core)
+dotnet_diagnostic.MA0006.severity = none  # Use string.Equals instead of == (too strict)
+dotnet_diagnostic.MA0011.severity = none  # IFormatProvider (too noisy for general code)
+dotnet_diagnostic.MA0026.severity = none  # Fix TODO comment
+dotnet_diagnostic.MA0048.severity = none  # File name must match type name
+dotnet_diagnostic.MA0051.severity = none  # Method is too long
+
+# Roslynator
+dotnet_diagnostic.RCS1021.severity = none # Convert lambda to method group (style preference)
+
+# Auto-generated migrations
+[**/Migrations/*.cs]
+generated_code = true

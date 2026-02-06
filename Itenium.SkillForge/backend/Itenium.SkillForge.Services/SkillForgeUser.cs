@@ -1,3 +1,4 @@
+using System.Globalization;
 using Itenium.Forge.Security;
 using Microsoft.AspNetCore.Http;
 
@@ -5,7 +6,8 @@ namespace Itenium.SkillForge.Services;
 
 public class SkillForgeUser : CurrentUser, ISkillForgeUser
 {
-    public SkillForgeUser(IHttpContextAccessor httpContextAccessor) : base(httpContextAccessor)
+    public SkillForgeUser(IHttpContextAccessor httpContextAccessor)
+        : base(httpContextAccessor)
     {
     }
 
@@ -16,9 +18,11 @@ public class SkillForgeUser : CurrentUser, ISkillForgeUser
         get
         {
             if (User == null)
+            {
                 return [];
+            }
 
-            var teams = User.FindAll("team").Select(c => int.Parse(c.Value)).ToArray();
+            var teams = User.FindAll("team").Select(c => int.Parse(c.Value, CultureInfo.InvariantCulture)).ToArray();
             return teams;
         }
     }

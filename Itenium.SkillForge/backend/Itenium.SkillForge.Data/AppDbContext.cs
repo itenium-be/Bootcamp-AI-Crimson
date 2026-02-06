@@ -6,11 +6,13 @@ namespace Itenium.SkillForge.Data;
 
 public class AppDbContext : ForgeIdentityDbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
     }
 
     public DbSet<TeamEntity> Teams => Set<TeamEntity>();
+
     public DbSet<CourseEntity> Courses => Set<CourseEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)

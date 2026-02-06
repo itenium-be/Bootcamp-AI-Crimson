@@ -7,6 +7,7 @@ namespace Itenium.SkillForge.Services.Tests;
 [TestFixture]
 public class SkillForgeUserTests
 {
+    private static readonly int[] ExpectedTeamIds = [1, 3, 5];
     private IHttpContextAccessor _httpContextAccessor = null!;
 
     [SetUp]
@@ -64,7 +65,7 @@ public class SkillForgeUserTests
 
         var result = sut.Teams;
 
-        Assert.That(result, Is.EquivalentTo(new[] { 1, 3, 5 }));
+        Assert.That(result, Is.EquivalentTo(ExpectedTeamIds));
     }
 
     [Test]

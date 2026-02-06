@@ -24,8 +24,7 @@ public class TeamControllerTests : DatabaseTestBase
         Db.Teams.AddRange(
             new TeamEntity { Name = "Java" },
             new TeamEntity { Name = ".NET" },
-            new TeamEntity { Name = "QA" }
-        );
+            new TeamEntity { Name = "QA" });
         await Db.SaveChangesAsync();
         _user.IsBackOffice.Returns(true);
 
@@ -63,8 +62,7 @@ public class TeamControllerTests : DatabaseTestBase
     {
         Db.Teams.AddRange(
             new TeamEntity { Name = "Java" },
-            new TeamEntity { Name = ".NET" }
-        );
+            new TeamEntity { Name = ".NET" });
         await Db.SaveChangesAsync();
         _user.IsBackOffice.Returns(false);
         _user.Teams.Returns(Array.Empty<int>());

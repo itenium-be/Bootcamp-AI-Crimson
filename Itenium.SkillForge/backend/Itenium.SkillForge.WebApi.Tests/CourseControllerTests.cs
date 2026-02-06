@@ -20,8 +20,7 @@ public class CourseControllerTests : DatabaseTestBase
     {
         Db.Courses.AddRange(
             new CourseEntity { Name = "C# Basics" },
-            new CourseEntity { Name = "Advanced .NET" }
-        );
+            new CourseEntity { Name = "Advanced .NET" });
         await Db.SaveChangesAsync();
 
         var result = await _sut.GetCourses();

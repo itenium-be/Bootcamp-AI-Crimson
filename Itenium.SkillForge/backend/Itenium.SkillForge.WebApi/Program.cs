@@ -36,6 +36,7 @@ try
         var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         await db.Database.MigrateAsync();
     }
+
     await app.SeedOpenIddictDataAsync();
     await app.SeedDevelopmentData();
 
@@ -62,4 +63,6 @@ finally
 }
 
 // Make Program class accessible for WebApplicationFactory in tests
-public partial class Program { }
+public partial class Program
+{
+}

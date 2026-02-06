@@ -103,7 +103,7 @@ function TeamSwitcher() {
         {getIcon()}
       </div>
       <div className="grid flex-1 text-start text-sm leading-tight">
-        <span className="truncate font-semibold">SkillForge</span>
+        <span className="truncate font-semibold">{t('app.title')}</span>
         <span className="truncate text-xs">{getDisplayName()}</span>
       </div>
       {canSwitch && <ChevronsUpDown className="ms-auto size-4" />}
@@ -168,7 +168,7 @@ function TeamSwitcher() {
                   </div>
                   <span className="font-medium">{t('app.backoffice')}</span>
                   {mode === 'backoffice' && (
-                    <span className="ml-auto text-xs text-muted-foreground">Active</span>
+                    <span className="ml-auto text-xs text-muted-foreground">{t('common.active')}</span>
                   )}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -191,7 +191,7 @@ function TeamSwitcher() {
                   </div>
                   {team.name}
                   {mode === 'manager' && selectedTeam?.id === team.id && (
-                    <span className="ml-auto text-xs text-muted-foreground">Active</span>
+                    <span className="ml-auto text-xs text-muted-foreground">{t('common.active')}</span>
                   )}
                 </DropdownMenuItem>
               ))}
@@ -460,7 +460,7 @@ export function Layout() {
                       </AvatarFallback>
                     </Avatar>
                     <span className="flex-1 text-left truncate">
-                      {user?.name || 'User'}
+                      {user?.name || t('common.user')}
                     </span>
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>

@@ -48,7 +48,10 @@
     "enterPassword": "Voer uw wachtwoord in",
     "welcome": "Welkom",
     "signInDescription": "Voer uw gegevens in om in te loggen",
-    "invalidCredentials": "Ongeldige gebruikersnaam of wachtwoord"
+    "invalidCredentials": "Ongeldige gebruikersnaam of wachtwoord",
+    "usernameRequired": "Gebruikersnaam is verplicht",
+    "passwordRequired": "Wachtwoord is verplicht",
+    "loginBackground": "Login achtergrond"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -98,6 +101,12 @@
     "edit": "Bewerken",
     "search": "Zoeken",
     "filter": "Filteren",
-    "noResults": "Geen resultaten gevonden"
+    "noResults": "Geen resultaten gevonden",
+    "active": "Actief",
+    "user": "Gebruiker"
+  },
+  "errors": {
+    "sessionExpired": "Sessie verlopen!",
+    "internalServerError": "Interne serverfout!"
   }
 }

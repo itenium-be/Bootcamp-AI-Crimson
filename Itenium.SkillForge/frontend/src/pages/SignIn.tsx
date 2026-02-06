@@ -24,9 +24,9 @@ import {
 import { useAuthStore } from '@/stores';
 import { loginApi } from '@/api/client';
 
-const formSchema = z.object({
-  username: z.string().min(1, 'Username is required'),
-  password: z.string().min(1, 'Password is required'),
+const createFormSchema = (t: (key: string) => string) => z.object({
+  username: z.string().min(1, t('auth.usernameRequired')),
+  password: z.string().min(1, t('auth.passwordRequired')),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -41,6 +41,7 @@ const testUsers = [
 
 export function SignIn() {
   const { t } = useTranslation();
+  const formSchema = createFormSchema(t);
   const router = useRouter();
   const search = useSearch({ from: '/(auth)/sign-in' });
   const { setToken } = useAuthStore();
@@ -88,13 +89,13 @@ export function SignIn() {
       <div className="relative hidden h-full flex-col bg-[#EFE3D3] p-10 text-sidebar-foreground lg:flex">
         <img
           src="/login-bg.png"
-          alt="Login background"
+          alt={t('auth.loginBackground')}
           className="absolute inset-0 h-full w-full object-contain object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
         <div className="relative z-20 flex items-center gap-2 text-lg font-medium">
-          <img src="/favicon.png" alt="SkillForge" className="size-6" />
-          <span>Itenium SkillForge</span>
+          <img src="/favicon.png" alt={t('app.title')} className="size-6" />
+          <span>{t('app.title')}</span>
         </div>
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
@@ -113,8 +114,8 @@ export function SignIn() {
         <Card className="w-full max-w-[400px]">
           {/* Mobile logo */}
           <div className="flex items-center justify-center gap-2 pt-6 lg:hidden">
-            <img src="/favicon.png" alt="SkillForge" className="size-6" />
-            <span className="text-xl font-medium">Itenium SkillForge</span>
+            <img src="/favicon.png" alt={t('app.title')} className="size-6" />
+            <span className="text-xl font-medium">{t('app.title')}</span>
           </div>
 
           <CardHeader className="text-center">

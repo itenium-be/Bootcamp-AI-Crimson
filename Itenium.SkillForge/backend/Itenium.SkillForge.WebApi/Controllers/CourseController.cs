@@ -39,6 +39,7 @@ public class CourseController : ControllerBase
         {
             return NotFound();
         }
+
         return Ok(course);
     }
 
@@ -102,6 +103,3 @@ public class CourseController : ControllerBase
         return NoContent();
     }
 }
-
-public record CreateCourseRequest(string Name, string? Description, string? Category, string? Level);
-public record UpdateCourseRequest(string Name, string? Description, string? Category, string? Level);

@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
+    "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:local": "cross-env BACKEND_URL=https://localhost:5001 playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -68,6 +69,7 @@
     "testcontainers": "^11.11.0",
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.52.0",
-    "vite": "^6.0.0"
+    "vite": "^6.0.0",
+    "vitest": "^4.0.18"
   }
 }

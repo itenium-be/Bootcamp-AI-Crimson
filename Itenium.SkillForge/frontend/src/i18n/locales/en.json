@@ -48,7 +48,10 @@
     "enterPassword": "Enter your password",
     "welcome": "Welcome",
     "signInDescription": "Enter your credentials to sign in",
-    "invalidCredentials": "Invalid username or password"
+    "invalidCredentials": "Invalid username or password",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "loginBackground": "Login background"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -98,6 +101,12 @@
     "edit": "Edit",
     "search": "Search",
     "filter": "Filter",
-    "noResults": "No results found"
+    "noResults": "No results found",
+    "active": "Active",
+    "user": "User"
+  },
+  "errors": {
+    "sessionExpired": "Session expired!",
+    "internalServerError": "Internal Server Error!"
   }
 }

@@ -13,7 +13,7 @@ import { useAuthStore } from '@/stores';
 import { routeTree } from './routeTree.gen';
 // Styles
 import './styles.css';
-import './i18n';
+import i18n from './i18n';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,12 +47,12 @@ const queryClient = new QueryClient({
     onError: (error) => {
       if (error instanceof AxiosError) {
         if (error.response?.status === 401) {
-          toast.error('Session expired!');
+          toast.error(i18n.t('errors.sessionExpired'));
           useAuthStore.getState().logout();
           router.navigate({ to: '/sign-in', search: { redirect: router.history.location.href } });
         }
         if (error.response?.status === 500) {
-          toast.error('Internal Server Error!');
+          toast.error(i18n.t('errors.internalServerError'));
         }
       }
     },

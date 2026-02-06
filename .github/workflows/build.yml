@@ -38,6 +38,9 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
+      - name: Vulnerability scan
+        run: dotnet list package --vulnerable --include-transitive 2>&1 | tee /dev/stderr | grep -q "no vulnerable packages" || (echo "::error::Vulnerable packages found" && exit 1)
+
   frontend:
     name: Frontend Build
     runs-on: ubuntu-latest
@@ -79,6 +82,9 @@ jobs:
 
       - name: Build
         run: bun run build
+
+      - name: Vulnerability scan
+        run: bun audit --production || true
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium

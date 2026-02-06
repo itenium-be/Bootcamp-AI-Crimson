@@ -1,1 +1,7 @@
 cd Itenium.SkillForge/frontend && npx lint-staged
+
+# Backend: check formatting on staged .cs files
+if git diff --cached --name-only | grep -q '\.cs$'; then
+  cd "$OLDPWD"
+  cd Itenium.SkillForge/backend && dotnet format --verify-no-changes --no-restore
+fi

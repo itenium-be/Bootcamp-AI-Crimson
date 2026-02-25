@@ -1,11 +1,11 @@
 # Create PR with AI Code Review
 
-Create a pull request and post an AI code review to GitHub.
+Create a pull request and post an AI code review to GitHub with line-specific comments.
 
 ## Steps
 
 1. **Check branch state**
-   - Run `git status` and `git log origin/master..HEAD --oneline` to see what will be in the PR
+   - Run `git status` and `git log origin/master..HEAD --oneline` to see commits
    - If on master, stop and ask user to create a feature branch first
    - Push branch if not yet pushed: `git push -u origin HEAD`
 
@@ -29,22 +29,45 @@ Create a pull request and post an AI code review to GitHub.
    - Bugs or logic errors
    - Security issues (injection, secrets, auth)
    - Missing error handling
-   - Missing tests
    - Performance concerns
+   - Anti-patterns (e.g., `catch (Exception ex) { throw ex; }` instead of `throw;`)
 
    Be pragmatic - this is a hackathon. Flag real issues, not nitpicks.
 
-5. **Post review to GitHub**
-   Use `gh pr review --comment --body "<review>"` to post findings.
+5. **Post line-specific comments**
+   For each issue found, post a comment on the specific line:
+   ```bash
+   # Get PR number and commit SHA
+   PR_NUMBER=$(gh pr view --json number --jq '.number')
+   COMMIT_SHA=$(gh pr view --json headRefOid --jq '.headRefOid')
+   REPO=$(gh repo view --json nameWithOwner --jq '.nameWithOwner')
 
-   If no issues found:
-   ```
-   gh pr review --approve --body "AI Review: Code looks good. No blocking issues found."
+   # Post comment on specific line
+   gh api repos/$REPO/pulls/$PR_NUMBER/comments \
+     --method POST \
+     --field body="Your comment here" \
+     --field commit_id="$COMMIT_SHA" \
+     --field path="path/to/file.cs" \
+     --field line=42 \
+     --field side="RIGHT"
    ```
 
-   If issues found:
-   ```
-   gh pr review --request-changes --body "<detailed findings>"
+   Common issues to flag:
+   - `throw ex;` → "Use `throw;` to preserve stack trace"
+   - `catch (Exception) { }` → "Empty catch block swallows errors"
+   - Hardcoded secrets → "Move to configuration/environment variables"
+   - Missing null checks → "Potential NullReferenceException"
+   - SQL concatenation → "Use parameterized queries to prevent SQL injection"
+
+6. **Post summary review**
+   After line comments, post overall review:
+   ```bash
+   gh pr review --comment --body "AI Review: Found N issues - see inline comments."
    ```
 
-6. **Return the PR URL** so the user can view it.
+   Or if no issues:
+   ```bash
+   gh pr review --approve --body "AI Review: Code looks good."
+   ```
+
+7. **Return the PR URL** so the user can view it.

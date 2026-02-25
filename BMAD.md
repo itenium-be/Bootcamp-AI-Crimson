@@ -7,8 +7,7 @@ BMAD
 ## Getting Started
 
 ```ps1
-npx bmad-method install
-npx bmad init
+bunx bmad-method install
 ```
 
 ## Start BMadding

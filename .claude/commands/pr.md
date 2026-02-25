@@ -4,16 +4,33 @@ Create a pull request and post an AI code review to GitHub with line-specific co
 
 ## Steps
 
-1. **Check branch state**
-   - Run `git status` and `git log origin/master..HEAD --oneline` to see commits
-   - If on master, stop and ask user to create a feature branch first
+1. **Check for uncommitted changes**
+   - Run `git status` to check for staged/unstaged changes
+   - If there are uncommitted changes:
+     - Run `git diff` to understand what changed
+     - Ask the user if they want to commit first, suggesting a commit message based on the changes
+     - Use AskUserQuestion with options like:
+       - "Yes, commit with suggested message" (show the suggestion)
+       - "Yes, but let me provide the message"
+       - "No, I'll handle it myself"
+     - If yes, stage and commit the changes
+
+2. **Check branch state**
+   - Run `git branch --show-current` to get current branch
+   - If on master/main:
+     - Analyze the changes to suggest a branch name (e.g., `feature/add-user-auth`, `fix/login-validation`)
+     - Ask the user for the branch name using AskUserQuestion with options:
+       - The suggested branch name (recommended)
+       - "Let me type a different name"
+     - Create the branch: `git checkout -b <branch-name>`
+   - Run `git log origin/master..HEAD --oneline` to see commits for PR
    - Push branch if not yet pushed: `git push -u origin HEAD`
 
-2. **Analyze changes**
+3. **Analyze changes**
    - Run `git diff origin/master...HEAD` to see all changes
    - Understand what the PR accomplishes
 
-3. **Create the PR**
+4. **Create the PR**
    - Use `gh pr create` with a clear title and summary
    - Format body as:
      ```
@@ -24,7 +41,7 @@ Create a pull request and post an AI code review to GitHub with line-specific co
      <how to verify the changes>
      ```
 
-4. **Perform code review**
+5. **Perform code review**
    Review the diff for:
    - Bugs or logic errors
    - Security issues (injection, secrets, auth)
@@ -34,7 +51,7 @@ Create a pull request and post an AI code review to GitHub with line-specific co
 
    Be pragmatic - this is a hackathon. Flag real issues, not nitpicks.
 
-5. **Post line-specific comments**
+6. **Post line-specific comments**
    For each issue found, post a comment on the specific line:
    ```bash
    # Get PR number and commit SHA
@@ -59,7 +76,7 @@ Create a pull request and post an AI code review to GitHub with line-specific co
    - Missing null checks → "Potential NullReferenceException"
    - SQL concatenation → "Use parameterized queries to prevent SQL injection"
 
-6. **Post summary review**
+7. **Post summary review**
    After line comments, post overall review:
    ```bash
    gh pr review --comment --body "AI Review: Found N issues - see inline comments."
@@ -70,4 +87,4 @@ Create a pull request and post an AI code review to GitHub with line-specific co
    gh pr review --approve --body "AI Review: Code looks good."
    ```
 
-7. **Return the PR URL** so the user can view it.
+8. **Return the PR URL** so the user can view it.

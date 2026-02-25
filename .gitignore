@@ -1,3 +1,4 @@
 ~$Bootcamp-AI.pptx
 _bmad
-.claude
+# Claude Code - ignore local settings, keep shared config
+.claude/settings.local.json

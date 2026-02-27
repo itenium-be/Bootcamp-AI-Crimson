@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1280">
+  <title>SkillForge — Design Direction Explorations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* ── itenium Brand Palette ── */
+      --c-white: #ffffff;
+      --c-soap: #FFFAF8;          /* warm off-white background */
+      --c-soap-dark: #F5EDE6;     /* slightly deeper warm surface */
+
+      /* Neutrals — warm Dune family */
+      --c-dune: #2D2A28;          /* primary dark — replaces slate-900 */
+      --c-dune-60: #6B6460;       /* mid-dark — replaces slate-600 */
+      --c-dune-40: #9E9996;       /* muted — replaces slate-400 */
+      --c-dune-20: #D4D0CE;       /* border — replaces slate-200 */
+      --c-dune-10: #EDE9E6;       /* subtle surface — replaces slate-100 */
+
+      /* Primary action — Gold/Rust */
+      --c-gold: #E78200;          /* primary action — replaces indigo-600 */
+      --c-gold-light: #F5A83C;    /* hover / lighter gold */
+      --c-gold-bg: #FEF0DC;       /* gold tint background */
+      --c-rust: #A85C19;          /* rust — replaces indigo-700 */
+
+      /* Readiness / pending — Apricot/Sand (warm, not alarming) */
+      --c-apricot: #F29E81;       /* pending flag color */
+      --c-apricot-bg: #FEE9DF;    /* pending background */
+      --c-sand: #F1B06C;          /* aging indicator */
+
+      /* Validated / success — Leaf greens */
+      --c-leaf-dark: #2E8F6B;     /* validated — replaces emerald-600 */
+      --c-leaf: #88B488;          /* leaf accent */
+      --c-teal: #6EBCA5;          /* in-progress — replaces indigo-100 active */
+      --c-teal-bg: #E0F3EE;       /* in-progress background */
+      --c-leaf-bg: #EAF5EA;       /* validated background */
+
+      /* Legacy slate aliases (for components not yet updated) */
+      --c-slate-50: #FFFAF8;
+      --c-slate-100: #EDE9E6;
+      --c-slate-200: #D4D0CE;
+      --c-slate-300: #C0BBB8;
+      --c-slate-400: #9E9996;
+      --c-slate-500: #7A7573;
+      --c-slate-600: #6B6460;
+      --c-slate-700: #4A4542;
+      --c-slate-800: #3A3532;
+      --c-slate-900: #2D2A28;
+      --c-indigo-50: #FEF0DC;
+      --c-indigo-100: #E0F3EE;
+      --c-indigo-300: #F5A83C;
+      --c-indigo-600: #E78200;
+      --c-indigo-700: #A85C19;
+      --c-amber-100: #FEE9DF;
+      --c-amber-500: #F29E81;
+      --c-amber-800: #7A3010;
+      --c-emerald-50: #EAF5EA;
+      --c-emerald-600: #2E8F6B;
+      --c-emerald-700: #236B50;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--c-dune);
+      color: var(--c-dune);
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* Headings use Rubik (itenium brand heading font) */
+    h1, h2, h3, .d1-page-title, .d2-main .detail-title,
+    .d3-hero-title, .d4-content > div:first-child > div:first-child,
+    .d5-hero-title, .goal-skill, .d1-logo, .nav-shared-logo,
+    .d3-logo, .d4-secondary-header, .d5-logo {
+      font-family: 'Rubik', 'Inter', sans-serif;
+    }
+
+    /* ── Meta Nav ── */
+    .meta-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: var(--c-dune);
+      border-bottom: 1px solid var(--c-dune-40);
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--c-dune-40);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 6px;
+    }
+    .dir-btn {
+      padding: 5px 14px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--c-slate-700);
+      background: transparent;
+      color: var(--c-slate-400);
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .dir-btn:hover { background: var(--c-slate-800); color: var(--c-white); }
+    .dir-btn.active { background: var(--c-indigo-600); color: var(--c-white); border-color: var(--c-indigo-600); }
+
+    .meta-note {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--c-slate-500);
+      font-style: italic;
+    }
+
+    /* ── Direction Panels ── */
+    .dir-panel { display: none; margin-top: 41px; height: calc(100vh - 41px); }
+    .dir-panel.active { display: flex; }
+
+    /* ── Shared UI Atoms ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 500;
+    }
+    .badge-validated { background: var(--c-emerald-50); color: var(--c-emerald-700); }
+    .badge-pending   { background: var(--c-amber-100);  color: var(--c-amber-800); }
+    .badge-progress  { background: var(--c-teal-bg); color: var(--c-leaf-dark); }
+    .badge-locked    { background: var(--c-slate-100);  color: var(--c-slate-500); }
+
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+    .dot-validated { background: var(--c-emerald-600); }
+    .dot-pending   { background: var(--c-amber-500); }
+    .dot-progress  { background: var(--c-teal); }
+    .dot-locked    { background: var(--c-slate-300); }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 6px;
+      background: var(--c-gold); color: var(--c-white);
+      font-size: 13px; font-weight: 500; border: none; cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 6px;
+      background: transparent; color: var(--c-slate-600);
+      font-size: 13px; font-weight: 500;
+      border: 1px solid var(--c-slate-200); cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-flag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 6px;
+      background: var(--c-amber-100); color: var(--c-amber-800);
+      font-size: 12px; font-weight: 500; border: none; cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ════════════════════════════════════════════
+       DIRECTION 1 — Sidebar + Card Grid (Recommended)
+    ════════════════════════════════════════════ */
+    .d1 { background: var(--c-soap); }
+
+    /* Sidebar */
+    .d1-sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--c-dune);
+      border-right: none;
+      display: flex; flex-direction: column;
+      padding: 0;
+    }
+    .d1-logo {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 15px; font-weight: 700; color: var(--c-gold);
+      letter-spacing: -0.02em;
+    }
+    .d1-logo span { color: rgba(255,250,248,0.5); font-weight: 400; font-size: 12px; display: block; margin-top: 1px; }
+    .d1-nav { padding: 12px 8px; flex: 1; }
+    .d1-nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 6px;
+      font-size: 13px; font-weight: 500; color: rgba(255,250,248,0.7);
+      margin-bottom: 1px; cursor: pointer;
+    }
+    .d1-nav-item:hover { background: #494949; color: var(--c-soap); }
+    .d1-nav-item.active { background: rgba(231,130,0,0.2); color: var(--c-gold); }
+    .d1-nav-item .icon { font-size: 15px; width: 18px; text-align: center; }
+    .d1-nav-section { font-size: 10px; font-weight: 600; color: rgba(255,250,248,0.4); text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 12px 4px; margin-top: 8px; }
+
+    .d1-user {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--c-gold-bg); color: var(--c-rust);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600; flex-shrink: 0;
+    }
+    .d1-user-info { font-size: 12px; }
+    .d1-user-name { font-weight: 600; color: var(--c-soap); }
+    .d1-user-role { color: rgba(255,250,248,0.5); }
+
+    /* Main area */
+    .d1-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    .d1-topbar {
+      background: var(--c-white);
+      border-bottom: 1px solid var(--c-slate-200);
+      padding: 0 24px;
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .d1-topbar-left { display: flex; align-items: center; gap: 8px; }
+    .d1-page-title { font-size: 16px; font-weight: 700; color: var(--c-slate-900); }
+    .d1-breadcrumb { font-size: 12px; color: var(--c-slate-400); }
+    .d1-topbar-right { display: flex; align-items: center; gap: 8px; }
+
+    .d1-content { flex: 1; overflow-y: auto; padding: 24px; }
+
+    /* Seniority bar */
+    .seniority-bar {
+      background: var(--c-white);
+      border: 1px solid var(--c-slate-200);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .seniority-label { font-size: 12px; color: var(--c-slate-500); }
+    .seniority-level { font-size: 14px; font-weight: 600; color: var(--c-slate-900); }
+    .seniority-track {
+      flex: 1; height: 6px; background: var(--c-slate-100); border-radius: 99px; overflow: hidden;
+    }
+    .seniority-fill {
+      height: 100%; background: var(--c-gold); border-radius: 99px;
+    }
+    .seniority-count { font-size: 13px; font-weight: 600; color: var(--c-slate-700); }
+
+    /* Goal cards grid */
+    .goals-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .goals-title { font-size: 13px; font-weight: 600; color: var(--c-slate-700); }
+    .show-all { font-size: 12px; color: var(--c-gold); cursor: pointer; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .goal-card {
+      background: var(--c-white);
+      border: 1px solid var(--c-slate-200);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+    .goal-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .goal-card.in-progress { border-left: 3px solid var(--c-teal); }
+    .goal-card.validated { border-left: 3px solid var(--c-emerald-600); background: var(--c-emerald-50); }
+    .goal-card.pending-flag { border-left: 3px solid var(--c-amber-500); }
+
+    .goal-card-header { display: flex; align-items: flex-start; justify-content: space-between; }
+    .goal-skill { font-size: 14px; font-weight: 600; color: var(--c-slate-900); }
+    .goal-niveau { font-size: 11px; color: var(--c-slate-500); margin-top: 2px; }
+    .goal-meta { margin-top: auto; font-size: 11px; color: var(--c-slate-400); }
+    .goal-resources { font-size: 11px; color: var(--c-slate-500); display: flex; align-items: center; gap: 4px; }
+    .goal-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .goal-setby { font-size: 11px; color: var(--c-slate-400); }
+
+    /* Annotation overlay */
+    .annotation {
+      position: absolute;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #92400e;
+      pointer-events: none;
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════════════
+       DIRECTION 2 — Sidebar + Vertical Skill Tree
+    ════════════════════════════════════════════ */
+    .d2 { background: var(--c-soap); }
+    .d2-layout { display: flex; width: 100%; height: 100%; }
+    .d2-sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--c-dune);
+      border-right: none;
+      display: flex; flex-direction: column;
+    }
+    .d2-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .d2-topbar {
+      height: 52px; padding: 0 24px;
+      background: var(--c-white);
+      border-bottom: 1px solid var(--c-slate-200);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .d2-content { flex: 1; overflow-y: auto; padding: 24px; display: flex; gap: 20px; }
+
+    /* Skill tree */
+    .skill-tree { width: 340px; flex-shrink: 0; }
+    .skill-area { margin-bottom: 16px; }
+    .skill-area-header {
+      font-size: 11px; font-weight: 600; color: var(--c-slate-400);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0 0 8px; border-bottom: 1px solid var(--c-slate-100); margin-bottom: 8px;
+    }
+    .skill-node {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 6px;
+      cursor: pointer; margin-bottom: 2px;
+      transition: background 0.1s;
+    }
+    .skill-node:hover { background: var(--c-slate-50); }
+    .skill-node.active { background: var(--c-indigo-50); }
+    .skill-node-icon { font-size: 14px; width: 20px; text-align: center; }
+    .skill-node-info { flex: 1; }
+    .skill-node-name { font-size: 13px; font-weight: 500; color: var(--c-slate-800); }
+    .skill-node-sub { font-size: 11px; color: var(--c-slate-400); }
+    .skill-node-badge { flex-shrink: 0; }
+
+    /* Detail panel */
+    .detail-panel {
+      flex: 1;
+      background: var(--c-white);
+      border: 1px solid var(--c-slate-200);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .detail-title { font-size: 18px; font-weight: 700; color: var(--c-slate-900); margin-bottom: 4px; }
+    .detail-meta { font-size: 12px; color: var(--c-slate-400); margin-bottom: 16px; display: flex; gap: 12px; }
+    .detail-section { margin-bottom: 16px; }
+    .detail-section-label { font-size: 11px; font-weight: 600; color: var(--c-slate-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .resource-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border: 1px solid var(--c-slate-200); border-radius: 6px;
+      margin-bottom: 6px; cursor: pointer;
+    }
+    .resource-item:hover { background: var(--c-slate-50); }
+    .resource-icon { font-size: 16px; }
+    .resource-title { font-size: 13px; font-weight: 500; color: var(--c-slate-800); }
+    .resource-type { font-size: 11px; color: var(--c-slate-400); }
+
+    /* ════════════════════════════════════════════
+       DIRECTION 3 — Top Nav + Full Width Content
+    ════════════════════════════════════════════ */
+    .d3 { background: var(--c-soap); flex-direction: column; }
+    .d3-header {
+      background: var(--c-white);
+      border-bottom: 1px solid var(--c-slate-200);
+      padding: 0 32px;
+      display: flex; align-items: center; gap: 0;
+      height: 56px; flex-shrink: 0;
+    }
+    .d3-logo { font-size: 15px; font-weight: 700; color: var(--c-gold); margin-right: 32px; letter-spacing: -0.02em; }
+    .d3-nav { display: flex; gap: 0; height: 100%; }
+    .d3-nav-item {
+      display: flex; align-items: center;
+      padding: 0 16px; font-size: 13px; font-weight: 500;
+      color: var(--c-slate-500); cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .d3-nav-item.active { color: var(--c-gold); border-bottom-color: var(--c-gold); }
+    .d3-nav-item:hover { color: var(--c-slate-800); }
+    .d3-header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+
+    .d3-content { flex: 1; overflow-y: auto; padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
+    .d3-hero {
+      margin-bottom: 28px;
+    }
+    .d3-hero-title { font-size: 22px; font-weight: 700; color: var(--c-slate-900); margin-bottom: 4px; }
+    .d3-hero-sub { font-size: 14px; color: var(--c-slate-500); }
+
+    .d3-seniority {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--c-white); border: 1px solid var(--c-slate-200);
+      border-radius: 8px; padding: 14px 20px; margin-bottom: 24px;
+    }
+
+    .d3-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    /* ════════════════════════════════════════════
+       DIRECTION 4 — VS Code Activity Bar Layout
+    ════════════════════════════════════════════ */
+    .d4 { background: var(--c-dune); }
+    .d4-activity {
+      width: 48px; flex-shrink: 0;
+      background: var(--c-dune);
+      border-right: 1px solid var(--c-dune-40);
+      display: flex; flex-direction: column; align-items: center;
+      padding: 8px 0;
+      gap: 2px;
+    }
+    .d4-act-btn {
+      width: 40px; height: 40px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; cursor: pointer; color: var(--c-slate-400);
+      border: none; background: transparent;
+      transition: all 0.1s;
+    }
+    .d4-act-btn.active { background: var(--c-slate-700); color: var(--c-white); }
+    .d4-act-btn:hover { color: var(--c-white); }
+    .d4-act-spacer { flex: 1; }
+    .d4-act-bottom { margin-top: auto; }
+
+    .d4-secondary {
+      width: 240px; flex-shrink: 0;
+      background: var(--c-dune-10);
+      border-right: 1px solid var(--c-dune-20);
+      display: flex; flex-direction: column;
+    }
+    .d4-secondary-header {
+      padding: 10px 14px 8px;
+      font-size: 10px; font-weight: 700; color: var(--c-slate-400);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .d4-tree-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 14px; font-size: 12px; font-weight: 400;
+      color: var(--c-dune-60); cursor: pointer;
+    }
+    .d4-tree-item.active { background: var(--c-gold); color: var(--c-white); }
+    .d4-tree-item:hover:not(.active) { background: var(--c-dune-20); }
+    .d4-tree-group { padding: 8px 14px 4px; font-size: 10px; font-weight: 700; color: var(--c-dune-40); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .d4-main {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--c-white);
+    }
+    .d4-topbar {
+      height: 35px; padding: 0 16px;
+      background: var(--c-slate-50);
+      border-bottom: 1px solid var(--c-slate-200);
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
+    }
+    .d4-tab {
+      padding: 0 12px; height: 35px;
+      display: flex; align-items: center;
+      font-size: 12px; color: var(--c-slate-500);
+      border-right: 1px solid var(--c-slate-200);
+      cursor: pointer;
+    }
+    .d4-tab.active { background: var(--c-white); color: var(--c-slate-800); font-weight: 500; }
+    .d4-content { flex: 1; overflow-y: auto; padding: 20px 24px; }
+    .d4-statusbar {
+      height: 22px; background: var(--c-gold);
+      padding: 0 12px;
+      display: flex; align-items: center; gap: 16px;
+      flex-shrink: 0;
+    }
+    .d4-status-item { font-size: 11px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px; }
+
+    /* ════════════════════════════════════════════
+       DIRECTION 5 — Minimal Centered Single Column
+    ════════════════════════════════════════════ */
+    .d5 { background: var(--c-soap-dark); flex-direction: column; }
+    .d5-topbar {
+      background: var(--c-white);
+      border-bottom: 1px solid var(--c-slate-200);
+      height: 52px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .d5-logo { font-size: 15px; font-weight: 700; color: var(--c-gold); letter-spacing: -0.02em; }
+    .d5-topnav { display: flex; gap: 4px; }
+    .d5-nav-pill {
+      padding: 5px 12px; border-radius: 6px; font-size: 13px; font-weight: 500;
+      color: var(--c-slate-500); cursor: pointer;
+    }
+    .d5-nav-pill.active { background: var(--c-gold-bg); color: var(--c-rust); }
+    .d5-content {
+      flex: 1; overflow-y: auto;
+      padding: 32px 24px;
+      display: flex; justify-content: center;
+    }
+    .d5-inner { width: 100%; max-width: 840px; }
+    .d5-hero { margin-bottom: 24px; }
+    .d5-hero-title { font-size: 20px; font-weight: 700; color: var(--c-slate-900); margin-bottom: 2px; }
+    .d5-hero-sub { font-size: 13px; color: var(--c-slate-400); }
+
+    .d5-seniority {
+      background: var(--c-white); border: 1px solid var(--c-slate-200);
+      border-radius: 8px; padding: 12px 16px;
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+
+    .d5-section-title { font-size: 12px; font-weight: 600; color: var(--c-slate-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+    .d5-card {
+      background: var(--c-white); border: 1px solid var(--c-slate-200);
+      border-radius: 8px; padding: 16px; margin-bottom: 10px;
+      display: flex; align-items: flex-start; gap: 14px; cursor: pointer;
+    }
+    .d5-card:hover { box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+    .d5-card-state { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .d5-card-state.in-progress { background: var(--c-indigo-100); }
+    .d5-card-state.pending { background: var(--c-amber-100); }
+    .d5-card-state.validated { background: var(--c-emerald-50); }
+    .d5-card-body { flex: 1; }
+    .d5-card-title { font-size: 14px; font-weight: 600; color: var(--c-slate-900); margin-bottom: 2px; }
+    .d5-card-meta { font-size: 12px; color: var(--c-slate-400); }
+    .d5-card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+    /* ── Direction Labels ── */
+    .dir-label-bar {
+      background: var(--c-slate-800);
+      border-bottom: 1px solid var(--c-slate-700);
+      padding: 6px 20px;
+      display: flex; align-items: center; gap: 12px;
+      flex-shrink: 0;
+    }
+    .dir-label-name { font-size: 12px; font-weight: 600; color: var(--c-white); }
+    .dir-label-desc { font-size: 11px; color: var(--c-slate-400); }
+    .dir-label-rec {
+      margin-left: auto; font-size: 10px; font-weight: 600;
+      background: var(--c-gold); color: var(--c-white);
+      padding: 2px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+
+    /* Wrappers with label bars */
+    .dir-wrapper { display: flex; flex-direction: column; width: 100%; height: 100%; }
+    .dir-inner { flex: 1; display: flex; overflow: hidden; }
+
+    /* Shared nav reuse for d2 */
+    .nav-shared-logo { padding: 16px 20px 12px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 15px; font-weight: 700; color: var(--c-gold); letter-spacing: -0.02em; }
+    .nav-shared-logo span { color: rgba(255,250,248,0.5); font-weight: 400; font-size: 12px; display: block; margin-top: 1px; }
+    .nav-shared-nav { padding: 12px 8px; flex: 1; }
+    .nav-shared-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; color: rgba(255,250,248,0.7); margin-bottom: 1px; cursor: pointer; }
+    .nav-shared-item:hover { background: #494949; color: var(--c-soap); }
+    .nav-shared-item.active { background: rgba(231,130,0,0.2); color: var(--c-gold); }
+    .nav-shared-item .icon { font-size: 15px; width: 18px; text-align: center; }
+    .nav-shared-section { font-size: 10px; font-weight: 600; color: rgba(255,250,248,0.4); text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 12px 4px; margin-top: 8px; }
+    .nav-shared-user { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; }
+    .nav-shared-user-info { font-size: 12px; }
+    .nav-shared-user-name { font-weight: 600; color: var(--c-soap); }
+    .nav-shared-user-role { color: rgba(255,250,248,0.5); }
+
+  </style>
+</head>
+<body>
+
+<!-- Meta navigation -->
+<div class="meta-nav">
+  <span class="meta-label">SkillForge — Design Directions</span>
+  <button class="dir-btn active" onclick="showDir(1, this)">1 · Sidebar + Card Grid</button>
+  <button class="dir-btn" onclick="showDir(2, this)">2 · Sidebar + Skill Tree</button>
+  <button class="dir-btn" onclick="showDir(3, this)">3 · Top Nav + Full Width</button>
+  <button class="dir-btn" onclick="showDir(4, this)">4 · VS Code Activity Bar</button>
+  <button class="dir-btn" onclick="showDir(5, this)">5 · Minimal Single Column</button>
+  <span class="meta-note">Showing: Consultant Roadmap view · Lea (learner role)</span>
+</div>
+
+<!-- ════════════════════════════════════
+     DIRECTION 1 — Sidebar + Card Grid
+════════════════════════════════════ -->
+<div class="dir-panel active" id="dir-1">
+  <div class="dir-wrapper">
+    <div class="dir-label-bar">
+      <span class="dir-label-name">Direction 1 — Sidebar + Card Grid</span>
+      <span class="dir-label-desc">Fixed 240px sidebar · Card grid roadmap · Ambient seniority bar · Closest to Linear/GitHub feel</span>
+      <span class="dir-label-rec">★ Recommended</span>
+    </div>
+    <div class="dir-inner">
+      <!-- Sidebar -->
+      <div class="d1-sidebar">
+        <div class="d1-logo">SkillForge <span>itenium</span></div>
+        <div class="d1-nav">
+          <div class="d1-nav-item active">
+            <span class="icon">🗺</span> My Roadmap
+          </div>
+          <div class="d1-nav-item">
+            <span class="icon">🎯</span> Goals
+          </div>
+          <div class="d1-nav-item">
+            <span class="icon">📚</span> Resources
+          </div>
+          <div class="d1-nav-section">Activity</div>
+          <div class="d1-nav-item">
+            <span class="icon">⏱</span> Recent
+          </div>
+        </div>
+        <div class="d1-user">
+          <div class="avatar">LD</div>
+          <div class="d1-user-info">
+            <div class="d1-user-name">Lea Dubois</div>
+            <div class="d1-user-role">Consultant · learner</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main area -->
+      <div class="d1-main">
+        <div class="d1-topbar">
+          <div class="d1-topbar-left">
+            <span class="d1-page-title">Lea's Roadmap</span>
+            <span class="d1-breadcrumb" style="margin-left:8px;color:var(--c-slate-300)">·</span>
+            <span class="d1-breadcrumb">Medior track</span>
+          </div>
+          <div class="d1-topbar-right">
+            <button class="btn-ghost" style="font-size:12px;padding:5px 10px;">Show all skills</button>
+          </div>
+        </div>
+
+        <div class="d1-content">
+          <!-- Seniority -->
+          <div class="seniority-bar">
+            <div>
+              <div class="seniority-label">Current seniority</div>
+              <div class="seniority-level">Medior</div>
+            </div>
+            <div class="seniority-track" style="flex:1">
+              <div class="seniority-fill" style="width:78%"></div>
+            </div>
+            <div class="seniority-count">14 / 18</div>
+            <div style="font-size:11px;color:var(--c-slate-400)">skills validated</div>
+          </div>
+
+          <!-- Active goals -->
+          <div class="goals-header">
+            <span class="goals-title">Active goals · set by your coach</span>
+            <span class="show-all">Show all 24 skills →</span>
+          </div>
+
+          <div class="cards-grid">
+            <!-- Card 1 - in progress -->
+            <div class="goal-card in-progress">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">React Patterns</div>
+                  <div class="goal-niveau">Junior → Medior</div>
+                </div>
+                <span class="badge badge-progress"><span class="dot dot-progress"></span>In progress</span>
+              </div>
+              <div class="goal-resources">📄 3 resources linked</div>
+              <div class="goal-card-footer">
+                <span class="goal-setby">Set by Nathalie · 12 days ago</span>
+                <button class="btn-flag">I'm ready 🚩</button>
+              </div>
+            </div>
+
+            <!-- Card 2 - readiness flag raised -->
+            <div class="goal-card pending-flag">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">Testing Practices</div>
+                  <div class="goal-niveau">Junior → Medior</div>
+                </div>
+                <span class="badge badge-pending"><span class="dot dot-pending"></span>Flag raised</span>
+              </div>
+              <div class="goal-resources">📄 2 resources linked</div>
+              <div class="goal-card-footer">
+                <span class="goal-setby">Raised 3 days ago</span>
+                <span style="font-size:11px;color:var(--c-slate-400)">Awaiting Nathalie</span>
+              </div>
+            </div>
+
+            <!-- Card 3 - validated -->
+            <div class="goal-card validated">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">TypeScript</div>
+                  <div class="goal-niveau">Validated at Medior</div>
+                </div>
+                <span class="badge badge-validated"><span class="dot dot-validated"></span>Validated</span>
+              </div>
+              <div class="goal-resources" style="color:var(--c-emerald-600)">✓ All resources completed</div>
+              <div class="goal-card-footer">
+                <span class="goal-setby" style="color:var(--c-emerald-700)">Validated by Nathalie · Mar 12</span>
+              </div>
+            </div>
+
+            <!-- Card 4 - in progress -->
+            <div class="goal-card in-progress">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">Code Review</div>
+                  <div class="goal-niveau">Junior → Medior</div>
+                </div>
+                <span class="badge badge-progress"><span class="dot dot-progress"></span>In progress</span>
+              </div>
+              <div class="goal-resources">📄 1 resource linked</div>
+              <div class="goal-card-footer">
+                <span class="goal-setby">Set by Nathalie · 5 days ago</span>
+                <button class="btn-flag">I'm ready 🚩</button>
+              </div>
+            </div>
+
+            <!-- Card 5 - locked -->
+            <div class="goal-card" style="opacity:0.6">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">Architecture Design</div>
+                  <div class="goal-niveau">Medior → Senior</div>
+                </div>
+                <span class="badge badge-locked"><span class="dot dot-locked"></span>Locked</span>
+              </div>
+              <div style="font-size:11px;background:var(--c-amber-100);color:var(--c-amber-800);padding:6px 8px;border-radius:4px;">
+                You can explore this — prerequisite not yet met
+              </div>
+              <div class="goal-card-footer">
+                <span class="goal-setby">Needs: Code Review at Medior</span>
+              </div>
+            </div>
+
+            <!-- Card 6 - validated -->
+            <div class="goal-card validated">
+              <div class="goal-card-header">
+                <div>
+                  <div class="goal-skill">Git & CI/CD</div>
+                  <div class="goal-niveau">Validated at Medior</div>
+                </div>
+                <span class="badge badge-validated"><span class="dot dot-validated"></span>Validated</span>
+              </div>
+              <div class="goal-resources" style="color:var(--c-emerald-600)">✓ All resources completed</div>
+              <div class="goal-card-footer">
+                <span class="goal-setby" style="color:var(--c-emerald-700)">Validated by Nathalie · Feb 28</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DIRECTION 2 — Sidebar + Skill Tree + Detail Panel
+════════════════════════════════════ -->
+<div class="dir-panel" id="dir-2">
+  <div class="dir-wrapper">
+    <div class="dir-label-bar">
+      <span class="dir-label-name">Direction 2 — Sidebar + Skill Tree + Detail Panel</span>
+      <span class="dir-label-desc">VS Code Explorer feel · Skill dependency tree on left · Selected skill detail on right · Good for viewing full skill graph</span>
+    </div>
+    <div class="dir-inner">
+      <!-- Sidebar -->
+      <div class="d2-sidebar">
+        <div class="nav-shared-logo">SkillForge <span>itenium</span></div>
+        <div class="nav-shared-nav">
+          <div class="nav-shared-item active"><span class="icon">🗺</span> My Roadmap</div>
+          <div class="nav-shared-item"><span class="icon">🎯</span> Goals</div>
+          <div class="nav-shared-item"><span class="icon">📚</span> Resources</div>
+          <div class="nav-shared-section">Activity</div>
+          <div class="nav-shared-item"><span class="icon">⏱</span> Recent</div>
+        </div>
+        <div class="nav-shared-user">
+          <div class="avatar">LD</div>
+          <div class="nav-shared-user-info">
+            <div class="nav-shared-user-name">Lea Dubois</div>
+            <div class="nav-shared-user-role">Consultant · learner</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="d2-main">
+        <div class="d2-topbar">
+          <span style="font-size:16px;font-weight:700;color:var(--c-slate-900)">Lea's Roadmap</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+            <div class="seniority-bar" style="margin:0;padding:6px 12px;gap:10px;">
+              <div style="font-size:12px;color:var(--c-slate-500)">Medior</div>
+              <div class="seniority-track" style="width:100px">
+                <div class="seniority-fill" style="width:78%"></div>
+              </div>
+              <div style="font-size:12px;font-weight:600;color:var(--c-slate-700)">14/18</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d2-content">
+          <!-- Skill tree -->
+          <div class="skill-tree">
+            <div class="skill-area">
+              <div class="skill-area-header">Frontend</div>
+              <div class="skill-node">
+                <span class="skill-node-icon">✅</span>
+                <div class="skill-node-info"><div class="skill-node-name">TypeScript</div><div class="skill-node-sub">Validated Medior</div></div>
+                <span class="badge badge-validated" style="font-size:10px">✓</span>
+              </div>
+              <div class="skill-node active">
+                <span class="skill-node-icon">🔵</span>
+                <div class="skill-node-info"><div class="skill-node-name">React Patterns</div><div class="skill-node-sub">In progress · 🚩 ready?</div></div>
+                <span class="badge badge-progress" style="font-size:10px">→</span>
+              </div>
+              <div class="skill-node">
+                <span class="skill-node-icon">✅</span>
+                <div class="skill-node-info"><div class="skill-node-name">Git & CI/CD</div><div class="skill-node-sub">Validated Medior</div></div>
+                <span class="badge badge-validated" style="font-size:10px">✓</span>
+              </div>
+            </div>
+            <div class="skill-area">
+              <div class="skill-area-header">Quality</div>
+              <div class="skill-node">
+                <span class="skill-node-icon">🟡</span>
+                <div class="skill-node-info"><div class="skill-node-name">Testing Practices</div><div class="skill-node-sub">Flag raised 3 days ago</div></div>
+                <span class="badge badge-pending" style="font-size:10px">🚩</span>
+              </div>
+              <div class="skill-node">
+                <span class="skill-node-icon">🔵</span>
+                <div class="skill-node-info"><div class="skill-node-name">Code Review</div><div class="skill-node-sub">In progress</div></div>
+                <span class="badge badge-progress" style="font-size:10px">→</span>
+              </div>
+              <div class="skill-node">
+                <span class="skill-node-icon">🔒</span>
+                <div class="skill-node-info"><div class="skill-node-name">Architecture Design</div><div class="skill-node-sub">Locked · needs Code Review</div></div>
+                <span class="badge badge-locked" style="font-size:10px">🔒</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail panel -->
+          <div class="detail-panel">
+            <div class="detail-title">React Patterns</div>
+            <div class="detail-meta">
+              <span>Junior → Medior</span>
+              <span>·</span>
+              <span>Set by Nathalie · 12 days ago</span>
+              <span>·</span>
+              <span class="badge badge-progress">In progress</span>
+            </div>
+
+            <div class="detail-section">
+              <div class="detail-section-label">Resources</div>
+              <div class="resource-item">
+                <span class="resource-icon">📖</span>
+                <div><div class="resource-title">Patterns.dev — Modern React</div><div class="resource-type">Article · ~45 min</div></div>
+                <span class="badge badge-validated" style="margin-left:auto">Done</span>
+              </div>
+              <div class="resource-item">
+                <span class="resource-icon">🎥</span>
+                <div><div class="resource-title">React Advanced Patterns (talk)</div><div class="resource-type">Video · 32 min</div></div>
+                <span class="badge badge-progress" style="margin-left:auto">In progress</span>
+              </div>
+              <div class="resource-item">
+                <span class="resource-icon">📖</span>
+                <div><div class="resource-title">Internal practice exercise</div><div class="resource-type">Exercise · itenium</div></div>
+                <span class="badge badge-locked" style="margin-left:auto">Not started</span>
+              </div>
+            </div>
+
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--c-slate-100);display:flex;gap:8px;">
+              <button class="btn-primary">🚩 I'm ready</button>
+              <button class="btn-ghost">View notes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DIRECTION 3 — Top Nav + Full Width
+════════════════════════════════════ -->
+<div class="dir-panel" id="dir-3">
+  <div class="dir-wrapper">
+    <div class="dir-label-bar">
+      <span class="dir-label-name">Direction 3 — Top Navigation + Full Width Content</span>
+      <span class="dir-label-desc">Horizontal role tabs · More editorial/document feel · Max-width centered content · Notion-influenced</span>
+    </div>
+    <div class="d3" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="d3-header">
+        <div class="d3-logo">SkillForge</div>
+        <div class="d3-nav">
+          <div class="d3-nav-item active">My Roadmap</div>
+          <div class="d3-nav-item">Goals</div>
+          <div class="d3-nav-item">Resources</div>
+          <div class="d3-nav-item">Activity</div>
+        </div>
+        <div class="d3-header-right">
+          <div class="avatar">LD</div>
+          <span style="font-size:13px;font-weight:500;color:var(--c-slate-700)">Lea Dubois</span>
+        </div>
+      </div>
+
+      <div class="d3-content" style="overflow-y:auto;flex:1;">
+        <div class="d3-hero">
+          <div class="d3-hero-title">Lea's Roadmap</div>
+          <div class="d3-hero-sub">Your coach Nathalie has set 3 active goals for you</div>
+        </div>
+
+        <div class="d3-seniority">
+          <div>
+            <div style="font-size:11px;color:var(--c-slate-400)">Seniority</div>
+            <div style="font-size:14px;font-weight:600">Medior</div>
+          </div>
+          <div class="seniority-track" style="flex:1">
+            <div class="seniority-fill" style="width:78%"></div>
+          </div>
+          <div style="font-size:13px;font-weight:600;color:var(--c-slate-700)">14 / 18 skills validated</div>
+          <button class="btn-ghost" style="font-size:12px;padding:5px 10px;">Show all skills</button>
+        </div>
+
+        <div style="font-size:12px;font-weight:600;color:var(--c-slate-500);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Active goals</div>
+
+        <div class="d3-cards">
+          <div class="goal-card in-progress">
+            <div class="goal-card-header">
+              <div><div class="goal-skill">React Patterns</div><div class="goal-niveau">Junior → Medior</div></div>
+              <span class="badge badge-progress"><span class="dot dot-progress"></span>In progress</span>
+            </div>
+            <div class="goal-resources">📄 3 resources linked</div>
+            <div class="goal-card-footer">
+              <span class="goal-setby">Set by Nathalie</span>
+              <button class="btn-flag">I'm ready 🚩</button>
+            </div>
+          </div>
+          <div class="goal-card pending-flag">
+            <div class="goal-card-header">
+              <div><div class="goal-skill">Testing Practices</div><div class="goal-niveau">Junior → Medior</div></div>
+              <span class="badge badge-pending"><span class="dot dot-pending"></span>Flag raised</span>
+            </div>
+            <div class="goal-resources">📄 2 resources linked</div>
+            <div class="goal-card-footer">
+              <span class="goal-setby">Raised 3 days ago</span>
+              <span style="font-size:11px;color:var(--c-slate-400)">Awaiting Nathalie</span>
+            </div>
+          </div>
+          <div class="goal-card validated">
+            <div class="goal-card-header">
+              <div><div class="goal-skill">TypeScript</div><div class="goal-niveau">Validated at Medior</div></div>
+              <span class="badge badge-validated"><span class="dot dot-validated"></span>Validated</span>
+            </div>
+            <div class="goal-resources" style="color:var(--c-emerald-600)">✓ All resources completed</div>
+            <div class="goal-card-footer">
+              <span class="goal-setby" style="color:var(--c-emerald-700)">Validated by Nathalie · Mar 12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DIRECTION 4 — VS Code Activity Bar
+════════════════════════════════════ -->
+<div class="dir-panel" id="dir-4">
+  <div class="dir-wrapper">
+    <div class="dir-label-bar">
+      <span class="dir-label-name">Direction 4 — VS Code Activity Bar Layout</span>
+      <span class="dir-label-desc">48px icon strip · 240px secondary panel · Main content · Status bar · Supports Live Session Mode naturally</span>
+    </div>
+    <div class="dir-inner">
+      <!-- Activity bar -->
+      <div class="d4-activity">
+        <button class="d4-act-btn active" title="Roadmap">🗺</button>
+        <button class="d4-act-btn" title="Goals">🎯</button>
+        <button class="d4-act-btn" title="Resources">📚</button>
+        <button class="d4-act-btn" title="Activity">⏱</button>
+        <div class="d4-act-spacer"></div>
+        <button class="d4-act-btn" title="Session Mode">⚡</button>
+        <div class="avatar" style="margin:8px 0;">LD</div>
+      </div>
+
+      <!-- Secondary panel -->
+      <div class="d4-secondary">
+        <div class="d4-secondary-header">
+          <span>ROADMAP</span>
+        </div>
+        <div class="d4-tree-group">Active Goals</div>
+        <div class="d4-tree-item active">🔵 React Patterns</div>
+        <div class="d4-tree-item">🟡 Testing Practices</div>
+        <div class="d4-tree-item">🔵 Code Review</div>
+        <div class="d4-tree-group">Validated</div>
+        <div class="d4-tree-item">✅ TypeScript</div>
+        <div class="d4-tree-item">✅ Git & CI/CD</div>
+        <div class="d4-tree-group">Locked</div>
+        <div class="d4-tree-item" style="opacity:0.5">🔒 Architecture Design</div>
+      </div>
+
+      <!-- Main content -->
+      <div class="d4-main">
+        <div class="d4-topbar">
+          <div class="d4-tab active">React Patterns</div>
+          <div class="d4-tab">Testing Practices</div>
+        </div>
+
+        <div class="d4-content">
+          <div style="margin-bottom:16px;">
+            <div style="font-size:18px;font-weight:700;color:var(--c-slate-900);margin-bottom:4px;">React Patterns</div>
+            <div style="display:flex;gap:12px;font-size:12px;color:var(--c-slate-400);margin-bottom:12px;">
+              <span>Junior → Medior</span>
+              <span>·</span>
+              <span>Set by Nathalie · 12 days ago</span>
+              <span>·</span>
+              <span class="badge badge-progress">In progress</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:600;color:var(--c-slate-400);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Resources</div>
+            <div class="resource-item"><span class="resource-icon">📖</span><div><div class="resource-title">Patterns.dev — Modern React</div><div class="resource-type">Article · ~45 min</div></div><span class="badge badge-validated" style="margin-left:auto">Done</span></div>
+            <div class="resource-item"><span class="resource-icon">🎥</span><div><div class="resource-title">React Advanced Patterns (talk)</div><div class="resource-type">Video · 32 min</div></div><span class="badge badge-progress" style="margin-left:auto">In progress</span></div>
+            <div class="resource-item"><span class="resource-icon">📖</span><div><div class="resource-title">Internal practice exercise</div><div class="resource-type">Exercise</div></div><span class="badge badge-locked" style="margin-left:auto">Not started</span></div>
+          </div>
+
+          <div style="padding-top:16px;border-top:1px solid var(--c-slate-100);display:flex;gap:8px;">
+            <button class="btn-primary">🚩 I'm ready</button>
+            <button class="btn-ghost">View notes</button>
+          </div>
+        </div>
+
+        <!-- Status bar -->
+        <div class="d4-statusbar">
+          <div class="d4-status-item">⬆ Lea Dubois</div>
+          <div class="d4-status-item">🎯 Medior track</div>
+          <div class="d4-status-item">▓▓▓▓▓▓▓▓▓░ 14/18</div>
+          <div class="d4-status-item" style="margin-left:auto">3 active goals</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DIRECTION 5 — Minimal Centered Single Column
+════════════════════════════════════ -->
+<div class="dir-panel" id="dir-5">
+  <div class="dir-wrapper">
+    <div class="dir-label-bar">
+      <span class="dir-label-name">Direction 5 — Minimal Single Column</span>
+      <span class="dir-label-desc">Simple top bar · Centered max-width content · One goal per row · Most focused / least information density</span>
+    </div>
+    <div class="d5" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+      <div class="d5-topbar">
+        <div class="d5-logo">SkillForge</div>
+        <div class="d5-topnav">
+          <div class="d5-nav-pill active">Roadmap</div>
+          <div class="d5-nav-pill">Goals</div>
+          <div class="d5-nav-pill">Resources</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="avatar">LD</div>
+          <span style="font-size:13px;font-weight:500;color:var(--c-slate-700)">Lea Dubois</span>
+        </div>
+      </div>
+
+      <div class="d5-content">
+        <div class="d5-inner">
+          <div class="d5-hero">
+            <div class="d5-hero-title">Lea's Roadmap</div>
+            <div class="d5-hero-sub">Nathalie has set 3 goals for you · Medior track</div>
+          </div>
+
+          <div class="d5-seniority">
+            <div>
+              <div style="font-size:11px;color:var(--c-slate-400)">Seniority</div>
+              <div style="font-size:14px;font-weight:600">Medior</div>
+            </div>
+            <div class="seniority-track" style="flex:1">
+              <div class="seniority-fill" style="width:78%"></div>
+            </div>
+            <div style="font-size:13px;font-weight:600;color:var(--c-slate-700)">14 / 18</div>
+            <span style="font-size:11px;color:var(--c-slate-400)">Show all →</span>
+          </div>
+
+          <div class="d5-section-title">Active goals</div>
+
+          <div class="d5-card">
+            <div class="d5-card-state in-progress">🔵</div>
+            <div class="d5-card-body">
+              <div class="d5-card-title">React Patterns</div>
+              <div class="d5-card-meta">Junior → Medior · Set by Nathalie · 3 resources</div>
+            </div>
+            <div class="d5-card-right">
+              <span class="badge badge-progress">In progress</span>
+              <button class="btn-flag">I'm ready 🚩</button>
+            </div>
+          </div>
+
+          <div class="d5-card">
+            <div class="d5-card-state pending">🟡</div>
+            <div class="d5-card-body">
+              <div class="d5-card-title">Testing Practices</div>
+              <div class="d5-card-meta">Junior → Medior · Flag raised 3 days ago · Awaiting Nathalie</div>
+            </div>
+            <div class="d5-card-right">
+              <span class="badge badge-pending">Flag raised</span>
+            </div>
+          </div>
+
+          <div class="d5-card">
+            <div class="d5-card-state validated">✅</div>
+            <div class="d5-card-body">
+              <div class="d5-card-title">TypeScript</div>
+              <div class="d5-card-meta">Validated at Medior · Validated by Nathalie · Mar 12</div>
+            </div>
+            <div class="d5-card-right">
+              <span class="badge badge-validated">Validated</span>
+            </div>
+          </div>
+
+          <div class="d5-card">
+            <div class="d5-card-state in-progress">🔵</div>
+            <div class="d5-card-body">
+              <div class="d5-card-title">Code Review</div>
+              <div class="d5-card-meta">Junior → Medior · Set by Nathalie · 1 resource</div>
+            </div>
+            <div class="d5-card-right">
+              <span class="badge badge-progress">In progress</span>
+              <button class="btn-flag">I'm ready 🚩</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showDir(n, btn) {
+    document.querySelectorAll('.dir-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.dir-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('dir-' + n).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

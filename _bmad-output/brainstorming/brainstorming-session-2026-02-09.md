@@ -1,13 +1,14 @@
 ---
-stepsCompleted: [1, 2]
-inputDocuments: []
+stepsCompleted: [1, 2, 3]
+inputDocuments: ['docs/skillmatrices/Skill_Matrix_Itenium.xlsx', 'docs/skillmatrices/Developer_Skill_Experience_Matrix.xlsx']
 session_topic: 'SkillForge Competency Framework - Functional Requirements'
 session_goals: 'Flesh out, challenge, and expand functional requirements for profiles, skills, employee tracking, learning material, reviews, and skill matrix visualization'
 selected_approach: 'ai-recommended'
 techniques_used: ['Morphological Analysis', 'Role Playing', 'Reverse Brainstorming']
-ideas_generated: ['Profiles #1-10', 'Skills #1-5', 'Coach #1-3', 'Visualization #1-3']
+ideas_generated: ['Profiles #1-10', 'Skills #1-5', 'Coach #1-3', 'Visualization #1-3', 'Model #1-3', 'RP-A1', 'RP-A2', 'RP-B1', 'RP-B2', 'RP-B3', 'RP-C1', 'RP-D1', 'RB-1 through RB-8']
 context_file: ''
-session_status: 'paused - Phase 1 Morphological Analysis in progress'
+session_status: 'complete'
+completion_date: '2026-02-27'
 ---
 
 # Brainstorming Session Results
@@ -156,24 +157,117 @@ _Novelty_: Gives T-shape consultants a visualization that celebrates breadth ins
 
 ---
 
-## Session Pause Notes
+---
 
-**Status:** Paused mid-Phase 1 (Morphological Analysis) — 18 ideas generated
-**Techniques remaining:** Role Playing (Phase 2), Reverse Brainstorming (Phase 3)
-**Open question at pause:** Who curates and assigns learning material? Team manager (administrative), competence coach (developmental), or consultants themselves? Could this differ by material type (official course vs. blog post)?
+## Phase 2 — Role Playing (completed 2026-02-27)
 
-### Unexplored Intersections (Resume Here)
-- Learning Material x Reviews x Skills (how reviews surface best materials per skill)
-- Competence Coach x Visualization (what does the coach's dashboard look like?)
-- Seniority Tiers x Skill Evidence (does proof-of-competence requirements change by level?)
-- PDP x Team Manager (does the manager see the PDP? Is it private between coach + consultant?)
-- AI Transcription x Skill Extraction (NLP pipeline details, accuracy, human-in-the-loop)
-- Existing backlog integration (how do courses/quizzes/feedback map to the competency layer?)
-- Skill decay x PDP (do decaying skills auto-surface in the development plan?)
+### Key Decisions Confirmed
+- Consultant signals readiness (flag), coach validates and moves the skill level
+- Skills are never locked — prerequisite warnings shown, never gates
+- Learning material is global, linked to skills and level transitions, never consultant-specific
+- One global skill set: Layer 1 (Itenium Skills, universal) + Layer 2 (profile-specific, per competence center)
+- Coach is the lead curator of personal matrices, not the consultant
+- SMART goals per skill target (specific, measurable, time-bound)
+- Coaching session = structured event with typed outcomes; coach dashboard is always-on
 
-### Codebase Context for Resumption
-- Current entities: Teams, Courses, Users (with roles). No skill/profile/PDP entities yet.
-- Current roles: backoffice, manager, learner. Competence coach role needs to be added.
-- Teams seed data: Java, .NET, PO & Analysis, QA — maps to profile categories.
-- Course entity is flat (name, description, category, level) — needs skill linkage.
-- Frontend has nav skeleton for My Learning, Catalog, Team, Admin, Reports — none implemented yet.
+### Ideas Generated
+
+**[RP-A1] Readiness Flag**
+Consultant raises a "I think I'm ready" flag on a skill goal. Notifies coach as a soft ping. One active flag per goal to prevent spam. Feels like a considered action, not a button.
+
+**[RP-A2] Live Session Mode**
+When a coaching session is opened, platform enters a minimal focused view: pending validations, level control, notes field. Two-tap validation. Everything else hidden during the session.
+
+**[RP-B1] Pre-Session Talking Points**
+Auto-generated from activity data before each coaching session: resources completed, readiness flags raised, goals with no activity. Context-setting, not prescriptive.
+
+**[RP-B2] Skill Proposal Queue**
+Coach adds a skill not in the global set → immediately usable as a local skill → goes into a pending queue → coach voting promotes it to global (e.g., 3 independent additions auto-promotes).
+
+**[RP-B3] Cohort Learning Trigger**
+When a systemic gap is detected (>50% of a profile group below minimum level on a skill), the platform surfaces a suggestion for a group learning intervention.
+
+**[RP-C1] Share-from-Anywhere — Slack Bot (nice-to-have)**
+A Slack bot that intercepts resource links shared in Slack and offers a one-confirm flow to add them to the SkillForge resource library, attributed to the sharer.
+
+**[RP-D1] Visual Profile Builder**
+HR/coaches get a canvas to drag skill nodes from the global catalogue into a profile, set minimum niveau requirements per skill with a slider, draw dependency edges, and preview the resulting roadmap as a consultant would see it. Changes are versioned.
+
+---
+
+## Phase 3 — Reverse Brainstorming (completed 2026-02-27)
+
+### Design Constraints Derived
+
+| Failure Mode | Design Constraint |
+|---|---|
+| Validation bottleneck kills motivation | Coach dashboard is always-on; readiness flags have aging indicators |
+| Platform becomes salary data gathering | Growth framing first; HR/sales exports are background outputs, never in main flows |
+| Resource library becomes a dump | Quality surfaced by usage + ratings; coaches pin "recommended" per level transition |
+| Group training inflates levels | Attendance = evidence only, never auto-validates; coach decides at next review |
+| Admin kills coaching conversation | Live session mode is 2-tap minimal; post-session detail added separately |
+| Profile inconsistency across competence centers | Each competence center owns their profiles; Itenium Skills (Layer 1) are global and universal |
+| Junior overwhelm on day one | Simplified onboarding view until first coaching session unlocks full roadmap |
+| Sales report staleness | Data is inherently current (slow-changing, coach-validated); report shows validated level + date |
+| Readiness flag spam | One active flag per goal; UI makes it a considered action |
+| Cross-competence events invisible | LearningEvents support targetProfiles: ALL or multiple; any coach adds attendees for their consultants |
+
+### Additional Model Refinements
+
+**Resource quality lifecycle:**
+- Status: `active | flagged | stale | deprecated`
+- Any user can raise a "possibly outdated" flag (low friction)
+- Accumulated negative reviews auto-flag as stale
+- Coach explicitly marks stale or deprecated
+- Author can update content → resets to active
+- Deprecated resources hidden by default
+
+**LearningEvent as multi-skill resource container:**
+- Attendance = evidence on relevant skills, never a level-up trigger
+- Session content (slides, recording, exercises) added to global resource library
+- `skillCoverage: [{ skillId, fromLevel, toLevel }]` — one event covers multiple skills
+- `targetProfiles: [profileId] | ALL | [multiple profiles]`
+- Cross-competence events visible to all coaches; each coach manages attendance for their own consultants
+
+**Progressive disclosure roadmap:**
+- Default view: current niveau nodes (anchors) + immediate next tier (active targets)
+- Nodes beyond collapsed into "future skills" summary
+- Full tree opt-in via "Show full roadmap"
+- Consultant with 45 nodes sees 8-12 at any time
+
+**Two-layer skill architecture:**
+- Layer 1: Itenium Skills — universal, HR-owned, inherited by every profile automatically
+- Layer 2: Profile Skills — competence-center owned, no duplication across centers
+
+---
+
+## Complete Idea Register
+
+| # | Idea | Phase |
+|---|---|---|
+| Profiles #1-10 | Career path branching, T/I-shape models, multi-path subscriptions, coach role, peer suggestions, PDP | Morphological |
+| Coach #1-3 | PDP as first-class entity, AI transcript → PDP draft, coaching session log | Morphological |
+| Skills #1-5 | Variable granularity levels, skill dependencies, skill decay/freshness, resource linkage, evidence types | Morphological |
+| Visualization #1-3 | Roadmap.sh-style skill tree, gap heatmap, T-shape radar chart | Morphological |
+| Model #1 | Variable-depth skills (levelCount:1 = checkbox, levelCount:N = progression) | Model proposition |
+| Model #2 | Seniority as computed threshold (set of minLevel per skill), not a manually assigned label | Model proposition |
+| Model #3 | Template fork model (consultant matrix inherits from versioned profile template) | Model proposition |
+| RP-A1 | Readiness flag — considered action, one per goal, aging indicator for coach | Role Playing |
+| RP-A2 | Live session mode — minimal 2-tap UI during coaching sessions | Role Playing |
+| RP-B1 | Pre-session talking points — auto-generated from activity data | Role Playing |
+| RP-B2 | Skill proposal queue — coach adds, vote promotes to global | Role Playing |
+| RP-B3 | Cohort learning trigger — systemic gap surfaces group intervention suggestion | Role Playing |
+| RP-C1 | Slack bot for resource sharing — nice-to-have, in spec | Role Playing |
+| RP-D1 | Visual profile builder — drag-and-drop canvas, versioned | Role Playing |
+| RB-1 | Coach dashboard always-on with aging indicators and activity signals | Reverse Brainstorm |
+| RB-2 | Growth framing first; HR/sales as background exports | Reverse Brainstorm |
+| RB-3 | Resource quality lifecycle (flagged → stale → deprecated, multi-signal) | Reverse Brainstorm |
+| RB-4 | LearningEvent = multi-skill resource container; attendance ≠ level-up | Reverse Brainstorm |
+| RB-5 | Readiness flag as considered action (one active per goal) | Reverse Brainstorm |
+| RB-6 | Junior onboarding: simplified view until first coaching session | Reverse Brainstorm |
+| RB-7 | Progressive disclosure roadmap (next steps only, full tree opt-in) | Reverse Brainstorm |
+| RB-8 | Cross-competence LearningEvents global; targetProfiles: ALL or multiple | Reverse Brainstorm |
+
+---
+
+*Session complete. Resumed 2026-02-27, finalized 2026-02-27.*

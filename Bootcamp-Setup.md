@@ -60,17 +60,6 @@ irm https://claude.ai/install.ps1 | iex
 
 ---
 
-## Lokale Database
-
-```powershell
-docker image pull postgres:17
-docker image pull mcr.microsoft.com/dotnet/sdk:10.0
-docker image pull mcr.microsoft.com/dotnet/aspnet:10.0
-```
-
-
----
-
 
 ## Repository klonen
 

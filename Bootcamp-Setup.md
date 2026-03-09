@@ -131,6 +131,7 @@ BMAD-commando's zoals `/bmad` zouden nu beschikbaar moeten zijn in Claude Code.
 
 **Database starten:**
 ```powershell
+cd Itenium.SkillForge
 docker compose up -d
 ```
 

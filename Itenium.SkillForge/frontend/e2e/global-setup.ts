@@ -28,11 +28,11 @@ export default async function globalSetup() {
         'Option 1 - Use Docker (requires GitHub Packages auth):\n' +
         '  $env:NUGET_USER="your-github-username"\n' +
         '  $env:NUGET_TOKEN="your-github-pat-with-read:packages"\n' +
-        '  npm run test:e2e\n\n' +
+        '  bun run test:e2e\n\n' +
         'Option 2 - Use locally running backend (faster for local dev):\n' +
         '  # Start the backend manually first, then:\n' +
         '  $env:BACKEND_URL="https://localhost:5001"\n' +
-        '  npm run test:e2e',
+        '  bun run test:e2e',
     );
   }
 

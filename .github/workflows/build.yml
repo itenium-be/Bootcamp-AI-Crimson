@@ -60,7 +60,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
-      - name: Authenticate to GitHub Packages (npm)
+      - name: Authenticate to GitHub Packages
         run: |
           echo "@itenium-forge:registry=https://npm.pkg.github.com" >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NUGET_AUTH_TOKEN }}" >> .npmrc
@@ -87,7 +87,7 @@ jobs:
         run: bun audit --production || true
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: bunx playwright install --with-deps chromium
 
       - name: Run E2E tests
         run: bun run test:e2e

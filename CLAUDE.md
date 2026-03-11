@@ -1,5 +1,8 @@
 # SkillForge
 
+## Before writing code
+Write the tests TDD-style (red/green)
+
 ## Before running backend
 docker compose up -d
 

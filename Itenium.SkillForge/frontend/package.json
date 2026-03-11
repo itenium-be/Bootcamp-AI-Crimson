@@ -17,7 +17,8 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "prepare": "cd ../.. && husky Itenium.SkillForge/frontend/.husky"
+    "prepare": "cd ../.. && husky Itenium.SkillForge/frontend/.husky",
+    "knip": "knip"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -91,6 +92,7 @@
     "typescript": "~5.8.2",
     "typescript-eslint": "^8.52.0",
     "vite": "^6.0.0",
-    "vitest": "^4.0.18"
+    "vitest": "^4.0.18",
+    "knip": "^5"
   }
 }

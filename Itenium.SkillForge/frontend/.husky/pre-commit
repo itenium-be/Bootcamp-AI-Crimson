@@ -1,4 +1,4 @@
-cd Itenium.SkillForge/frontend && bunx lint-staged
+cd Itenium.SkillForge/frontend && bunx lint-staged && bun run knip
 
 # Backend: check formatting on staged .cs files
 if git diff --cached --name-only | grep -q '\.cs$'; then

@@ -3,7 +3,7 @@ import { useAuthStore } from '../stores';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
@@ -27,7 +27,7 @@ api.interceptors.response.use(
   },
 );
 
-export interface LoginResponse {
+interface LoginResponse {
   access_token: string;
   token_type: string;
   expires_in: number;
@@ -50,7 +50,7 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
-export interface Team {
+interface Team {
   id: number;
   name: string;
 }
@@ -60,7 +60,7 @@ export async function fetchUserTeams(): Promise<Team[]> {
   return response.data;
 }
 
-export interface Course {
+interface Course {
   id: number;
   name: string;
   description: string | null;

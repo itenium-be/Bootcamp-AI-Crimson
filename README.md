@@ -16,6 +16,7 @@ Create a `%USERPROFILE%\.npmrc` file with content using your Github token (Perso
 @itenium-forge:registry=https://npm.pkg.github.com
 ```
 
+Non Windows may need an additional: `sudo apt-get install libatomic1`
 
 
 Start Locally

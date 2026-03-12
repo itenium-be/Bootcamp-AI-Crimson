@@ -12,7 +12,7 @@ Start Locally
 
 ```sh
 cp .env.example .env
-# Add NUGET_USER and NUGET_TOKEN
+# Add GITHUB_USER and GITHUB_TOKEN
 docker compose up -d --build
 ```
 

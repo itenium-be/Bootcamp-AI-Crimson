@@ -4,3 +4,4 @@ _bmad
 .claude/commands/bmad*
 .~lock.Bootcamp-AI.pptx#
 dashboard
+.env

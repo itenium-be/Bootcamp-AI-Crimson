@@ -6,6 +6,18 @@ Creating the **SkillForge**
 For the powerpoint, existing docs/skillmatrices and Midjourney pictures,
 see the [Bootcamp-AI-Resources Repository](https://github.com/itenium-be/Bootcamp-AI-Resources)
 
+
+Start Locally
+-------------
+
+```sh
+cp .env.example .env
+# Add NUGET_USER and NUGET_TOKEN
+docker compose up -d --build
+```
+
+
+
 Backlog
 -------
 

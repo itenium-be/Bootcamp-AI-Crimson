@@ -6,6 +6,17 @@ Creating the **SkillForge**
 For the powerpoint, existing docs/skillmatrices and Midjourney pictures,
 see the [Bootcamp-AI-Resources Repository](https://github.com/itenium-be/Bootcamp-AI-Resources)
 
+Missing Prep
+------------
+
+Create a `%USERPROFILE%\.npmrc` file with content using your Github token (Personal access tokens (classic)).
+
+```ini
+//npm.pkg.github.com/:_authToken=ghp_xxx
+@itenium-forge:registry=https://npm.pkg.github.com
+```
+
+
 
 Start Locally
 -------------

@@ -36,7 +36,29 @@ jobs:
         run: dotnet format --verify-no-changes --no-restore
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: |
+          dotnet test --no-build --verbosity normal --logger "trx;LogFileName=results.trx" 2>&1 | tee test-output.txt || true
+          # Parse TRX Counters element: <Counters total="X" passed="Y" failed="Z" .../>
+          RESULTS=$(find . -name "results.trx" -type f | head -1)
+          if [ -f "$RESULTS" ]; then
+            PASSED=$(grep -oP '<Counters[^>]*passed="\K[0-9]+' "$RESULTS" | head -1 || echo "0")
+            FAILED=$(grep -oP '<Counters[^>]*failed="\K[0-9]+' "$RESULTS" | head -1 || echo "0")
+            TOTAL=$((PASSED + FAILED))
+          else
+            # Fallback: parse console output "Passed: X, Failed: Y"
+            PASSED=$(grep -oP 'Passed:\s*\K[0-9]+' test-output.txt | tail -1 || echo "0")
+            FAILED=$(grep -oP 'Failed:\s*\K[0-9]+' test-output.txt | tail -1 || echo "0")
+            TOTAL=$((PASSED + FAILED))
+          fi
+          echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > test-results.json
+          [ "$FAILED" -eq 0 ] || exit 1
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: Itenium.SkillForge/backend/test-results.json
 
       - name: Vulnerability scan
         run: dotnet list package --vulnerable --include-transitive 2>&1 | tee /dev/stderr | grep -q "no vulnerable packages" || (echo "::error::Vulnerable packages found" && exit 1)
@@ -81,7 +103,15 @@ jobs:
         run: bun run typecheck
 
       - name: Unit tests
-        run: bun run test
+        run: |
+          bun run test 2>&1 | tee unit-output.txt
+          EXIT_CODE=${PIPESTATUS[0]}
+          # Parse Vitest output: "Tests  X passed | Y failed" or "X passed"
+          PASSED=$(grep -oP '(\d+)\s+passed' unit-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          FAILED=$(grep -oP '(\d+)\s+failed' unit-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          TOTAL=$((PASSED + FAILED))
+          echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > unit-test-results.json
+          exit $EXIT_CODE
 
       - name: Build
         run: bun run build
@@ -93,7 +123,24 @@ jobs:
         run: bunx playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: bun run test:e2e
+        run: |
+          bun run test:e2e 2>&1 | tee e2e-output.txt
+          EXIT_CODE=${PIPESTATUS[0]}
+          # Parse Playwright output: "X passed" "Y failed"
+          PASSED=$(grep -oP '(\d+)\s+passed' e2e-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          FAILED=$(grep -oP '(\d+)\s+failed' e2e-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          TOTAL=$((PASSED + FAILED))
+          echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > e2e-test-results.json
+          exit $EXIT_CODE
         env:
           NUGET_USER: ${{ github.actor }}
           NUGET_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: |
+            Itenium.SkillForge/frontend/unit-test-results.json
+            Itenium.SkillForge/frontend/e2e-test-results.json

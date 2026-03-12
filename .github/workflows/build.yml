@@ -41,15 +41,16 @@ jobs:
           # Parse TRX Counters element: <Counters total="X" passed="Y" failed="Z" .../>
           RESULTS=$(find . -name "results.trx" -type f | head -1)
           if [ -f "$RESULTS" ]; then
-            PASSED=$(grep -oP '<Counters[^>]*passed="\K[0-9]+' "$RESULTS" | head -1 || echo "0")
-            FAILED=$(grep -oP '<Counters[^>]*failed="\K[0-9]+' "$RESULTS" | head -1 || echo "0")
-            TOTAL=$((PASSED + FAILED))
+            PASSED=$(grep -oP '<Counters[^>]*passed="\K[0-9]+' "$RESULTS" | head -1)
+            FAILED=$(grep -oP '<Counters[^>]*failed="\K[0-9]+' "$RESULTS" | head -1)
           else
             # Fallback: parse console output "Passed: X, Failed: Y"
-            PASSED=$(grep -oP 'Passed:\s*\K[0-9]+' test-output.txt | tail -1 || echo "0")
-            FAILED=$(grep -oP 'Failed:\s*\K[0-9]+' test-output.txt | tail -1 || echo "0")
-            TOTAL=$((PASSED + FAILED))
+            PASSED=$(grep -oP 'Passed:\s*\K[0-9]+' test-output.txt | tail -1)
+            FAILED=$(grep -oP 'Failed:\s*\K[0-9]+' test-output.txt | tail -1)
           fi
+          PASSED=${PASSED:-0}
+          FAILED=${FAILED:-0}
+          TOTAL=$((PASSED + FAILED))
           echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > test-results.json
           [ "$FAILED" -eq 0 ] || exit 1
 
@@ -107,8 +108,10 @@ jobs:
           bun run test 2>&1 | tee unit-output.txt
           EXIT_CODE=${PIPESTATUS[0]}
           # Parse Vitest output: "Tests  X passed | Y failed" or "X passed"
-          PASSED=$(grep -oP '(\d+)\s+passed' unit-output.txt | grep -oP '\d+' | head -1 || echo "0")
-          FAILED=$(grep -oP '(\d+)\s+failed' unit-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          PASSED=$(grep -oP '\d+(?=\s+passed)' unit-output.txt | head -1)
+          FAILED=$(grep -oP '\d+(?=\s+failed)' unit-output.txt | head -1)
+          PASSED=${PASSED:-0}
+          FAILED=${FAILED:-0}
           TOTAL=$((PASSED + FAILED))
           echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > unit-test-results.json
           exit $EXIT_CODE
@@ -127,8 +130,10 @@ jobs:
           bun run test:e2e 2>&1 | tee e2e-output.txt
           EXIT_CODE=${PIPESTATUS[0]}
           # Parse Playwright output: "X passed" "Y failed"
-          PASSED=$(grep -oP '(\d+)\s+passed' e2e-output.txt | grep -oP '\d+' | head -1 || echo "0")
-          FAILED=$(grep -oP '(\d+)\s+failed' e2e-output.txt | grep -oP '\d+' | head -1 || echo "0")
+          PASSED=$(grep -oP '\d+(?=\s+passed)' e2e-output.txt | head -1)
+          FAILED=$(grep -oP '\d+(?=\s+failed)' e2e-output.txt | head -1)
+          PASSED=${PASSED:-0}
+          FAILED=${FAILED:-0}
           TOTAL=$((PASSED + FAILED))
           echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > e2e-test-results.json
           exit $EXIT_CODE

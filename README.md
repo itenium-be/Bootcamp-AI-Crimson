@@ -3,11 +3,14 @@ Bootcamp AI
 
 Creating the **SkillForge**
 
+For the powerpoint, existing docs/skillmatrices and Midjourney pictures,
+see the [Bootcamp-AI-Resources Repository](https://github.com/itenium-be/Bootcamp-AI-Resources)
+
 Backlog
 -------
 
-### Team 1: The Gatekeepers
-User & Access Management  
+### User & Access Management
+
 Focus: Backoffice administration
 
 - As a user, I want to sign in with SSO or login/pwd.
@@ -20,8 +23,8 @@ Focus: Backoffice administration
 - As a user, I want to reset my password via email.
 
 
-### Team 2: The Pathmakers
-Course Catalog & Content  
+### Course Catalog & Content
+
 Focus: Course creation and browsing
 
 - Course Catalog
@@ -39,8 +42,8 @@ Focus: Course creation and browsing
     - As a learner I want to see the lessons inside a course and my completion rate therein.
 
 
-### Team 3: The Trailblazers
-Enrollment & Learning Experience  
+### Enrollment & Learning Experience
+
 Focus: Learner journey
 
 - Learning Experience
@@ -59,8 +62,8 @@ Focus: Learner journey
     - As a learner, I want to add context (personal experience, content rating, ...) to a lesson for other learners.
 
 
-### Team 4: The Crucible
-Assessments & Quizzes  
+### Assessments & Quizzes
+
 Focus: Knowledge validation
 
 - As a learner, I want to complete quizzes so I can validate my knowledge.

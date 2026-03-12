@@ -21,8 +21,8 @@ services:
     build:
       context: ./Itenium.SkillForge/backend
       args:
-        NUGET_USER: ${NUGET_USER}
-        NUGET_TOKEN: ${NUGET_TOKEN}
+        NUGET_USER: ${GITHUB_USER}
+        NUGET_TOKEN: ${GITHUB_TOKEN}
     container_name: skillforge-backend
     ports:
       - "5000:8080"
@@ -35,6 +35,8 @@ services:
   frontend:
     build:
       context: ./Itenium.SkillForge/frontend
+      args:
+        NPM_TOKEN: ${GITHUB_TOKEN}
     container_name: skillforge-frontend
     ports:
       - "5173:5173"

@@ -16,6 +16,105 @@ public record LessonWithStatusDto(int Id, string Title, int SortOrder, string St
 [Authorize]
 public class LessonController : ControllerBase
 {
+    // ---- Manager CRUD endpoints ----
+
+    /// <summary>
+    /// Get all lessons for a course (manager view with EstimatedDuration).
+    /// </summary>
+    [HttpGet("/api/courses/{courseId:int}/lessons")]
+    public async Task<ActionResult<IList<LessonDto>>> GetCourseLessons(int courseId)
+    {
+        if (!_user.IsManager) return Forbid();
+        var lessons = await _db.Lessons
+            .AsNoTracking()
+            .Where(l => l.CourseId == courseId)
+            .OrderBy(l => l.SortOrder)
+            .Select(l => new LessonDto(l.Id, l.Title, l.EstimatedDuration, l.SortOrder))
+            .ToListAsync();
+        return Ok(lessons);
+    }
+
+    /// <summary>
+    /// Get a single lesson by ID.
+    /// </summary>
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<LessonDto>> GetLesson(int id)
+    {
+        var lesson = await _db.Lessons.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
+        if (lesson == null) return NotFound();
+        return Ok(new LessonDto(lesson.Id, lesson.Title, lesson.EstimatedDuration, lesson.SortOrder));
+    }
+
+    /// <summary>
+    /// Create a lesson for a course.
+    /// </summary>
+    [HttpPost("/api/courses/{courseId:int}/lessons")]
+    public async Task<ActionResult<LessonDto>> CreateLesson(int courseId, [FromBody] CreateLessonRequest request)
+    {
+        if (!_user.IsManager) return Forbid();
+        var lesson = new LessonEntity
+        {
+            CourseId = courseId,
+            Title = request.Title,
+            EstimatedDuration = request.EstimatedDuration,
+            SortOrder = request.SortOrder,
+        };
+        _db.Lessons.Add(lesson);
+        await _db.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetLesson), new { id = lesson.Id }, new LessonDto(lesson.Id, lesson.Title, lesson.EstimatedDuration, lesson.SortOrder));
+    }
+
+    /// <summary>
+    /// Update a lesson's title, duration, and sort order.
+    /// </summary>
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateLesson(int id, [FromBody] UpdateLessonRequest request)
+    {
+        if (!_user.IsManager) return Forbid();
+        var lesson = await _db.Lessons.FindAsync(id);
+        if (lesson == null) return NotFound();
+        lesson.Title = request.Title;
+        lesson.EstimatedDuration = request.EstimatedDuration;
+        lesson.SortOrder = request.SortOrder;
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Delete a lesson. Returns 409 Conflict if any learner has completed it.
+    /// </summary>
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteLesson(int id)
+    {
+        if (!_user.IsManager) return Forbid();
+        var hasCompletions = await _db.LessonStatuses.AnyAsync(s => s.LessonId == id && s.Status == LessonStatusValue.Done);
+        if (hasCompletions) return Conflict();
+        var lesson = await _db.Lessons.FindAsync(id);
+        if (lesson == null) return NotFound();
+        _db.Lessons.Remove(lesson);
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Reorder lessons within a course.
+    /// </summary>
+    [HttpPut("/api/courses/{courseId:int}/lessons/reorder")]
+    public async Task<IActionResult> ReorderLessons(int courseId, [FromBody] ReorderLessonsRequest request)
+    {
+        if (!_user.IsManager) return Forbid();
+        var lessons = await _db.Lessons.Where(l => l.CourseId == courseId).ToListAsync();
+        for (var i = 0; i < request.OrderedLessonIds.Length; i++)
+        {
+            var lesson = lessons.FirstOrDefault(l => l.Id == request.OrderedLessonIds[i]);
+            if (lesson != null) lesson.SortOrder = i + 1;
+        }
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    // ---- Learner status endpoints ----
+
     private readonly AppDbContext _db;
     private readonly ISkillForgeUser _user;
 

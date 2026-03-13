@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { useNavigate, useParams, Link } from '@tanstack/react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { fetchCourse, createCourse, updateCourse } from '@/api/client';
@@ -79,7 +79,20 @@ export function ManagerCourseForm() {
 
   return (
     <div className="space-y-6 max-w-2xl">
-      <h1 className="text-3xl font-bold">{isEdit ? t('managerCourses.editCourse') : t('managerCourses.newCourse')}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">
+          {isEdit ? t('managerCourses.editCourse') : t('managerCourses.newCourse')}
+        </h1>
+        {isEdit && (
+          <Link
+            to="/manager/courses/$id/lessons"
+            params={{ id: String(courseId) }}
+            className="text-sm text-primary hover:underline"
+          >
+            {t('lessons.manage')}
+          </Link>
+        )}
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>

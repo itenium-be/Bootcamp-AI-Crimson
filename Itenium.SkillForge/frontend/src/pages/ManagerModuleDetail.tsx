@@ -45,8 +45,7 @@ export function ManagerModuleDetail() {
   });
 
   const addCourseMutation = useMutation({
-    mutationFn: (courseId: number) =>
-      addCourseToModule(moduleId, courseId, (module?.courses.length ?? 0) + 1),
+    mutationFn: (courseId: number) => addCourseToModule(moduleId, courseId, (module?.courses.length ?? 0) + 1),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['modules'] });
       setSelectedCourseId('');
@@ -144,10 +143,17 @@ export function ManagerModuleDetail() {
             />
           </div>
           <div className="flex gap-2">
-            <button type="submit" className="rounded bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90">
+            <button
+              type="submit"
+              className="rounded bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90"
+            >
               {t('modules.save')}
             </button>
-            <button type="button" onClick={() => setEditing(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-muted">
+            <button
+              type="button"
+              onClick={() => setEditing(false)}
+              className="rounded border px-3 py-1.5 text-sm hover:bg-muted"
+            >
               {t('modules.cancel')}
             </button>
           </div>
@@ -175,7 +181,9 @@ export function ManagerModuleDetail() {
         >
           <option value="">{t('modules.selectCourse')}</option>
           {availableCourses.map((c) => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
           ))}
         </select>
         <button

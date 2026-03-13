@@ -17,7 +17,7 @@ export function FeedbackReview() {
 
   const { data: detail, isLoading: detailLoading } = useQuery({
     queryKey: ['courseFeedback', selectedCourse?.courseId, minRating],
-    queryFn: () => getCourseFeedback(selectedCourse!.courseId, minRating),
+    queryFn: () => getCourseFeedback(selectedCourse?.courseId ?? 0, minRating),
     enabled: selectedCourse != null,
   });
 
@@ -35,10 +35,7 @@ export function FeedbackReview() {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => setSelectedCourse(null)}
-            className="text-sm text-muted-foreground hover:underline"
-          >
+          <button onClick={() => setSelectedCourse(null)} className="text-sm text-muted-foreground hover:underline">
             ← {t('feedback.backToSummary')}
           </button>
           <h1 className="text-3xl font-bold">{t('feedback.entries', { name: selectedCourse.courseName })}</h1>
@@ -53,7 +50,9 @@ export function FeedbackReview() {
           >
             <option value="">{t('feedback.allRatings')}</option>
             {[1, 2, 3, 4, 5].map((r) => (
-              <option key={r} value={r}>{r}+</option>
+              <option key={r} value={r}>
+                {r}+
+              </option>
             ))}
           </select>
         </div>
@@ -158,7 +157,11 @@ export function FeedbackReview() {
             </thead>
             <tbody>
               {ranking?.map((item) => (
-                <tr key={item.courseId} className="border-b hover:bg-muted/30 cursor-pointer" onClick={() => setSelectedCourse(item)}>
+                <tr
+                  key={item.courseId}
+                  className="border-b hover:bg-muted/30 cursor-pointer"
+                  onClick={() => setSelectedCourse(item)}
+                >
                   <td className="p-2 font-medium">{item.courseName}</td>
                   <td className="p-2 text-right">
                     <RatingStars rating={Math.round(item.averageRating)} />
@@ -188,7 +191,8 @@ export function FeedbackReview() {
 function RatingStars({ rating }: { rating: number }) {
   return (
     <span className="text-yellow-500">
-      {'★'.repeat(Math.min(5, Math.max(0, rating)))}{'☆'.repeat(Math.max(0, 5 - rating))}
+      {'★'.repeat(Math.min(5, Math.max(0, rating)))}
+      {'☆'.repeat(Math.max(0, 5 - rating))}
     </span>
   );
 }

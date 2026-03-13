@@ -13,7 +13,7 @@ public interface ISkillForgeUser : ICurrentUser
     bool IsBackOffice { get; }
 
     /// <summary>
-    /// Gets a value indicating whether the current user is a Team Manager.
+    /// Gets a value indicating whether the current user is a Team Manager (or BackOffice).
     /// </summary>
     bool IsManager { get; }
 

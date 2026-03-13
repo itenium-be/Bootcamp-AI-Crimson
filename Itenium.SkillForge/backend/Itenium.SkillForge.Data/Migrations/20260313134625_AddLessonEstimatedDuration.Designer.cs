@@ -3,6 +3,7 @@ using System;
 using Itenium.SkillForge.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Itenium.SkillForge.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313134625_AddLessonEstimatedDuration")]
+    partial class AddLessonEstimatedDuration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,34 +93,6 @@ namespace Itenium.SkillForge.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("Itenium.SkillForge.Entities.ContentBlockEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("LessonId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContentBlocks");
                 });
 
             modelBuilder.Entity("Itenium.SkillForge.Entities.CourseAssignmentEntity", b =>
@@ -301,23 +276,6 @@ namespace Itenium.SkillForge.Data.Migrations
                     b.ToTable("Lessons");
                 });
 
-            modelBuilder.Entity("Itenium.SkillForge.Entities.LessonProgressEntity", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasMaxLength(450)
-                        .HasColumnType("character varying(450)");
-
-                    b.Property<int>("LessonId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CompletedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("UserId", "LessonId");
-
-                    b.ToTable("LessonProgresses");
-                });
-
             modelBuilder.Entity("Itenium.SkillForge.Entities.LessonStatusEntity", b =>
                 {
                     b.Property<string>("UserId")
@@ -370,7 +328,6 @@ namespace Itenium.SkillForge.Data.Migrations
 
                     b.ToTable("Modules");
                 });
-
 
             modelBuilder.Entity("Itenium.SkillForge.Entities.QuestionEntity", b =>
                 {

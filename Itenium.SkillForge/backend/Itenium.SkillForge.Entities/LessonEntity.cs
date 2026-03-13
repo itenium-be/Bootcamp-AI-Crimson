@@ -14,4 +14,6 @@ public class LessonEntity
     public required string Title { get; set; }
 
     public int SortOrder { get; set; }
+
+    public int? EstimatedDuration { get; set; }
 }

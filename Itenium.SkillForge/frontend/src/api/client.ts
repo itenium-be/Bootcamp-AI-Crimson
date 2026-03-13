@@ -367,6 +367,47 @@ export async function resetLessonProgress(lessonId: number): Promise<void> {
   await api.delete(`/api/lessons/${lessonId}/progress`);
 }
 
+export interface LessonItem {
+  id: number;
+  title: string;
+  estimatedDuration: number | null;
+  sortOrder: number;
+}
+
+export interface CreateLessonData {
+  title: string;
+  estimatedDuration: number | null;
+  sortOrder: number;
+}
+
+interface UpdateLessonData {
+  title: string;
+  estimatedDuration: number | null;
+  sortOrder: number;
+}
+
+export async function fetchCourseLessons(courseId: number): Promise<LessonItem[]> {
+  const response = await api.get<LessonItem[]>(`/api/courses/${courseId}/lessons`);
+  return response.data;
+}
+
+export async function createLesson(courseId: number, data: CreateLessonData): Promise<LessonItem> {
+  const response = await api.post<LessonItem>(`/api/courses/${courseId}/lessons`, data);
+  return response.data;
+}
+
+export async function updateLesson(id: number, data: UpdateLessonData): Promise<void> {
+  await api.put(`/api/lessons/${id}`, data);
+}
+
+export async function deleteLesson(id: number): Promise<void> {
+  await api.delete(`/api/lessons/${id}`);
+}
+
+export async function reorderLessons(courseId: number, orderedLessonIds: number[]): Promise<void> {
+  await api.put(`/api/courses/${courseId}/lessons/reorder`, { orderedLessonIds });
+}
+
 export interface FeedbackEntry {
   id: number;
   userId: string | null;
@@ -422,7 +463,7 @@ export interface Module {
   courses: ModuleCourse[];
 }
 
-export interface ModuleFormData {
+interface ModuleFormData {
   name: string;
   description: string | null;
   goal: string | null;

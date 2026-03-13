@@ -213,13 +213,25 @@
   },
   "lessons": {
     "title": "Lessons",
-    "noLessons": "No lessons found",
+    "noLessons": "No lessons yet",
     "progress": "{{done}} / {{total}} done ({{pct}}%)",
     "status": {
       "new": "Not started",
       "done": "Done",
       "later": "Save for later"
-    }
+    },
+    "manage": "Manage Lessons",
+    "addLesson": "Add Lesson",
+    "editLesson": "Edit Lesson",
+    "lessonTitle": "Title",
+    "estimatedDuration": "Duration (min)",
+    "order": "Order",
+    "deleteBlocked": "Cannot delete: learners have completed this lesson",
+    "confirmDelete": "Delete lesson \"{{title}}\"?",
+    "backToCourse": "← Back to course",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "nameRequired": "Title is required"
   },
   "teams": {
     "title": "Teams",
@@ -227,6 +239,12 @@
     "members": "Members",
     "viewMembers": "View members →",
     "noTeams": "No teams found"
+  },
+  "myTeam": {
+    "title": "My Team",
+    "noMembers": "No members in this team yet.",
+    "lastActive": "Last Active",
+    "never": "Never"
   },
   "teamDetail": {
     "title": "Team Detail",

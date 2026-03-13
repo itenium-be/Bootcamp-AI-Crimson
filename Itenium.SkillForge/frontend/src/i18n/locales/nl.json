@@ -213,13 +213,25 @@
   },
   "lessons": {
     "title": "Lessen",
-    "noLessons": "Geen lessen gevonden",
+    "noLessons": "Nog geen lessen",
     "progress": "{{done}} / {{total}} gedaan ({{pct}}%)",
     "status": {
       "new": "Niet gestart",
       "done": "Gedaan",
       "later": "Bewaar voor later"
-    }
+    },
+    "manage": "Lessen Beheren",
+    "addLesson": "Les Toevoegen",
+    "editLesson": "Les Bewerken",
+    "lessonTitle": "Titel",
+    "estimatedDuration": "Duur (min)",
+    "order": "Volgorde",
+    "deleteBlocked": "Kan niet verwijderen: leerlingen hebben deze les voltooid",
+    "confirmDelete": "Les \"{{title}}\" verwijderen?",
+    "backToCourse": "← Terug naar cursus",
+    "moveUp": "Omhoog",
+    "moveDown": "Omlaag",
+    "nameRequired": "Titel is verplicht"
   },
   "teams": {
     "title": "Teams",
@@ -227,6 +239,12 @@
     "members": "Leden",
     "viewMembers": "Bekijk leden →",
     "noTeams": "Geen teams gevonden"
+  },
+  "myTeam": {
+    "title": "Mijn Team",
+    "noMembers": "Nog geen leden in dit team.",
+    "lastActive": "Laatste Activiteit",
+    "never": "Nooit"
   },
   "teamDetail": {
     "title": "Team Detail",

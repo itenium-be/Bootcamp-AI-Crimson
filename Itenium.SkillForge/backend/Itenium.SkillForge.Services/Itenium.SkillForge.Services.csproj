@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="Itenium.Forge.Security" />
+    <PackageReference Include="Itenium.Forge.Security.OpenIddict" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 

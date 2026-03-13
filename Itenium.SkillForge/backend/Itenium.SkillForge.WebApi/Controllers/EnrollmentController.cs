@@ -4,6 +4,7 @@ using Itenium.SkillForge.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Itenium.SkillForge.WebApi.Controllers;
 
@@ -65,10 +66,10 @@ public class EnrollmentController : ControllerBase
     }
 
     /// <summary>
-    /// Get all enrollments for the current user.
+    /// Get all enrollments for the current user, optionally filtered by status (active/completed).
     /// </summary>
     [HttpGet("enrollments/me")]
-    public async Task<ActionResult<IList<EnrollmentResponse>>> GetMyEnrollments()
+    public async Task<ActionResult<IList<EnrollmentResponse>>> GetMyEnrollments([FromQuery] string? status = null)
     {
         var userId = _currentUser.Id;
         if (userId == null)
@@ -76,11 +77,32 @@ public class EnrollmentController : ControllerBase
             return Unauthorized();
         }
 
-        var enrollments = await _db.Enrollments
+        var query = _db.Enrollments
             .Include(e => e.Course)
-            .Where(e => e.UserId == userId)
+            .Where(e => e.UserId == userId);
+
+        if (!string.IsNullOrWhiteSpace(status))
+        {
+            if (Enum.TryParse<EnrollmentStatus>(status, ignoreCase: true, out var statusEnum))
+            {
+                query = query.Where(e => e.Status == statusEnum);
+            }
+        }
+
+        var enrollments = await query
             .OrderByDescending(e => e.EnrolledAt)
             .ToListAsync();
+
+        var moduleIds = enrollments
+            .Where(e => e.Course.ModuleId.HasValue)
+            .Select(e => e.Course.ModuleId!.Value)
+            .Distinct()
+            .ToList();
+
+        var modules = await _db.Modules
+            .AsNoTracking()
+            .Where(m => moduleIds.Contains(m.Id))
+            .ToDictionaryAsync(m => m.Id, m => m.Name);
 
         var result = enrollments.Select(e => new EnrollmentResponse(
             e.Id,
@@ -89,7 +111,9 @@ public class EnrollmentController : ControllerBase
             e.Course.Category,
             e.Course.Level,
             e.EnrolledAt,
-            e.Status.ToString()
+            e.Status.ToString(),
+            e.CompletedAt,
+            e.Course.ModuleId.HasValue && modules.TryGetValue(e.Course.ModuleId.Value, out var moduleName) ? moduleName : null
         )).ToList();
 
         return Ok(result);
@@ -161,5 +185,7 @@ public record EnrollmentResponse(
     string? CourseCategory,
     string? CourseLevel,
     DateTime EnrolledAt,
-    string Status
+    string Status,
+    DateTime? CompletedAt = null,
+    string? ModuleName = null
 );

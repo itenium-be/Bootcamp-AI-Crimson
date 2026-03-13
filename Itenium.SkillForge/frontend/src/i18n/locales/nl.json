@@ -138,10 +138,16 @@
     "statusActive": "Bezig",
     "statusCompleted": "Voltooid",
     "enrolledOn": "Ingeschreven op",
+    "completedOn": "Voltooid op",
     "noEnrollments": "Je bent nog niet ingeschreven voor een cursus.",
+    "noCompleted": "Je hebt nog geen cursussen voltooid.",
     "resume": "Verdergaan",
     "courseComplete": "Cursus voltooid!",
-    "revisit": "Laatste les opnieuw bekijken"
+    "revisit": "Laatste les opnieuw bekijken",
+    "tabInProgress": "Bezig",
+    "tabCompleted": "Voltooid",
+    "module": "Pad",
+    "certificate": "Certificaat"
   },
   "learners": {
     "title": "Leerlingen",
@@ -237,7 +243,12 @@
     "backToCourse": "← Terug naar cursus",
     "moveUp": "Omhoog",
     "moveDown": "Omlaag",
-    "nameRequired": "Titel is verplicht"
+    "nameRequired": "Titel is verplicht",
+    "resume": "Hervat",
+    "resumeCourse": "Cursus Hervatten",
+    "courseComplete": "Cursus Voltooid!",
+    "revisitFromStart": "Opnieuw bekijken",
+    "allLessonsDone": "Je hebt alle lessen in deze cursus voltooid."
   },
   "teams": {
     "title": "Teams",

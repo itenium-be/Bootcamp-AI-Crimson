@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link } from '@tanstack/react-router';
-import { fetchCourses, fetchMyEnrollments, enrollCourse } from '@/api/client';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { fetchCourses, fetchMyEnrollments, enrollCourse, fetchResumeLesson } from '@/api/client';
 import { useTeamStore } from '@/stores';
 import { AssignCourseModal } from '@/components/AssignCourseModal';
 
@@ -38,6 +38,7 @@ export function Courses() {
   const { t } = useTranslation();
   const { mode } = useTeamStore();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [filters, setFilters] = useState<CourseFilters>({ search: '', category: '', level: '' });
   const [assigningCourse, setAssigningCourse] = useState<{ id: number; name: string } | null>(null);
 
@@ -57,6 +58,19 @@ export function Courses() {
     mutationFn: enrollCourse,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['enrollments', 'me'] }),
   });
+
+  async function handleResumeCourse(courseId: number) {
+    try {
+      const info = await fetchResumeLesson(courseId);
+      if (info.lessonId != null) {
+        await navigate({ to: '/lessons/$lessonId', params: { lessonId: String(info.lessonId) } });
+      } else {
+        await navigate({ to: '/courses/$id', params: { id: String(courseId) } });
+      }
+    } catch {
+      await navigate({ to: '/courses/$id', params: { id: String(courseId) } });
+    }
+  }
 
   const categories = useMemo(
     () => [...new Set(courses.map((c) => c.category).filter(Boolean) as string[])].sort(),
@@ -164,17 +178,23 @@ export function Courses() {
                       >
                         {t('assignments.assign')}
                       </button>
+                    ) : isEnrolled ? (
+                      <div className="flex items-center justify-end gap-2">
+                        <span className="text-xs text-green-700 font-medium">{t('courses.enrolled')}</span>
+                        <button
+                          onClick={() => handleResumeCourse(course.id)}
+                          className="h-8 rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+                        >
+                          {t('lessons.resumeCourse')}
+                        </button>
+                      </div>
                     ) : (
                       <button
-                        onClick={() => !isEnrolled && enrollMutation.mutate(course.id)}
-                        disabled={isEnrolled || enrollMutation.isPending}
-                        className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
-                          isEnrolled
-                            ? 'bg-green-100 text-green-800 cursor-default'
-                            : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                        }`}
+                        onClick={() => enrollMutation.mutate(course.id)}
+                        disabled={enrollMutation.isPending}
+                        className="rounded-md px-3 py-1 text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90"
                       >
-                        {isEnrolled ? t('courses.enrolled') : t('courses.enroll')}
+                        {t('courses.enroll')}
                       </button>
                     )}
                   </td>

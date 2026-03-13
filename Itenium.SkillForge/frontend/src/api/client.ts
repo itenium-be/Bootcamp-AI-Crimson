@@ -115,6 +115,20 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  isActive: boolean;
+  lastActiveAt: string | null;
+}
+
+export async function fetchUsers(): Promise<User[]> {
+  const response = await api.get<User[]>('/api/users');
+  return response.data;
+}
+
 interface QuestionStat {
   questionId: number;
   questionText: string;

@@ -202,7 +202,7 @@ describe('Layout', () => {
       expect(screen.getByText('nav.assignments')).toBeInTheDocument();
 
       expect(screen.getByText('nav.coursesSection')).toBeInTheDocument();
-      expect(screen.getByText('nav.courses')).toBeInTheDocument();
+      expect(screen.getByText('nav.manageCourses')).toBeInTheDocument();
     });
 
     it('hides Team and Courses sections for learner-only users', () => {

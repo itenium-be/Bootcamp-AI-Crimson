@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, useParams } from '@tanstack/react-router';
-import { fetchLessons, setLessonStatus, type Lesson, type LessonStatus } from '@/api/client';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
+import { fetchLessons, setLessonStatus, trackLastVisited, fetchResumeLesson, type Lesson, type LessonStatus } from '@/api/client';
 
 const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
   new: 'done',
@@ -17,6 +17,7 @@ const STATUS_LABEL: Record<LessonStatus, string> = {
 
 export function CourseLessons() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { id } = useParams({ from: '/_authenticated/courses/$id' });
   const courseId = Number(id);
   const queryClient = useQueryClient();
@@ -24,6 +25,11 @@ export function CourseLessons() {
   const { data: lessons = [], isLoading } = useQuery({
     queryKey: ['lessons', courseId],
     queryFn: () => fetchLessons(courseId),
+  });
+
+  const { data: resume } = useQuery({
+    queryKey: ['resume', courseId],
+    queryFn: () => fetchResumeLesson(courseId),
   });
 
   const mutation = useMutation({
@@ -41,11 +47,24 @@ export function CourseLessons() {
         queryClient.setQueryData(['lessons', courseId], context.previous);
       }
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['resume', courseId] });
+    },
   });
 
   function toggleStatus(lesson: Lesson) {
     const next = STATUS_CYCLE[lesson.status];
     mutation.mutate({ lessonId: lesson.id, status: next });
+  }
+
+  function handleLessonClick(lessonId: number) {
+    trackLastVisited(courseId, lessonId).catch(() => {});
+  }
+
+  function handleResume() {
+    if (resume?.lessonId) {
+      navigate({ to: '/lessons/$lessonId', params: { lessonId: String(resume.lessonId) } });
+    }
   }
 
   const doneCount = lessons.filter((l) => l.status === 'done').length;
@@ -57,12 +76,36 @@ export function CourseLessons() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">{t('lessons.title')}</h1>
-        {lessons.length > 0 && (
-          <p className="text-muted-foreground mt-1">
-            {t('lessons.progress', { done: doneCount, total: lessons.length, pct: progress })}
-          </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold">{t('lessons.title')}</h1>
+          {lessons.length > 0 && (
+            <p className="text-muted-foreground mt-1">
+              {t('lessons.progress', { done: doneCount, total: lessons.length, pct: progress })}
+            </p>
+          )}
+        </div>
+        {resume && (
+          resume.isComplete ? (
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-sm text-green-700 font-medium">{t('myLearning.courseComplete')}</span>
+              {resume.lessonId && (
+                <button
+                  onClick={handleResume}
+                  className="text-sm rounded border px-3 py-1.5 hover:bg-muted"
+                >
+                  {t('myLearning.revisit')}
+                </button>
+              )}
+            </div>
+          ) : resume.lessonId ? (
+            <button
+              onClick={handleResume}
+              className="shrink-0 rounded bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90"
+            >
+              {t('myLearning.resume')}
+            </button>
+          ) : null
         )}
       </div>
 
@@ -89,6 +132,7 @@ export function CourseLessons() {
             <Link
               to="/lessons/$lessonId"
               params={{ lessonId: String(lesson.id) }}
+              onClick={() => handleLessonClick(lesson.id)}
               className={`hover:underline ${lesson.status === 'done' ? 'line-through text-muted-foreground' : ''}`}
             >
               {lesson.title}

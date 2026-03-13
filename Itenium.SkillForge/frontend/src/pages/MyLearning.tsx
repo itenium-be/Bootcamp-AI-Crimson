@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import { fetchMyEnrollments } from '@/api/client';
+import { fetchMyEnrollments, fetchResumeLesson } from '@/api/client';
 
 export interface Enrollment {
   id: number;
@@ -30,6 +30,54 @@ export function filterEnrollments(enrollments: Enrollment[], filters: Enrollment
     if (filters.status && e.status !== filters.status) return false;
     return true;
   });
+}
+
+function ResumeButton({ courseId }: { courseId: number }) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const { data: resume } = useQuery({
+    queryKey: ['resume', courseId],
+    queryFn: () => fetchResumeLesson(courseId),
+  });
+
+  function handleResume(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (resume?.isComplete) {
+      if (resume.lessonId) {
+        navigate({ to: '/lessons/$lessonId', params: { lessonId: String(resume.lessonId) } });
+      }
+    } else if (resume?.lessonId) {
+      navigate({ to: '/lessons/$lessonId', params: { lessonId: String(resume.lessonId) } });
+    }
+  }
+
+  if (!resume) return null;
+
+  if (resume.isComplete) {
+    return (
+      <div className="flex items-center gap-2 mt-1">
+        <span className="text-xs text-green-700 font-medium">{t('myLearning.courseComplete')}</span>
+        {resume.lessonId && (
+          <button
+            onClick={handleResume}
+            className="text-xs text-primary underline hover:no-underline"
+          >
+            {t('myLearning.revisit')}
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={handleResume}
+      className="mt-1 text-xs rounded bg-primary px-2 py-1 text-primary-foreground hover:opacity-90"
+    >
+      {t('myLearning.resume')}
+    </button>
+  );
 }
 
 export function MyLearning() {
@@ -94,7 +142,7 @@ export function MyLearning() {
             <div
               key={enrollment.id}
               className="rounded-md border p-4 space-y-2 cursor-pointer hover:bg-muted/50"
-              onClick={() => navigate({ to: '/manager/courses/$id', params: { id: String(enrollment.courseId) } })}
+              onClick={() => navigate({ to: '/courses/$id', params: { id: String(enrollment.courseId) } })}
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold leading-tight">{enrollment.courseName}</h3>
@@ -113,6 +161,7 @@ export function MyLearning() {
               <p className="text-xs text-muted-foreground">
                 {t('myLearning.enrolledOn')} {new Date(enrollment.enrolledAt).toLocaleDateString()}
               </p>
+              <ResumeButton courseId={enrollment.courseId} />
             </div>
           ))}
         </div>

@@ -353,6 +353,20 @@ export async function setLessonStatus(lessonId: number, status: LessonStatus): P
   await api.put(`/api/lessons/${lessonId}/status`, { status });
 }
 
+export interface LessonProgressSummary {
+  lessonId: number;
+  completedCount: number;
+}
+
+export async function fetchLessonProgressSummary(lessonId: number): Promise<LessonProgressSummary> {
+  const response = await api.get<LessonProgressSummary>(`/api/lessons/${lessonId}/progress-summary`);
+  return response.data;
+}
+
+export async function resetLessonProgress(lessonId: number): Promise<void> {
+  await api.delete(`/api/lessons/${lessonId}/progress`);
+}
+
 export interface FeedbackEntry {
   id: number;
   userId: string | null;

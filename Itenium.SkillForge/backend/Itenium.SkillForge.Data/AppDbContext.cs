@@ -35,11 +35,16 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<ModuleEntity> Modules => Set<ModuleEntity>();
 
+    public DbSet<LessonProgressEntity> LessonProgresses => Set<LessonProgressEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
         builder.Entity<LessonStatusEntity>()
             .HasKey(s => new { s.UserId, s.LessonId });
+
+        builder.Entity<LessonProgressEntity>()
+            .HasKey(p => new { p.UserId, p.LessonId });
     }
 }

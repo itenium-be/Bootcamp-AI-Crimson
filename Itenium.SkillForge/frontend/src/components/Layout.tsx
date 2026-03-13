@@ -245,6 +245,7 @@ export function Layout() {
   const coursesNavItems = [
     { path: '/manager/courses', icon: BookOpen, label: t('nav.manageCourses') },
     { path: '/manager/modules', icon: BookOpen, label: t('nav.manageModules') },
+    { path: '/manager/lesson-progress', icon: BookOpen, label: t('nav.lessonProgress') },
   ];
 
   // Administration - shown for backoffice

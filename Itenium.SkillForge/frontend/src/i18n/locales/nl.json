@@ -32,6 +32,7 @@
     "coursesSection": "Cursussen",
     "manageCourses": "Cursussen Beheren",
     "manageModules": "Leerpaden",
+    "lessonProgress": "Lesvoortgang",
     "administration": "Administratie",
     "reports": "Rapporten",
     "usage": "Gebruik",
@@ -263,6 +264,17 @@
     "entries": "Reacties voor {{name}}",
     "backToSummary": "Terug naar overzicht",
     "anonymous": "Anoniem"
+  },
+  "lessonProgress": {
+    "title": "Lesvoortgang",
+    "subtitle": "Voltooiingen per les. Het bewerken van inhoud reset de voortgang niet.",
+    "lesson": "Les",
+    "completedCount": "Voltooiingen",
+    "warning": "{{count}} leerling(en) heeft deze les voltooid. Inhoud bewerken reset hun voortgang niet.",
+    "reset": "Voortgang Resetten",
+    "confirmReset": "Alle voortgang voor \"{{title}}\" resetten? Dit kan niet ongedaan worden gemaakt.",
+    "noLessons": "Geen lessen gevonden",
+    "selectCourse": "Selecteer een cursus om lesvoortgang te bekijken"
   },
   "modules": {
     "title": "Leerpaden",

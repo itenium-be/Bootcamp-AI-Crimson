@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/bootcamp/Bootcamp-AI-Crimson/**)",
+      "Bash(gh issue:*)",
+      "Bash(cd \"C:\\\\bootcamp\\\\Bootcamp-AI-Crimson\\\\Itenium.SkillForge\\\\backend\" && dotnet ef migrations add AddCourseAssignments --project Itenium.SkillForge.Data --startup-project Itenium.SkillForge.WebApi 2>&1)",
+      "Bash(cd \"C:\\\\bootcamp\\\\Bootcamp-AI-Crimson\\\\Itenium.SkillForge\\\\backend\" && dotnet tool install --global dotnet-ef 2>&1 && dotnet ef migrations add AddCourseAssignments --project Itenium.SkillForge.Data --startup-project Itenium.SkillForge.WebApi 2>&1)",
+      "Bash(cd \"C:\\\\bootcamp\\\\Bootcamp-AI-Crimson\\\\Itenium.SkillForge\\\\backend\" && dotnet build 2>&1)",
+      "Bash(powershell.exe -Command \"Stop-Process -Id 7592 -Force\" 2>&1)",
+      "Bash(cd \"C:\\\\bootcamp\\\\Bootcamp-AI-Crimson\\\\Itenium.SkillForge\\\\backend\" && dotnet build 2>&1 | tail -5)",
+      "Bash(find /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/frontend -name \"*.json\" 2>/dev/null | head -20)",
+      "Bash(cd /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/frontend && bun run lint 2>&1)",
+      "Bash(bun run:*)",
+      "Bash(git add:*)",
+      "Bash(git restore:*)",
+      "Bash(cd /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/backend && dotnet build 2>&1 | grep -E \"error|Error\" | head -30)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet ef:*)",
+      "Bash(find /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/backend -name \"*CheckPending*\" | grep -v obj | xargs grep \"migrationBuilder\\\\.\" 2>/dev/null | head -5)",
+      "Bash(find /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/backend -name \"*AddEnrollments*\" | grep -v obj | xargs grep \"migrationBuilder\\\\.\" 2>/dev/null | head -10)",
+      "Bash(powershell.exe -Command \"Disable-ScheduledTask -TaskName 'GitAutoSync'\" 2>&1)",
+      "Bash(powershell.exe -Command \"Get-ScheduledTask | Where-Object { \\\\$_.TaskName -like '*Git*' -or \\\\$_.TaskName -like '*Sync*' } | Select-Object TaskName\" 2>&1)",
+      "Bash(powershell.exe -Command \"Get-ScheduledTask | Where-Object { \\\\$_.TaskName -match 'Git|Sync' } | Select-Object TaskName\" 2>&1)",
+      "Bash(schtasks.exe /query /fo LIST 2>&1 | grep -i \"git\\\\|sync\\\\|skillforge\" -i | head -10)",
+      "Bash(cmd.exe /c \"schtasks /query /fo LIST 2>&1\" | grep -i \"skillforge\\\\|gitauto\\\\|auto sync\" | head -10)",
+      "Bash(cmd.exe /c \"schtasks /query /fo CSV\" 2>&1 | grep -i \"sync\\\\|git\" | head -10)",
+      "Bash(cmd.exe /c \"schtasks /query /fo CSV\" 2>&1 | head -20)",
+      "Bash(ls /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/*150000* 2>&1)",
+      "Bash(grep -l \"Enrollment\" /c/bootcamp/Bootcamp-AI-Crimson/Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/*.cs | grep -v obj | grep -v Designer)"
+    ]
+  }
+}

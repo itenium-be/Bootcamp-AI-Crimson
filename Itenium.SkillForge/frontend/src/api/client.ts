@@ -60,17 +60,59 @@ export async function fetchUserTeams(): Promise<Team[]> {
   return response.data;
 }
 
-interface Course {
+export type CourseStatus = 'Draft' | 'Published' | 'Archived';
+
+export interface Course {
   id: number;
   name: string;
   description: string | null;
   category: string | null;
   level: string | null;
+  estimatedDuration: number | null;
+  status: CourseStatus;
+  createdAt: string;
+}
+
+export interface CourseFormData {
+  name: string;
+  description: string | null;
+  category: string | null;
+  level: string | null;
+  estimatedDuration: number | null;
 }
 
 export async function fetchCourses(): Promise<Course[]> {
   const response = await api.get<Course[]>('/api/course');
   return response.data;
+}
+
+export async function fetchCourse(id: number): Promise<Course> {
+  const response = await api.get<Course>(`/api/course/${id}`);
+  return response.data;
+}
+
+export async function createCourse(data: CourseFormData): Promise<Course> {
+  const response = await api.post<Course>('/api/course', data);
+  return response.data;
+}
+
+export async function updateCourse(id: number, data: CourseFormData): Promise<Course> {
+  const response = await api.put<Course>(`/api/course/${id}`, data);
+  return response.data;
+}
+
+export async function publishCourse(id: number): Promise<Course> {
+  const response = await api.put<Course>(`/api/course/${id}/publish`);
+  return response.data;
+}
+
+export async function archiveCourse(id: number): Promise<Course> {
+  const response = await api.put<Course>(`/api/course/${id}/archive`);
+  return response.data;
+}
+
+export async function deleteCourse(id: number): Promise<void> {
+  await api.delete(`/api/course/${id}`);
 }
 
 interface QuestionStat {

@@ -78,7 +78,9 @@
     "searchPlaceholder": "Zoek op naam of beschrijving...",
     "allCategories": "Alle Categorieën",
     "allLevels": "Alle Niveaus",
-    "clearFilters": "Filters wissen"
+    "clearFilters": "Filters wissen",
+    "enroll": "Inschrijven",
+    "enrolled": "Ingeschreven"
   },
   "users": {
     "title": "Gebruikers",
@@ -97,6 +99,16 @@
       "team_manager": "Teammanager",
       "backoffice": "Backoffice"
     }
+  },
+  "myLearning": {
+    "title": "Mijn Leertraject",
+    "subtitle": "Cursussen waarvoor je ingeschreven bent",
+    "searchPlaceholder": "Zoek op cursusnaam of categorie...",
+    "allStatuses": "Alle Statussen",
+    "statusActive": "Bezig",
+    "statusCompleted": "Voltooid",
+    "enrolledOn": "Ingeschreven op",
+    "noEnrollments": "Je bent nog niet ingeschreven voor een cursus."
   },
   "learners": {
     "title": "Leerlingen",

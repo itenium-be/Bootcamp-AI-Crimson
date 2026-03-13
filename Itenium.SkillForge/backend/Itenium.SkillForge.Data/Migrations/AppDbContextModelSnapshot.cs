@@ -157,17 +157,17 @@ namespace Itenium.SkillForge.Data.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("character varying(450)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.Property<string>("SubmitterName")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
                     b.Property<int?>("TeamId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Topic")
                         .HasMaxLength(100)

@@ -57,5 +57,9 @@ public class AppDbContext : ForgeIdentityDbContext
         builder.Entity<EnrollmentEntity>()
             .HasIndex(e => new { e.UserId, e.CourseId })
             .IsUnique();
+
+        builder.Entity<ContentSuggestionEntity>()
+            .HasIndex(e => new { e.TeamId, e.Status })
+            .HasDatabaseName("IX_ContentSuggestions_TeamId_Status");
     }
 }

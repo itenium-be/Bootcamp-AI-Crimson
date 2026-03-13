@@ -74,7 +74,10 @@
     "resetTokenExpired": "Deze herstelkoppeling is verlopen of ongeldig. Vraag een nieuwe aan.",
     "ssoUserCannotReset": "Dit account gebruikt SSO. Herstel uw wachtwoord via uw SSO-provider.",
     "invalidResetLink": "Deze herstelkoppeling is ongeldig. Vraag een nieuwe aan.",
-    "requestNewResetLink": "Nieuwe herstelkoppeling aanvragen"
+    "requestNewResetLink": "Nieuwe herstelkoppeling aanvragen",
+    "orContinueWith": "Of ga verder met",
+    "signInWithSso": "Inloggen met SSO",
+    "completingSignIn": "Inloggen afronden..."
   },
   "dashboard": {
     "title": "Dashboard - CRIMSON",

@@ -33,6 +33,65 @@ interface LoginResponse {
   expires_in: number;
 }
 
+// ---- SSO / PKCE helpers ----
+
+function generateCodeVerifier(): string {
+  const array = new Uint8Array(32);
+  crypto.getRandomValues(array);
+  return btoa(String.fromCharCode(...array))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+}
+
+async function generateCodeChallenge(verifier: string): Promise<string> {
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+}
+
+export async function initiateSsoLogin(): Promise<void> {
+  const verifier = generateCodeVerifier();
+  const challenge = await generateCodeChallenge(verifier);
+  sessionStorage.setItem('pkce_verifier', verifier);
+
+  const params = new URLSearchParams({
+    client_id: 'skillforge-spa',
+    response_type: 'code',
+    scope: 'openid profile email',
+    redirect_uri: `${window.location.origin}/callback`,
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+  });
+
+  window.location.href = `${API_BASE_URL}/connect/authorize?${params.toString()}`;
+}
+
+export async function exchangeSsoCode(code: string): Promise<string> {
+  const verifier = sessionStorage.getItem('pkce_verifier');
+  if (!verifier) throw new Error('No PKCE verifier found');
+  sessionStorage.removeItem('pkce_verifier');
+
+  const params = new URLSearchParams({
+    grant_type: 'authorization_code',
+    code,
+    client_id: 'skillforge-spa',
+    redirect_uri: `${window.location.origin}/callback`,
+    code_verifier: verifier,
+  });
+
+  const response = await axios.post<LoginResponse>(`${API_BASE_URL}/connect/token`, params, {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+
+  return response.data.access_token;
+}
+
+// ---- Password auth ----
+
 export async function loginApi(username: string, password: string): Promise<LoginResponse> {
   const params = new URLSearchParams();
   params.append('grant_type', 'password');
@@ -50,7 +109,7 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
-export interface Team {
+interface Team {
   id: number;
   name: string;
 }
@@ -123,7 +182,7 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -172,7 +231,7 @@ export async function removeTeamMember(teamId: number, userId: string): Promise<
   await api.delete(`/api/team/${teamId}/members/${userId}`);
 }
 
-export interface Enrollment {
+interface Enrollment {
   id: number;
   courseId: number;
   courseName: string;

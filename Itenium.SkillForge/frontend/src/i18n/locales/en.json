@@ -74,7 +74,10 @@
     "resetTokenExpired": "This reset link has expired or is invalid. Please request a new one.",
     "ssoUserCannotReset": "This account uses SSO. Please reset your password through your SSO provider.",
     "invalidResetLink": "This reset link is invalid. Please request a new one.",
-    "requestNewResetLink": "Request a new reset link"
+    "requestNewResetLink": "Request a new reset link",
+    "orContinueWith": "Or continue with",
+    "signInWithSso": "Sign in with SSO",
+    "completingSignIn": "Completing sign in..."
   },
   "dashboard": {
     "title": "Dashboard - CRIMSON",

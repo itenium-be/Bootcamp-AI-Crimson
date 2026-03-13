@@ -1,3 +1,4 @@
+using System.Globalization;
 using Itenium.Forge.Security.OpenIddict;
 using Itenium.SkillForge.Services;
 using Microsoft.AspNetCore.Identity;
@@ -87,7 +88,7 @@ public class UserRepository : IUserRepository
 
     public async Task<IList<UserResponse>> GetTeamMembersAsync(int teamId)
     {
-        var teamIdStr = teamId.ToString();
+        var teamIdStr = teamId.ToString(CultureInfo.InvariantCulture);
         var result = new List<UserResponse>();
 
         foreach (var user in _userManager.Users.ToList())
@@ -138,7 +139,7 @@ public class UserRepository : IUserRepository
         var user = await _userManager.FindByIdAsync(userId);
         if (user is null) return false;
 
-        var teamIdStr = teamId.ToString();
+        var teamIdStr = teamId.ToString(CultureInfo.InvariantCulture);
         var existing = await _userManager.GetClaimsAsync(user);
         if (existing.Any(c => c.Type == "team" && c.Value == teamIdStr))
             return true; // already a member — idempotent
@@ -152,7 +153,7 @@ public class UserRepository : IUserRepository
         var user = await _userManager.FindByIdAsync(userId);
         if (user is null) return false;
 
-        var teamIdStr = teamId.ToString();
+        var teamIdStr = teamId.ToString(CultureInfo.InvariantCulture);
         var claims = await _userManager.GetClaimsAsync(user);
         var claim = claims.FirstOrDefault(c => c.Type == "team" && c.Value == teamIdStr);
         if (claim is null) return false;

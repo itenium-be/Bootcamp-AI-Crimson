@@ -59,7 +59,7 @@ export function CourseLessons() {
   }
 
   function handleLessonClick(lessonId: number) {
-    trackLastVisited(courseId, lessonId).catch(() => {});
+    void trackLastVisited(courseId, lessonId);
   }
 
   function handleResume() {

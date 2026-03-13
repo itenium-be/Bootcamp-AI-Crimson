@@ -39,7 +39,8 @@
     "completion": "Voltooiing",
     "feedback": "Feedback",
     "settingsSection": "Instellingen",
-    "certificateTemplates": "Certificaat Sjablonen"
+    "certificateTemplates": "Certificaat Sjablonen",
+    "suggestContent": "Inhoud Voorstellen"
   },
   "auth": {
     "signIn": "Inloggen",
@@ -350,6 +351,26 @@
       "mostPopular": "Meest Populaire Cursussen",
       "lowestCompletion": "Laagste Voltooiingspercentage"
     }
+  },
+  "suggestContent": {
+    "title": "Inhoud Voorstellen",
+    "subtitle": "Stel een resource of onderwerp voor dat je aan het platform wilt zien toegevoegd.",
+    "formTitle": "Titel",
+    "formDescription": "Beschrijving",
+    "formUrl": "URL (optioneel)",
+    "formTopic": "Onderwerp (optioneel)",
+    "formRelatedCourse": "Gerelateerde cursus (optioneel)",
+    "submit": "Voorstel Indienen",
+    "submitting": "Bezig met indienen...",
+    "successMessage": "Je voorstel is ingediend. Bedankt!",
+    "mySuggestions": "Mijn Voorstellen",
+    "noSuggestions": "Je hebt nog geen voorstellen ingediend.",
+    "status": {
+      "Pending": "In afwachting",
+      "Approved": "Goedgekeurd",
+      "Rejected": "Afgewezen"
+    },
+    "reviewNote": "Beoordelingsnotitie"
   },
   "managerCourses": {
     "title": "Cursusbeheer",

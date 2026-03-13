@@ -658,3 +658,33 @@ export async function updateAnnotation(id: number, content: string, rating?: num
 export async function deleteAnnotation(id: number): Promise<void> {
   await api.delete(`/api/annotations/${id}`);
 }
+
+export interface ContentSuggestion {
+  id: number;
+  title: string;
+  description: string;
+  url?: string;
+  relatedCourseId?: number;
+  topic?: string;
+  status: 'Pending' | 'Approved' | 'Rejected';
+  reviewNote?: string;
+  submittedAt: string;
+}
+
+export interface SubmitContentSuggestionRequest {
+  title: string;
+  description: string;
+  url?: string;
+  relatedCourseId?: number;
+  topic?: string;
+}
+
+export async function submitContentSuggestion(request: SubmitContentSuggestionRequest): Promise<ContentSuggestion> {
+  const response = await api.post<ContentSuggestion>('/api/content-suggestions', request);
+  return response.data;
+}
+
+export async function fetchMyContentSuggestions(): Promise<ContentSuggestion[]> {
+  const response = await api.get<ContentSuggestion[]>('/api/learners/me/content-suggestions');
+  return response.data;
+}

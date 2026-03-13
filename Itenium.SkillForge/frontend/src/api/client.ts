@@ -636,7 +636,7 @@ export interface Annotation {
   isOwn: boolean;
 }
 
-export interface AnnotationsPage {
+interface AnnotationsPage {
   items: Annotation[];
   totalCount: number;
 }
@@ -661,7 +661,7 @@ export async function deleteAnnotation(id: number): Promise<void> {
   await api.delete(`/api/annotations/${id}`);
 }
 
-export interface ContentSuggestion {
+interface ContentSuggestion {
   id: number;
   title: string;
   description: string;

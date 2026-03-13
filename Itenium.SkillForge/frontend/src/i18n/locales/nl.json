@@ -149,5 +149,13 @@
       "published": "Gepubliceerd",
       "archived": "Gearchiveerd"
     }
+  },
+  "teamMembers": {
+    "title": "Teamleden",
+    "name": "Naam",
+    "email": "E-mail",
+    "lastActive": "Laatst Actief",
+    "noMembers": "Geen leden gevonden",
+    "noTeam": "Geen team geselecteerd"
   }
 }

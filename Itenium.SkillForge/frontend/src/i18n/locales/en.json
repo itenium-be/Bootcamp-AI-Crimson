@@ -149,5 +149,13 @@
       "published": "Published",
       "archived": "Archived"
     }
+  },
+  "teamMembers": {
+    "title": "Team Members",
+    "name": "Name",
+    "email": "Email",
+    "lastActive": "Last Active",
+    "noMembers": "No members found",
+    "noTeam": "No team selected"
   }
 }

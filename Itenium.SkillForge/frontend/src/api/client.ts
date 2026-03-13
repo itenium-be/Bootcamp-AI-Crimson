@@ -60,6 +60,17 @@ export async function fetchUserTeams(): Promise<Team[]> {
   return response.data;
 }
 
+interface TeamMember {
+  name: string;
+  email: string;
+  lastActive: string | null;
+}
+
+export async function fetchTeamMembers(teamId: number): Promise<TeamMember[]> {
+  const response = await api.get<TeamMember[]>(`/api/team/${teamId}/members`);
+  return response.data;
+}
+
 export type CourseStatus = 'Draft' | 'Published' | 'Archived';
 
 export interface Course {

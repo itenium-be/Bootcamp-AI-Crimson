@@ -12,3 +12,6 @@ Use bun, not npm/yarn
 ## Before committing
 bun run lint && bun run typecheck && bun run test
 dotnet format && dotnet test
+
+## Autonomy
+Operate autonomously — implement, commit, push, and merge PRs without asking for confirmation unless destructive or ambiguous.

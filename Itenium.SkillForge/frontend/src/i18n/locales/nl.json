@@ -331,6 +331,21 @@
     "linkLabel": "Link label",
     "preview": "Voorbeeld"
   },
+  "reports": {
+    "usage": {
+      "title": "Cursusgebruiksrapport",
+      "activeLearners": "Actieve Leerlingen",
+      "completionsThisMonth": "Voltooiingen Deze Maand",
+      "totalEnrollments": "Totaal Inschrijvingen",
+      "from": "Van",
+      "to": "Tot",
+      "perCourse": "Per Cursus",
+      "completions": "Voltooiingen",
+      "completionRate": "Voltooiingspercentage",
+      "mostPopular": "Meest Populaire Cursussen",
+      "lowestCompletion": "Laagste Voltooiingspercentage"
+    }
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

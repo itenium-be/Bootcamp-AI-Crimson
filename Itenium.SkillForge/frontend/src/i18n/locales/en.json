@@ -331,6 +331,21 @@
     "linkLabel": "Link label",
     "preview": "Preview"
   },
+  "reports": {
+    "usage": {
+      "title": "Course Usage Report",
+      "activeLearners": "Active Learners",
+      "completionsThisMonth": "Completions This Month",
+      "totalEnrollments": "Total Enrollments",
+      "from": "From",
+      "to": "To",
+      "perCourse": "Per-Course Stats",
+      "completions": "Completions",
+      "completionRate": "Completion Rate",
+      "mostPopular": "Most Popular Courses",
+      "lowestCompletion": "Lowest Completion Rates"
+    }
+  },
   "managerCourses": {
     "title": "Course Management",
     "newCourse": "New Course",

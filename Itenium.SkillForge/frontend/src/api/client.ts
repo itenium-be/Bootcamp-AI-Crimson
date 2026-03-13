@@ -559,3 +559,31 @@ export async function deleteContentBlock(lessonId: number, blockId: number): Pro
 export async function reorderContentBlocks(lessonId: number, orderedIds: number[]): Promise<void> {
   await api.put(`/api/lessons/${lessonId}/content-blocks/reorder`, { orderedIds });
 }
+
+export interface ReportSummary {
+  activeLearners: number;
+  completionsThisMonth: number;
+  totalEnrollments: number;
+}
+
+export interface CourseUsage {
+  courseId: number;
+  courseName: string;
+  totalEnrollments: number;
+  completions: number;
+  completionRate: number;
+}
+
+export async function fetchReportSummary(): Promise<ReportSummary> {
+  const response = await api.get<ReportSummary>('/api/reports/summary');
+  return response.data;
+}
+
+export async function fetchCourseUsage(params?: {
+  from?: string;
+  to?: string;
+  courseId?: number;
+}): Promise<CourseUsage[]> {
+  const response = await api.get<CourseUsage[]>('/api/reports/course-usage', { params });
+  return response.data;
+}

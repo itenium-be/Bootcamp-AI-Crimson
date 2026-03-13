@@ -16,7 +16,7 @@ export function ManagerLessonProgress() {
 
   const { data: lessons = [], isLoading: lessonsLoading } = useQuery({
     queryKey: ['lessons', selectedCourseId],
-    queryFn: () => fetchLessons(selectedCourseId!),
+    queryFn: () => fetchLessons(selectedCourseId ?? 0),
     enabled: selectedCourseId != null,
   });
 

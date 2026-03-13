@@ -155,6 +155,43 @@ public class LessonStatusControllerTests : DatabaseTestBase
         Assert.That(result, Is.InstanceOf<NotFoundResult>());
     }
 
+    // POST complete
+
+    [Test]
+    public async Task CompleteLesson_CreatesRowWithDoneStatus()
+    {
+        var lessonId = await SeedLesson();
+
+        var result = await _sut.CompleteLesson(lessonId);
+
+        Assert.That(result, Is.InstanceOf<NoContentResult>());
+        var row = await Db.LessonStatuses.SingleOrDefaultAsync(s => s.UserId == UserId && s.LessonId == lessonId);
+        Assert.That(row, Is.Not.Null);
+        Assert.That(row!.Status, Is.EqualTo(LessonStatusValue.Done));
+    }
+
+    [Test]
+    public async Task CompleteLesson_WhenAlreadyDone_StillReturnsNoContent()
+    {
+        var lessonId = await SeedLesson();
+        Db.LessonStatuses.Add(new LessonStatusEntity { UserId = UserId, LessonId = lessonId, Status = LessonStatusValue.Done });
+        await Db.SaveChangesAsync();
+
+        var result = await _sut.CompleteLesson(lessonId);
+
+        Assert.That(result, Is.InstanceOf<NoContentResult>());
+        var row = await Db.LessonStatuses.SingleOrDefaultAsync(s => s.UserId == UserId && s.LessonId == lessonId);
+        Assert.That(row!.Status, Is.EqualTo(LessonStatusValue.Done));
+    }
+
+    [Test]
+    public async Task CompleteLesson_LessonNotFound_ReturnsNotFound()
+    {
+        var result = await _sut.CompleteLesson(9999);
+
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
+    }
+
     // Done contributes to completion %
 
     [Test]

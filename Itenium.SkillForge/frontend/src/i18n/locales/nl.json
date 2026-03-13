@@ -215,6 +215,8 @@
     "title": "Lessen",
     "noLessons": "Nog geen lessen",
     "progress": "{{done}} / {{total}} gedaan ({{pct}}%)",
+    "resume": "Hervatten",
+    "markComplete": "Markeer als Voltooid",
     "status": {
       "new": "Niet gestart",
       "done": "Gedaan",

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, useParams } from '@tanstack/react-router';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import { fetchLessons, setLessonStatus, type Lesson, type LessonStatus } from '@/api/client';
 
 const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
@@ -20,6 +20,7 @@ export function CourseLessons() {
   const { id } = useParams({ from: '/_authenticated/courses/$id' });
   const courseId = Number(id);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: lessons = [], isLoading } = useQuery({
     queryKey: ['lessons', courseId],
@@ -50,6 +51,13 @@ export function CourseLessons() {
 
   const doneCount = lessons.filter((l) => l.status === 'done').length;
   const progress = lessons.length > 0 ? Math.round((doneCount / lessons.length) * 100) : 0;
+  const firstIncomplete = lessons.find((l) => l.status !== 'done');
+
+  function handleResume() {
+    if (firstIncomplete) {
+      void navigate({ to: '/lessons/$lessonId', params: { lessonId: String(firstIncomplete.id) } });
+    }
+  }
 
   if (isLoading) {
     return <div>{t('common.loading')}</div>;
@@ -57,12 +65,22 @@ export function CourseLessons() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold">{t('lessons.title')}</h1>
-        {lessons.length > 0 && (
-          <p className="text-muted-foreground mt-1">
-            {t('lessons.progress', { done: doneCount, total: lessons.length, pct: progress })}
-          </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">{t('lessons.title')}</h1>
+          {lessons.length > 0 && (
+            <p className="text-muted-foreground mt-1">
+              {t('lessons.progress', { done: doneCount, total: lessons.length, pct: progress })}
+            </p>
+          )}
+        </div>
+        {firstIncomplete && (
+          <button
+            onClick={handleResume}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            {t('lessons.resume')}
+          </button>
         )}
       </div>
 

@@ -408,6 +408,10 @@ export async function reorderLessons(courseId: number, orderedLessonIds: number[
   await api.put(`/api/courses/${courseId}/lessons/reorder`, { orderedLessonIds });
 }
 
+export async function completeLesson(lessonId: number): Promise<void> {
+  await api.post(`/api/lessons/${lessonId}/complete`);
+}
+
 export interface FeedbackEntry {
   id: number;
   userId: string | null;

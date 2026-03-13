@@ -80,6 +80,24 @@
     "allLevels": "Alle Niveaus",
     "clearFilters": "Filters wissen"
   },
+  "users": {
+    "title": "Gebruikers",
+    "name": "Naam",
+    "email": "E-mail",
+    "role": "Rol",
+    "status": "Status",
+    "lastActive": "Laatst Actief",
+    "inactive": "Inactief",
+    "noUsers": "Geen gebruikers gevonden",
+    "searchPlaceholder": "Zoek op naam of e-mail...",
+    "allRoles": "Alle Rollen",
+    "allStatuses": "Alle Statussen",
+    "role": {
+      "learner": "Leerling",
+      "team_manager": "Teammanager",
+      "backoffice": "Backoffice"
+    }
+  },
   "learners": {
     "title": "Leerlingen",
     "name": "Naam",

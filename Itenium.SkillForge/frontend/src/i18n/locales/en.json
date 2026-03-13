@@ -74,7 +74,11 @@
     "addCourse": "Add Course",
     "editCourse": "Edit Course",
     "deleteCourse": "Delete Course",
-    "noCourses": "No courses found"
+    "noCourses": "No courses found",
+    "searchPlaceholder": "Search by name or description...",
+    "allCategories": "All Categories",
+    "allLevels": "All Levels",
+    "clearFilters": "Clear filters"
   },
   "learners": {
     "title": "Learners",

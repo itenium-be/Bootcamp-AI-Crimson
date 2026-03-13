@@ -74,7 +74,11 @@
     "addCourse": "Cursus Toevoegen",
     "editCourse": "Cursus Bewerken",
     "deleteCourse": "Cursus Verwijderen",
-    "noCourses": "Geen cursussen gevonden"
+    "noCourses": "Geen cursussen gevonden",
+    "searchPlaceholder": "Zoek op naam of beschrijving...",
+    "allCategories": "Alle Categorieën",
+    "allLevels": "Alle Niveaus",
+    "clearFilters": "Filters wissen"
   },
   "learners": {
     "title": "Leerlingen",

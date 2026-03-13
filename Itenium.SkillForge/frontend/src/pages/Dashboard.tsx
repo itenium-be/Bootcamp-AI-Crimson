@@ -60,8 +60,8 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <div className="rounded-xl overflow-hidden">
-        <img src="/new-year-2026.jpg" alt="New Year Event January 2026" className="w-full object-contain max-h-64" />
+      <div className="-mx-6 rounded-xl overflow-hidden">
+        <img src="/new-year-2026.jpg" alt="New Year Event January 2026" className="w-full object-cover h-[22rem] object-center" style={{ objectPosition: '50% 45%' }} />
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 bg-primary text-primary-foreground text-center py-2 text-sm">

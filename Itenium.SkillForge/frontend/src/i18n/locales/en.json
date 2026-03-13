@@ -286,7 +286,12 @@
     "allRatings": "All",
     "entries": "Entries for {{name}}",
     "backToSummary": "Back to summary",
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "leaveFeedback": "Leave feedback",
+    "editFeedback": "Edit your feedback",
+    "yourFeedback": "Your feedback",
+    "commentPlaceholder": "Share your thoughts (optional)...",
+    "courseCompletePrompt": "You've completed this course! How would you rate it?"
   },
   "lessonProgress": {
     "title": "Lesson Progress",

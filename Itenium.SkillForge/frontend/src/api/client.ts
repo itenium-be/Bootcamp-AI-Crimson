@@ -467,6 +467,42 @@ export async function getFeedbackSummary(): Promise<CourseFeedbackRanking[]> {
   return response.data;
 }
 
+export async function submitCourseFeedback(courseId: number, rating: number, comment?: string): Promise<FeedbackEntry> {
+  const response = await api.post<FeedbackEntry>(`/api/courses/${courseId}/feedback`, { rating, comment });
+  return response.data;
+}
+
+export async function updateCourseFeedback(courseId: number, rating: number, comment?: string): Promise<void> {
+  await api.put(`/api/courses/${courseId}/feedback`, { rating, comment });
+}
+
+export async function getMyCourseFeedback(courseId: number): Promise<FeedbackEntry | null> {
+  try {
+    const response = await api.get<FeedbackEntry>(`/api/courses/${courseId}/feedback/me`);
+    return response.data;
+  } catch {
+    return null;
+  }
+}
+
+export async function submitLessonFeedback(lessonId: number, rating: number, comment?: string): Promise<FeedbackEntry> {
+  const response = await api.post<FeedbackEntry>(`/api/lessons/${lessonId}/feedback`, { rating, comment });
+  return response.data;
+}
+
+export async function updateLessonFeedback(lessonId: number, rating: number, comment?: string): Promise<void> {
+  await api.put(`/api/lessons/${lessonId}/feedback`, { rating, comment });
+}
+
+export async function getMyLessonFeedback(lessonId: number): Promise<FeedbackEntry | null> {
+  try {
+    const response = await api.get<FeedbackEntry>(`/api/lessons/${lessonId}/feedback/me`);
+    return response.data;
+  } catch {
+    return null;
+  }
+}
+
 export interface ModuleCourse {
   courseId: number;
   courseName: string;

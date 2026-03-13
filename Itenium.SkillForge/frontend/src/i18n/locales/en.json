@@ -131,5 +131,23 @@
     "passed": "Passed",
     "failed": "Failed",
     "noLearners": "No learners found"
+  },
+  "managerCourses": {
+    "title": "Course Management",
+    "newCourse": "New Course",
+    "editCourse": "Edit Course",
+    "duration": "Duration",
+    "durationUnit": "minutes",
+    "nameRequired": "Name is required",
+    "publish": "Publish",
+    "archive": "Archive",
+    "confirmPublish": "Publish \"{{name}}\"? It will become visible to learners.",
+    "confirmArchive": "Archive \"{{name}}\"? It will be hidden from learners.",
+    "confirmDelete": "Delete \"{{name}}\"? This cannot be undone.",
+    "status": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    }
   }
 }

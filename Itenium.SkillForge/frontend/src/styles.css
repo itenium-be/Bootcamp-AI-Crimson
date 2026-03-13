@@ -100,9 +100,11 @@
   }
   html {
     @apply overflow-x-hidden;
+    font-family: 'Rubik', sans-serif;
   }
   body {
     @apply min-h-svh w-full bg-background text-foreground has-[div[data-variant='inset']]:bg-sidebar;
+    font-family: 'Rubik', sans-serif;
   }
   button:not(:disabled),
   [role='button']:not(:disabled) {

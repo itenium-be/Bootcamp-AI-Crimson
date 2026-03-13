@@ -131,5 +131,23 @@
     "passed": "Geslaagd",
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
+  },
+  "managerCourses": {
+    "title": "Cursusbeheer",
+    "newCourse": "Nieuwe Cursus",
+    "editCourse": "Cursus Bewerken",
+    "duration": "Duur",
+    "durationUnit": "minuten",
+    "nameRequired": "Naam is verplicht",
+    "publish": "Publiceren",
+    "archive": "Archiveren",
+    "confirmPublish": "\"{{name}}\" publiceren? De cursus wordt zichtbaar voor leerlingen.",
+    "confirmArchive": "\"{{name}}\" archiveren? De cursus wordt verborgen voor leerlingen.",
+    "confirmDelete": "\"{{name}}\" verwijderen? Dit kan niet ongedaan worden gemaakt.",
+    "status": {
+      "draft": "Concept",
+      "published": "Gepubliceerd",
+      "archived": "Gearchiveerd"
+    }
   }
 }

@@ -767,3 +767,35 @@ export async function fetchModuleProgress(moduleId: number): Promise<LearnerModu
   const response = await api.get<LearnerModule>(`/api/modules/${moduleId}/progress`);
   return response.data;
 }
+
+export type ContentSuggestionStatus = 'pending' | 'approved' | 'rejected';
+
+export interface ContentSuggestion {
+  id: number;
+  submittedBy: string;
+  submitterName: string | null;
+  teamId: number | null;
+  title: string;
+  description: string | null;
+  url: string | null;
+  relatedCourseId: number | null;
+  topic: string | null;
+  status: ContentSuggestionStatus;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewNote: string | null;
+  submittedAt: string;
+}
+
+export async function fetchContentSuggestions(teamId: number, status?: string): Promise<ContentSuggestion[]> {
+  const response = await api.get<ContentSuggestion[]>('/api/content-suggestions', { params: { teamId, status } });
+  return response.data;
+}
+
+export async function approveContentSuggestion(id: number, note?: string): Promise<void> {
+  await api.put(`/api/content-suggestions/${id}/approve`, { note: note ?? null });
+}
+
+export async function rejectContentSuggestion(id: number, note?: string): Promise<void> {
+  await api.put(`/api/content-suggestions/${id}/reject`, { note: note ?? null });
+}

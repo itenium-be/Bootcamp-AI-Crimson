@@ -18,20 +18,24 @@ public class ContentSuggestionEntity
     [MaxLength(450)]
     public required string SubmittedBy { get; set; }
 
+    [MaxLength(200)]
+    public string? SubmitterName { get; set; }
+
+    public int? TeamId { get; set; }
+
     [Required]
     [MaxLength(200)]
     public required string Title { get; set; }
 
-    [Required]
     [MaxLength(2000)]
-    public required string Description { get; set; }
+    public string? Description { get; set; }
 
     [MaxLength(500)]
     public string? Url { get; set; }
 
     public int? RelatedCourseId { get; set; }
 
-    [MaxLength(200)]
+    [MaxLength(100)]
     public string? Topic { get; set; }
 
     public ContentSuggestionStatus Status { get; set; } = ContentSuggestionStatus.Pending;

@@ -41,7 +41,8 @@
     "feedback": "Feedback",
     "settingsSection": "Settings",
     "certificateTemplates": "Certificate Templates",
-    "suggestContent": "Suggest Content"
+    "suggestContent": "Suggest Content",
+    "suggestions": "Content Suggestions"
   },
   "auth": {
     "signIn": "Sign In",
@@ -418,6 +419,22 @@
     "courseCount": "{{count}} course(s)",
     "mandatory": "Mandatory",
     "lessonProgress": "{{done}} / {{total}} lessons completed"
+  },
+  "suggestions": {
+    "title": "Content Suggestions",
+    "subtitle": "Suggestions submitted by {{team}} team members",
+    "noTeam": "Please select a team to view suggestions.",
+    "noSuggestions": "No suggestions found.",
+    "allStatuses": "All Statuses",
+    "statusPending": "Pending",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "submittedBy": "Submitted by {{name}}",
+    "topic": "Topic",
+    "notePlaceholder": "Optional review note...",
+    "approve": "Approve",
+    "reject": "Reject",
+    "reviewNote": "Review note"
   },
   "managerCourses": {
     "title": "Course Management",

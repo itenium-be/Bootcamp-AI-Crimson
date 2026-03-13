@@ -41,7 +41,8 @@
     "feedback": "Feedback",
     "settingsSection": "Instellingen",
     "certificateTemplates": "Certificaat Sjablonen",
-    "suggestContent": "Inhoud Voorstellen"
+    "suggestContent": "Inhoud Voorstellen",
+    "suggestions": "Inhoudsuggesties"
   },
   "auth": {
     "signIn": "Inloggen",
@@ -418,6 +419,22 @@
     "courseCount": "{{count}} cursus(sen)",
     "mandatory": "Verplicht",
     "lessonProgress": "{{done}} / {{total}} lessen afgerond"
+  },
+  "suggestions": {
+    "title": "Inhoudsuggesties",
+    "subtitle": "Suggesties ingediend door leden van het {{team}} team",
+    "noTeam": "Selecteer een team om suggesties te bekijken.",
+    "noSuggestions": "Geen suggesties gevonden.",
+    "allStatuses": "Alle statussen",
+    "statusPending": "In behandeling",
+    "statusApproved": "Goedgekeurd",
+    "statusRejected": "Afgewezen",
+    "submittedBy": "Ingediend door {{name}}",
+    "topic": "Onderwerp",
+    "notePlaceholder": "Optionele beoordelingsnoot...",
+    "approve": "Goedkeuren",
+    "reject": "Afwijzen",
+    "reviewNote": "Beoordelingsnoot"
   },
   "managerCourses": {
     "title": "Cursusbeheer",

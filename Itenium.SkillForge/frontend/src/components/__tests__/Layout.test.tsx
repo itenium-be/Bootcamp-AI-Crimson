@@ -84,6 +84,7 @@ vi.mock('lucide-react', () => {
     ClipboardList: I,
     MessageSquare: I,
     CheckCircle: I,
+    Lightbulb: I,
   };
 });
 

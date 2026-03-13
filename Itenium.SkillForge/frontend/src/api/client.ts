@@ -408,7 +408,7 @@ export interface Module {
   courses: ModuleCourse[];
 }
 
-export interface ModuleFormData {
+interface ModuleFormData {
   name: string;
   description: string | null;
   goal: string | null;
@@ -442,4 +442,31 @@ export async function removeCourseFromModule(moduleId: number, courseId: number)
 
 export async function reorderModuleCourses(moduleId: number, orderedCourseIds: number[]): Promise<void> {
   await api.put(`/api/modules/${moduleId}/courses/reorder`, { orderedCourseIds });
+}
+
+export interface LearnerCourseProgress {
+  courseId: number;
+  courseName: string;
+  completedLessons: number;
+  totalLessons: number;
+  completionPercent: number;
+  isMandatory: boolean;
+}
+
+export interface LearnerModule {
+  id: number;
+  name: string;
+  description: string | null;
+  completionPercent: number;
+  courses: LearnerCourseProgress[];
+}
+
+export async function fetchMyModules(): Promise<LearnerModule[]> {
+  const response = await api.get<LearnerModule[]>('/api/learners/me/modules');
+  return response.data;
+}
+
+export async function fetchModuleProgress(moduleId: number): Promise<LearnerModule> {
+  const response = await api.get<LearnerModule>(`/api/modules/${moduleId}/progress`);
+  return response.data;
 }

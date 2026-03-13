@@ -32,6 +32,7 @@
     "coursesSection": "Courses",
     "manageCourses": "Manage Courses",
     "manageModules": "Learning Paths",
+    "myModules": "My Learning Paths",
     "administration": "Administration",
     "reports": "Reports",
     "usage": "Usage",
@@ -284,6 +285,17 @@
     "cancel": "Cancel",
     "backToList": "Back to paths",
     "courseCount": "{{count}} course(s)"
+  },
+  "learnerModules": {
+    "title": "My Learning Paths",
+    "subtitle": "Track your progress across all learning paths",
+    "noModules": "No learning paths available yet.",
+    "noCourses": "No courses in this path.",
+    "courses": "Courses",
+    "backToModules": "Back to Learning Paths",
+    "courseCount": "{{count}} course(s)",
+    "mandatory": "Mandatory",
+    "lessonProgress": "{{done}} / {{total}} lessons completed"
   },
   "managerCourses": {
     "title": "Course Management",

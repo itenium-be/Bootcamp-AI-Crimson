@@ -32,6 +32,7 @@
     "coursesSection": "Cursussen",
     "manageCourses": "Cursussen Beheren",
     "manageModules": "Leerpaden",
+    "myModules": "Mijn Leerpaden",
     "administration": "Administratie",
     "reports": "Rapporten",
     "usage": "Gebruik",
@@ -284,6 +285,17 @@
     "cancel": "Annuleren",
     "backToList": "Terug naar leerpaden",
     "courseCount": "{{count}} cursus(sen)"
+  },
+  "learnerModules": {
+    "title": "Mijn Leerpaden",
+    "subtitle": "Volg je voortgang in alle leerpaden",
+    "noModules": "Nog geen leerpaden beschikbaar.",
+    "noCourses": "Geen cursussen in dit leerpad.",
+    "courses": "Cursussen",
+    "backToModules": "Terug naar leerpaden",
+    "courseCount": "{{count}} cursus(sen)",
+    "mandatory": "Verplicht",
+    "lessonProgress": "{{done}} / {{total}} lessen afgerond"
   },
   "managerCourses": {
     "title": "Cursusbeheer",

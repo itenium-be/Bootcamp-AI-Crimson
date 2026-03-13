@@ -149,7 +149,7 @@ describe('Layout', () => {
       render(<Layout />);
 
       expect(screen.getByText('nav.myLearning')).toBeInTheDocument();
-      expect(screen.getByText('nav.myCourses')).toBeInTheDocument();
+      expect(screen.getByText('nav.myModules')).toBeInTheDocument();
       expect(screen.getByText('nav.myProgress')).toBeInTheDocument();
       expect(screen.getByText('nav.myCertificates')).toBeInTheDocument();
     });

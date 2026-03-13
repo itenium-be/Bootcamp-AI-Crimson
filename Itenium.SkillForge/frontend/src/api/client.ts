@@ -60,6 +60,14 @@ export async function fetchUserTeams(): Promise<Team[]> {
   return response.data;
 }
 
+export async function requestPasswordReset(email: string): Promise<void> {
+  await axios.post(`${API_BASE_URL}/api/auth/password-reset/request`, { email });
+}
+
+export async function confirmPasswordReset(email: string, token: string, newPassword: string): Promise<void> {
+  await axios.post(`${API_BASE_URL}/api/auth/password-reset/confirm`, { email, token, newPassword });
+}
+
 export type CourseStatus = 'Draft' | 'Published' | 'Archived';
 
 export interface Course {
@@ -115,7 +123,7 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
-export interface User {
+interface User {
   id: string;
   name: string;
   email: string;

@@ -79,7 +79,9 @@ export function Users() {
         >
           <option value="">{t('users.allRoles')}</option>
           {ROLES.map((role) => (
-            <option key={role} value={role}>{t(`users.role.${role}`)}</option>
+            <option key={role} value={role}>
+              {t(`users.role.${role}`)}
+            </option>
           ))}
         </select>
 
@@ -123,7 +125,7 @@ export function Users() {
               <tr
                 key={user.id}
                 className="border-b cursor-pointer hover:bg-muted/50"
-                onClick={() => navigate({ to: '/admin/users/$id', params: { id: user.id } })}
+                onClick={() => navigate({ to: '/admin/users' })}
               >
                 <td className="p-3 font-medium">{user.name || '-'}</td>
                 <td className="p-3 text-muted-foreground">{user.email}</td>
@@ -133,7 +135,9 @@ export function Users() {
                   </span>
                 </td>
                 <td className="p-3">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium ${user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}
+                  >
                     {user.isActive ? t('common.active') : t('users.inactive')}
                   </span>
                 </td>

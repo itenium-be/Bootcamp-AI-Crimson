@@ -123,7 +123,7 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;

@@ -50,6 +50,7 @@
     "welcome": "Welcome",
     "signInDescription": "Enter your credentials to sign in",
     "invalidCredentials": "Invalid username or password",
+    "accountDeactivated": "Account deactivated. Please contact your administrator.",
     "usernameRequired": "Username is required",
     "passwordRequired": "Password is required",
     "loginBackground": "Login background",
@@ -210,8 +211,8 @@
     "changeRole": "Change Role",
     "deactivate": "Deactivate User",
     "activate": "Activate User",
-    "confirmDeactivate": "Deactivate \"{{name}}\"? They will lose access to the platform.",
-    "confirmActivate": "Activate \"{{name}}\"? They will regain access to the platform."
+    "confirmDeactivate": "This will prevent {{name}} from logging in. Their history is preserved.",
+    "confirmActivate": "Activate {{name}}? They will regain access to the platform."
   },
   "managerCourses": {
     "title": "Course Management",

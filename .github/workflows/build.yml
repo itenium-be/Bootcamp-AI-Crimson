@@ -38,21 +38,23 @@ jobs:
       - name: Test
         run: |
           dotnet test --no-build --verbosity normal --logger "trx;LogFileName=results.trx" 2>&1 | tee test-output.txt || true
-          # Parse TRX Counters element: <Counters total="X" passed="Y" failed="Z" .../>
-          RESULTS=$(find . -name "results.trx" -type f | head -1)
-          if [ -f "$RESULTS" ]; then
-            PASSED=$(grep -oP '<Counters[^>]*passed="\K[0-9]+' "$RESULTS" | head -1)
-            FAILED=$(grep -oP '<Counters[^>]*failed="\K[0-9]+' "$RESULTS" | head -1)
-          else
-            # Fallback: parse console output "Passed: X, Failed: Y"
-            PASSED=$(grep -oP 'Passed:\s*\K[0-9]+' test-output.txt | tail -1)
-            FAILED=$(grep -oP 'Failed:\s*\K[0-9]+' test-output.txt | tail -1)
+          # Aggregate ALL TRX files (one per test project)
+          TOTAL_PASSED=0
+          TOTAL_FAILED=0
+          while IFS= read -r RESULT; do
+            P=$(grep -oP '<Counters[^>]*passed="\K[0-9]+' "$RESULT" | head -1)
+            F=$(grep -oP '<Counters[^>]*failed="\K[0-9]+' "$RESULT" | head -1)
+            TOTAL_PASSED=$((TOTAL_PASSED + ${P:-0}))
+            TOTAL_FAILED=$((TOTAL_FAILED + ${F:-0}))
+          done < <(find . -name "*.trx" -type f)
+          if [ "$TOTAL_PASSED" -eq 0 ] && [ "$TOTAL_FAILED" -eq 0 ]; then
+            # Fallback: parse console output summary line
+            TOTAL_PASSED=$(grep -oP 'Passed:\s*\K[0-9]+' test-output.txt | awk '{s+=$1} END {print s+0}')
+            TOTAL_FAILED=$(grep -oP 'Failed:\s*\K[0-9]+' test-output.txt | awk '{s+=$1} END {print s+0}')
           fi
-          PASSED=${PASSED:-0}
-          FAILED=${FAILED:-0}
-          TOTAL=$((PASSED + FAILED))
-          echo "{\"passed\":$PASSED,\"failed\":$FAILED,\"total\":$TOTAL}" > test-results.json
-          [ "$FAILED" -eq 0 ] || exit 1
+          TOTAL=$((TOTAL_PASSED + TOTAL_FAILED))
+          echo "{\"passed\":$TOTAL_PASSED,\"failed\":$TOTAL_FAILED,\"total\":$TOTAL}" > test-results.json
+          [ "$TOTAL_FAILED" -eq 0 ] || exit 1
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -107,9 +109,9 @@ jobs:
         run: |
           bun run test 2>&1 | tee unit-output.txt
           EXIT_CODE=${PIPESTATUS[0]}
-          # Parse Vitest output: "Tests  X passed | Y failed" or "X passed"
-          PASSED=$(grep -oP '\d+(?=\s+passed)' unit-output.txt | head -1)
-          FAILED=$(grep -oP '\d+(?=\s+failed)' unit-output.txt | head -1)
+          # Parse Vitest summary: "Tests  X passed" line (not "Test Files  X passed")
+          PASSED=$(grep -P '^\s+Tests\s+' unit-output.txt | grep -oP '\d+(?=\s+passed)' | head -1)
+          FAILED=$(grep -P '^\s+Tests\s+' unit-output.txt | grep -oP '\d+(?=\s+failed)' | head -1)
           PASSED=${PASSED:-0}
           FAILED=${FAILED:-0}
           TOTAL=$((PASSED + FAILED))

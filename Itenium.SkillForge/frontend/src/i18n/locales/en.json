@@ -241,6 +241,25 @@
     "confirmDeactivate": "This will prevent {{name}} from logging in. Their history is preserved.",
     "confirmActivate": "Activate {{name}}? They will regain access to the platform."
   },
+  "feedback": {
+    "title": "Feedback Review",
+    "subtitle": "Learner feedback ranked by average rating",
+    "course": "Course",
+    "averageRating": "Avg Rating",
+    "count": "Responses",
+    "noFeedback": "No feedback submitted yet",
+    "rating": "Rating",
+    "comment": "Comment",
+    "submittedAt": "Submitted",
+    "flagged": "Flagged",
+    "flag": "Flag",
+    "dismiss": "Dismiss",
+    "filterByRating": "Min Rating",
+    "allRatings": "All",
+    "entries": "Entries for {{name}}",
+    "backToSummary": "Back to summary",
+    "anonymous": "Anonymous"
+  },
   "managerCourses": {
     "title": "Course Management",
     "newCourse": "New Course",

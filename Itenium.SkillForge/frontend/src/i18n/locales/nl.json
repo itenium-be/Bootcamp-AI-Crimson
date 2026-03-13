@@ -241,6 +241,25 @@
     "confirmDeactivate": "Dit voorkomt dat {{name}} kan inloggen. Hun geschiedenis blijft bewaard.",
     "confirmActivate": "{{name}} activeren? Ze krijgen opnieuw toegang tot het platform."
   },
+  "feedback": {
+    "title": "Feedback Overzicht",
+    "subtitle": "Leerlingfeedback gerangschikt op gemiddelde beoordeling",
+    "course": "Cursus",
+    "averageRating": "Gem. Beoordeling",
+    "count": "Reacties",
+    "noFeedback": "Nog geen feedback ingediend",
+    "rating": "Beoordeling",
+    "comment": "Opmerking",
+    "submittedAt": "Ingediend",
+    "flagged": "Gemarkeerd",
+    "flag": "Markeren",
+    "dismiss": "Negeren",
+    "filterByRating": "Min Beoordeling",
+    "allRatings": "Alle",
+    "entries": "Reacties voor {{name}}",
+    "backToSummary": "Terug naar overzicht",
+    "anonymous": "Anoniem"
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

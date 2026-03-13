@@ -293,3 +293,44 @@ export async function fetchLessons(courseId: number): Promise<Lesson[]> {
 export async function setLessonStatus(lessonId: number, status: LessonStatus): Promise<void> {
   await api.put(`/api/lessons/${lessonId}/status`, { status });
 }
+
+export interface FeedbackEntry {
+  id: number;
+  userId: string | null;
+  rating: number;
+  comment: string | null;
+  submittedAt: string;
+  isFlagged: boolean;
+}
+
+export interface CourseFeedbackSummary {
+  averageRating: number;
+  entries: FeedbackEntry[];
+}
+
+export interface CourseFeedbackRanking {
+  courseId: number;
+  courseName: string;
+  averageRating: number;
+  count: number;
+}
+
+export async function getCourseFeedback(courseId: number, minRating?: number): Promise<CourseFeedbackSummary> {
+  const response = await api.get<CourseFeedbackSummary>(`/api/courses/${courseId}/feedback`, {
+    params: minRating != null ? { minRating } : undefined,
+  });
+  return response.data;
+}
+
+export async function flagFeedback(id: number): Promise<void> {
+  await api.put(`/api/feedback/${id}/flag`);
+}
+
+export async function dismissFeedback(id: number): Promise<void> {
+  await api.put(`/api/feedback/${id}/dismiss`);
+}
+
+export async function getFeedbackSummary(): Promise<CourseFeedbackRanking[]> {
+  const response = await api.get<CourseFeedbackRanking[]>('/api/reports/feedback-summary');
+  return response.data;
+}

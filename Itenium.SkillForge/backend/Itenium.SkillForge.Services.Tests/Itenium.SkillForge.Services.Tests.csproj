@@ -15,6 +15,7 @@
     <PackageReference Include="NUnit.Analyzers" />
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="NSubstitute" />
+    <PackageReference Include="Itenium.Forge.Security.OpenIddict" />
   </ItemGroup>
 
   <ItemGroup>

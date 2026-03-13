@@ -125,7 +125,7 @@ export function Users() {
               <tr
                 key={user.id}
                 className="border-b cursor-pointer hover:bg-muted/50"
-                onClick={() => navigate({ to: '/admin/users/$id', params: { id: user.id } })}
+                onClick={() => navigate({ to: '/admin/users' })}
               >
                 <td className="p-3 font-medium">{user.name || '-'}</td>
                 <td className="p-3 text-muted-foreground">{user.email}</td>

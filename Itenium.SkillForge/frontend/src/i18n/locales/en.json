@@ -50,10 +50,33 @@
     "welcome": "Welcome",
     "signInDescription": "Enter your credentials to sign in",
     "invalidCredentials": "Invalid credentials",
-    "emailRequired": "Email is required",
+    "accountDeactivated": "Account deactivated. Please contact your administrator.",
+    "usernameRequired": "Username is required",
     "invalidEmail": "Please enter a valid email address",
     "passwordRequired": "Password is required",
-    "loginBackground": "Login background"
+    "loginBackground": "Login background",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter a valid email address",
+    "enterEmail": "Enter your email address",
+    "forgotPasswordDescription": "Enter your email and we'll send you a reset link",
+    "sendResetLink": "Send reset link",
+    "resetEmailSent": "If that email address is registered, you'll receive a reset link shortly.",
+    "backToSignIn": "Back to sign in",
+    "resetPassword": "Reset Password",
+    "resetPasswordDescription": "Enter your new password below",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter your new password",
+    "confirmPassword": "Confirm Password",
+    "confirmYourPassword": "Confirm your new password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordsMustMatch": "Passwords do not match",
+    "passwordResetSuccess": "Your password has been reset. You can now sign in with your new password.",
+    "resetTokenExpired": "This reset link has expired or is invalid. Please request a new one.",
+    "ssoUserCannotReset": "This account uses SSO. Please reset your password through your SSO provider.",
+    "invalidResetLink": "This reset link is invalid. Please request a new one.",
+    "requestNewResetLink": "Request a new reset link"
   },
   "dashboard": {
     "title": "Dashboard - CRIMSON",
@@ -145,6 +168,22 @@
     "sessionExpired": "Session expired!",
     "internalServerError": "Internal Server Error!"
   },
+  "assignments": {
+    "title": "Assign Course",
+    "assignTo": "Assign To",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individual",
+    "mandatory": "Mandatory",
+    "optional": "Optional",
+    "selectTeam": "Select Team",
+    "selectLearner": "Select Learner",
+    "selectPlaceholder": "Select...",
+    "assign": "Assign",
+    "existing": "Current Assignments",
+    "none": "No assignments yet",
+    "alreadyAssigned": "This course is already assigned to this assignee"
+  },
   "quizAnalytics": {
     "title": "Quiz Analytics",
     "subtitle": "View aggregated quiz performance statistics",
@@ -166,6 +205,41 @@
     "passed": "Passed",
     "failed": "Failed",
     "noLearners": "No learners found"
+  },
+  "lessons": {
+    "title": "Lessons",
+    "noLessons": "No lessons found",
+    "progress": "{{done}} / {{total}} done ({{pct}}%)",
+    "status": {
+      "new": "Not started",
+      "done": "Done",
+      "later": "Save for later"
+    }
+  },
+  "teams": {
+    "title": "Teams",
+    "name": "Name",
+    "members": "Members",
+    "viewMembers": "View members →",
+    "noTeams": "No teams found"
+  },
+  "teamDetail": {
+    "title": "Team Detail",
+    "backToTeams": "Back to Teams",
+    "addMember": "Add Member",
+    "searchLearner": "Search learner by name or email...",
+    "members": "Members",
+    "noMembers": "No members in this team yet.",
+    "remove": "Remove",
+    "confirmRemove": "Remove \"{{name}}\" from this team?"
+  },
+  "userDetail": {
+    "backToUsers": "Back to Users",
+    "changeRole": "Change Role",
+    "deactivate": "Deactivate User",
+    "activate": "Activate User",
+    "confirmDeactivate": "This will prevent {{name}} from logging in. Their history is preserved.",
+    "confirmActivate": "Activate {{name}}? They will regain access to the platform."
   },
   "managerCourses": {
     "title": "Course Management",

@@ -26,6 +26,7 @@ try
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddHttpClient();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IEmailSender, ConsoleEmailSender>();
 
     builder.AddForgeControllers();
     builder.AddForgeSwagger();

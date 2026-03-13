@@ -1,7 +1,10 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { fetchCourses, fetchMyEnrollments, enrollCourse } from '@/api/client';
+import { useTeamStore } from '@/stores';
+import { AssignCourseModal } from '@/components/AssignCourseModal';
 
 export interface Course {
   id: number;
@@ -33,8 +36,10 @@ export function filterCourses(courses: Course[], filters: CourseFilters): Course
 
 export function Courses() {
   const { t } = useTranslation();
+  const { mode } = useTeamStore();
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState<CourseFilters>({ search: '', category: '', level: '' });
+  const [assigningCourse, setAssigningCourse] = useState<{ id: number; name: string } | null>(null);
 
   const { data: courses = [], isLoading } = useQuery({
     queryKey: ['courses'],
@@ -135,7 +140,7 @@ export function Courses() {
               <th className="p-3 text-left font-medium">{t('courses.description')}</th>
               <th className="p-3 text-left font-medium">{t('courses.category')}</th>
               <th className="p-3 text-left font-medium">{t('courses.level')}</th>
-              <th className="p-3 text-left font-medium"></th>
+              <th className="p-3 text-left font-medium">{mode === 'manager' ? t('courses.actions') : ''}</th>
             </tr>
           </thead>
           <tbody>
@@ -143,22 +148,35 @@ export function Courses() {
               const isEnrolled = enrolledCourseIds.has(course.id);
               return (
                 <tr key={course.id} className="border-b">
-                  <td className="p-3">{course.name}</td>
+                  <td className="p-3">
+                    <Link to="/courses/$id" params={{ id: String(course.id) }} className="hover:underline text-primary">
+                      {course.name}
+                    </Link>
+                  </td>
                   <td className="p-3 text-muted-foreground">{course.description || '-'}</td>
                   <td className="p-3">{course.category || '-'}</td>
                   <td className="p-3">{course.level || '-'}</td>
                   <td className="p-3 text-right">
-                    <button
-                      onClick={() => !isEnrolled && enrollMutation.mutate(course.id)}
-                      disabled={isEnrolled || enrollMutation.isPending}
-                      className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
-                        isEnrolled
-                          ? 'bg-green-100 text-green-800 cursor-default'
-                          : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      }`}
-                    >
-                      {isEnrolled ? t('courses.enrolled') : t('courses.enroll')}
-                    </button>
+                    {mode === 'manager' ? (
+                      <button
+                        onClick={() => setAssigningCourse({ id: course.id, name: course.name })}
+                        className="h-8 rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+                      >
+                        {t('assignments.assign')}
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => !isEnrolled && enrollMutation.mutate(course.id)}
+                        disabled={isEnrolled || enrollMutation.isPending}
+                        className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
+                          isEnrolled
+                            ? 'bg-green-100 text-green-800 cursor-default'
+                            : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                        }`}
+                      >
+                        {isEnrolled ? t('courses.enrolled') : t('courses.enroll')}
+                      </button>
+                    )}
                   </td>
                 </tr>
               );
@@ -173,6 +191,14 @@ export function Courses() {
           </tbody>
         </table>
       </div>
+
+      {assigningCourse && (
+        <AssignCourseModal
+          courseId={assigningCourse.id}
+          courseName={assigningCourse.name}
+          onClose={() => setAssigningCourse(null)}
+        />
+      )}
     </div>
   );
 }

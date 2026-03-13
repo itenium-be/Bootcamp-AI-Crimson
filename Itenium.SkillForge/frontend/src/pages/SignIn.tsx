@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter, useSearch } from '@tanstack/react-router';
+import { useRouter, useSearch, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -70,7 +70,12 @@ export function SignIn() {
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as { response?: { data?: { error_description?: string } } };
-        setError(axiosError.response?.data?.error_description || t('auth.invalidCredentials'));
+        const description = axiosError.response?.data?.error_description ?? '';
+        if (description.toLowerCase().includes('suspended') || description.toLowerCase().includes('locked')) {
+          setError(t('auth.accountDeactivated'));
+        } else {
+          setError(description || t('auth.invalidCredentials'));
+        }
       } else {
         setError(t('auth.invalidCredentials'));
       }
@@ -154,6 +159,11 @@ export function SignIn() {
                     </FormItem>
                   )}
                 />
+                <div className="flex justify-end">
+                  <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground underline">
+                    {t('auth.forgotPassword')}
+                  </Link>
+                </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
                   <span className="ml-2">{t('auth.signIn')}</span>

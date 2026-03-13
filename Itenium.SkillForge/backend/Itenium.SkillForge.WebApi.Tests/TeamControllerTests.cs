@@ -9,13 +9,15 @@ namespace Itenium.SkillForge.WebApi.Tests;
 public class TeamControllerTests : DatabaseTestBase
 {
     private ISkillForgeUser _user = null!;
+    private IUserRepository _userRepository = null!;
     private TeamController _sut = null!;
 
     [SetUp]
     public void Setup()
     {
         _user = Substitute.For<ISkillForgeUser>();
-        _sut = new TeamController(Db, _user);
+        _userRepository = Substitute.For<IUserRepository>();
+        _sut = new TeamController(Db, _user, _userRepository);
     }
 
     [Test]

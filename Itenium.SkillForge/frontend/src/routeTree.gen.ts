@@ -12,11 +12,20 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedMyLearningRouteImport } from './routes/_authenticated/my-learning'
 import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticated/courses'
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
+import { Route as authResetPasswordRouteImport } from './routes/(auth)/reset-password'
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
+import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
+import { Route as AuthenticatedCoursesIndexRouteImport } from './routes/_authenticated/courses/index'
+import { Route as AuthenticatedCoursesIdRouteImport } from './routes/_authenticated/courses/$id'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
+import { Route as AuthenticatedAdminTeamsRouteImport } from './routes/_authenticated/admin/teams'
 import { Route as AuthenticatedManagerCoursesIndexRouteImport } from './routes/_authenticated/manager/courses/index'
 import { Route as AuthenticatedManagerCoursesIdRouteImport } from './routes/_authenticated/manager/courses/$id'
+import { Route as AuthenticatedAdminUsersIdRouteImport } from './routes/_authenticated/admin/users.$id'
+import { Route as AuthenticatedAdminTeamsIdRouteImport } from './routes/_authenticated/admin/teams.$id'
 import { Route as AuthenticatedManagerQuizzesIdAnalyticsRouteImport } from './routes/_authenticated/manager/quizzes/$id/analytics'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -33,6 +42,11 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMyLearningRoute = AuthenticatedMyLearningRouteImport.update({
+  id: '/my-learning',
+  path: '/my-learning',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCoursesRoute = AuthenticatedCoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
@@ -43,10 +57,41 @@ const authSignInRoute = authSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => rootRouteImport,
 } as any)
+const authResetPasswordRoute = authResetPasswordRouteImport.update({
+  id: '/(auth)/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const authLoginRoute = authLoginRouteImport.update({
   id: '/(auth)/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
+} as any)
+const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
+  id: '/(auth)/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCoursesIndexRoute =
+  AuthenticatedCoursesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCoursesRoute,
+  } as any)
+const AuthenticatedCoursesIdRoute = AuthenticatedCoursesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedCoursesRoute,
+} as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminTeamsRoute = AuthenticatedAdminTeamsRouteImport.update({
+  id: '/admin/teams',
+  path: '/admin/teams',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedManagerCoursesIndexRoute =
   AuthenticatedManagerCoursesIndexRouteImport.update({
@@ -60,6 +105,18 @@ const AuthenticatedManagerCoursesIdRoute =
     path: '/manager/courses/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAdminUsersIdRoute =
+  AuthenticatedAdminUsersIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminUsersRoute,
+  } as any)
+const AuthenticatedAdminTeamsIdRoute =
+  AuthenticatedAdminTeamsIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminTeamsRoute,
+  } as any)
 const AuthenticatedManagerQuizzesIdAnalyticsRoute =
   AuthenticatedManagerQuizzesIdAnalyticsRouteImport.update({
     id: '/manager/quizzes/$id/analytics',
@@ -68,21 +125,38 @@ const AuthenticatedManagerQuizzesIdAnalyticsRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
+  '/reset-password': typeof authResetPasswordRoute
   '/sign-in': typeof authSignInRoute
-  '/courses': typeof AuthenticatedCoursesRoute
+  '/courses': typeof AuthenticatedCoursesRouteWithChildren
+  '/my-learning': typeof AuthenticatedMyLearningRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
+  '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/courses/': typeof AuthenticatedCoursesIndexRoute
+  '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
+  '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
   '/manager/courses': typeof AuthenticatedManagerCoursesIndexRoute
   '/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
 export interface FileRoutesByTo {
+  '/forgot-password': typeof authForgotPasswordRoute
   '/login': typeof authLoginRoute
+  '/reset-password': typeof authResetPasswordRoute
   '/sign-in': typeof authSignInRoute
-  '/courses': typeof AuthenticatedCoursesRoute
+  '/my-learning': typeof AuthenticatedMyLearningRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/': typeof AuthenticatedIndexRoute
+  '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
+  '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/courses': typeof AuthenticatedCoursesIndexRoute
+  '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
+  '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
   '/manager/courses': typeof AuthenticatedManagerCoursesIndexRoute
   '/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
@@ -90,11 +164,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/login': typeof authLoginRoute
+  '/(auth)/reset-password': typeof authResetPasswordRoute
   '/(auth)/sign-in': typeof authSignInRoute
-  '/_authenticated/courses': typeof AuthenticatedCoursesRoute
+  '/_authenticated/courses': typeof AuthenticatedCoursesRouteWithChildren
+  '/_authenticated/my-learning': typeof AuthenticatedMyLearningRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/_authenticated/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
+  '/_authenticated/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
+  '/_authenticated/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/_authenticated/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
   '/_authenticated/manager/courses/': typeof AuthenticatedManagerCoursesIndexRoute
   '/_authenticated/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
@@ -102,32 +185,58 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/forgot-password'
     | '/login'
+    | '/reset-password'
     | '/sign-in'
     | '/courses'
+    | '/my-learning'
     | '/settings'
     | '/'
+    | '/admin/teams'
+    | '/admin/users'
+    | '/courses/$id'
+    | '/courses/'
+    | '/admin/teams/$id'
+    | '/admin/users/$id'
     | '/manager/courses/$id'
     | '/manager/courses'
     | '/manager/quizzes/$id/analytics'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/forgot-password'
     | '/login'
+    | '/reset-password'
     | '/sign-in'
-    | '/courses'
+    | '/my-learning'
     | '/settings'
     | '/'
+    | '/admin/teams'
+    | '/admin/users'
+    | '/courses/$id'
+    | '/courses'
+    | '/admin/teams/$id'
+    | '/admin/users/$id'
     | '/manager/courses/$id'
     | '/manager/courses'
     | '/manager/quizzes/$id/analytics'
   id:
     | '__root__'
     | '/_authenticated'
+    | '/(auth)/forgot-password'
     | '/(auth)/login'
+    | '/(auth)/reset-password'
     | '/(auth)/sign-in'
     | '/_authenticated/courses'
+    | '/_authenticated/my-learning'
     | '/_authenticated/settings'
     | '/_authenticated/'
+    | '/_authenticated/admin/teams'
+    | '/_authenticated/admin/users'
+    | '/_authenticated/courses/$id'
+    | '/_authenticated/courses/'
+    | '/_authenticated/admin/teams/$id'
+    | '/_authenticated/admin/users/$id'
     | '/_authenticated/manager/courses/$id'
     | '/_authenticated/manager/courses/'
     | '/_authenticated/manager/quizzes/$id/analytics'
@@ -135,7 +244,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  authForgotPasswordRoute: typeof authForgotPasswordRoute
   authLoginRoute: typeof authLoginRoute
+  authResetPasswordRoute: typeof authResetPasswordRoute
   authSignInRoute: typeof authSignInRoute
 }
 
@@ -162,6 +273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/my-learning': {
+      id: '/_authenticated/my-learning'
+      path: '/my-learning'
+      fullPath: '/my-learning'
+      preLoaderRoute: typeof AuthenticatedMyLearningRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/courses': {
       id: '/_authenticated/courses'
       path: '/courses'
@@ -176,12 +294,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authSignInRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(auth)/reset-password': {
+      id: '/(auth)/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof authResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(auth)/login': {
       id: '/(auth)/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof authLoginRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(auth)/forgot-password': {
+      id: '/(auth)/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/courses/': {
+      id: '/_authenticated/courses/'
+      path: '/'
+      fullPath: '/courses/'
+      preLoaderRoute: typeof AuthenticatedCoursesIndexRouteImport
+      parentRoute: typeof AuthenticatedCoursesRoute
+    }
+    '/_authenticated/courses/$id': {
+      id: '/_authenticated/courses/$id'
+      path: '/$id'
+      fullPath: '/courses/$id'
+      preLoaderRoute: typeof AuthenticatedCoursesIdRouteImport
+      parentRoute: typeof AuthenticatedCoursesRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/teams': {
+      id: '/_authenticated/admin/teams'
+      path: '/admin/teams'
+      fullPath: '/admin/teams'
+      preLoaderRoute: typeof AuthenticatedAdminTeamsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/manager/courses/': {
       id: '/_authenticated/manager/courses/'
@@ -197,6 +357,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedManagerCoursesIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/users/$id': {
+      id: '/_authenticated/admin/users/$id'
+      path: '/$id'
+      fullPath: '/admin/users/$id'
+      preLoaderRoute: typeof AuthenticatedAdminUsersIdRouteImport
+      parentRoute: typeof AuthenticatedAdminUsersRoute
+    }
+    '/_authenticated/admin/teams/$id': {
+      id: '/_authenticated/admin/teams/$id'
+      path: '/$id'
+      fullPath: '/admin/teams/$id'
+      preLoaderRoute: typeof AuthenticatedAdminTeamsIdRouteImport
+      parentRoute: typeof AuthenticatedAdminTeamsRoute
+    }
     '/_authenticated/manager/quizzes/$id/analytics': {
       id: '/_authenticated/manager/quizzes/$id/analytics'
       path: '/manager/quizzes/$id/analytics'
@@ -207,19 +381,66 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedCoursesRouteChildren {
+  AuthenticatedCoursesIdRoute: typeof AuthenticatedCoursesIdRoute
+  AuthenticatedCoursesIndexRoute: typeof AuthenticatedCoursesIndexRoute
+}
+
+const AuthenticatedCoursesRouteChildren: AuthenticatedCoursesRouteChildren = {
+  AuthenticatedCoursesIdRoute: AuthenticatedCoursesIdRoute,
+  AuthenticatedCoursesIndexRoute: AuthenticatedCoursesIndexRoute,
+}
+
+const AuthenticatedCoursesRouteWithChildren =
+  AuthenticatedCoursesRoute._addFileChildren(AuthenticatedCoursesRouteChildren)
+
+interface AuthenticatedAdminTeamsRouteChildren {
+  AuthenticatedAdminTeamsIdRoute: typeof AuthenticatedAdminTeamsIdRoute
+}
+
+const AuthenticatedAdminTeamsRouteChildren: AuthenticatedAdminTeamsRouteChildren =
+  {
+    AuthenticatedAdminTeamsIdRoute: AuthenticatedAdminTeamsIdRoute,
+  }
+
+const AuthenticatedAdminTeamsRouteWithChildren =
+  AuthenticatedAdminTeamsRoute._addFileChildren(
+    AuthenticatedAdminTeamsRouteChildren,
+  )
+
+interface AuthenticatedAdminUsersRouteChildren {
+  AuthenticatedAdminUsersIdRoute: typeof AuthenticatedAdminUsersIdRoute
+}
+
+const AuthenticatedAdminUsersRouteChildren: AuthenticatedAdminUsersRouteChildren =
+  {
+    AuthenticatedAdminUsersIdRoute: AuthenticatedAdminUsersIdRoute,
+  }
+
+const AuthenticatedAdminUsersRouteWithChildren =
+  AuthenticatedAdminUsersRoute._addFileChildren(
+    AuthenticatedAdminUsersRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRoute
+  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRouteWithChildren
+  AuthenticatedMyLearningRoute: typeof AuthenticatedMyLearningRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAdminTeamsRoute: typeof AuthenticatedAdminTeamsRouteWithChildren
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRouteWithChildren
   AuthenticatedManagerCoursesIdRoute: typeof AuthenticatedManagerCoursesIdRoute
   AuthenticatedManagerCoursesIndexRoute: typeof AuthenticatedManagerCoursesIndexRoute
   AuthenticatedManagerQuizzesIdAnalyticsRoute: typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedCoursesRoute: AuthenticatedCoursesRoute,
+  AuthenticatedCoursesRoute: AuthenticatedCoursesRouteWithChildren,
+  AuthenticatedMyLearningRoute: AuthenticatedMyLearningRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAdminTeamsRoute: AuthenticatedAdminTeamsRouteWithChildren,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRouteWithChildren,
   AuthenticatedManagerCoursesIdRoute: AuthenticatedManagerCoursesIdRoute,
   AuthenticatedManagerCoursesIndexRoute: AuthenticatedManagerCoursesIndexRoute,
   AuthenticatedManagerQuizzesIdAnalyticsRoute:
@@ -231,7 +452,9 @@ const AuthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  authForgotPasswordRoute: authForgotPasswordRoute,
   authLoginRoute: authLoginRoute,
+  authResetPasswordRoute: authResetPasswordRoute,
   authSignInRoute: authSignInRoute,
 }
 export const routeTree = rootRouteImport

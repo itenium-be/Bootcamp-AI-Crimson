@@ -2,10 +2,42 @@ import { describe, it, expect } from 'vitest';
 import { filterEnrollments, type Enrollment, type EnrollmentFilters } from '../MyLearning';
 
 const enrollments: Enrollment[] = [
-  { id: 1, courseId: 1, courseName: 'Intro to Programming', courseCategory: 'Development', courseLevel: 'Beginner', enrolledAt: '2026-01-01', status: 'Active' },
-  { id: 2, courseId: 2, courseName: 'Advanced C#',          courseCategory: 'Development', courseLevel: 'Advanced',  enrolledAt: '2026-01-05', status: 'Active' },
-  { id: 3, courseId: 3, courseName: 'Cloud Architecture',   courseCategory: 'Architecture', courseLevel: 'Intermediate', enrolledAt: '2026-01-10', status: 'Completed' },
-  { id: 4, courseId: 4, courseName: 'Agile Management',     courseCategory: 'Management',  courseLevel: 'Beginner',  enrolledAt: '2026-01-15', status: 'Completed' },
+  {
+    id: 1,
+    courseId: 1,
+    courseName: 'Intro to Programming',
+    courseCategory: 'Development',
+    courseLevel: 'Beginner',
+    enrolledAt: '2026-01-01',
+    status: 'Active',
+  },
+  {
+    id: 2,
+    courseId: 2,
+    courseName: 'Advanced C#',
+    courseCategory: 'Development',
+    courseLevel: 'Advanced',
+    enrolledAt: '2026-01-05',
+    status: 'Active',
+  },
+  {
+    id: 3,
+    courseId: 3,
+    courseName: 'Cloud Architecture',
+    courseCategory: 'Architecture',
+    courseLevel: 'Intermediate',
+    enrolledAt: '2026-01-10',
+    status: 'Completed',
+  },
+  {
+    id: 4,
+    courseId: 4,
+    courseName: 'Agile Management',
+    courseCategory: 'Management',
+    courseLevel: 'Beginner',
+    enrolledAt: '2026-01-15',
+    status: 'Completed',
+  },
 ];
 
 const noFilters: EnrollmentFilters = { search: '', status: '' };

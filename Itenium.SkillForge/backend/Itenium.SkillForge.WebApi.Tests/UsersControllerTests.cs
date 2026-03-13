@@ -80,4 +80,131 @@ public class UsersControllerTests
         var users = ok!.Value as IList<UserResponse>;
         Assert.That(users, Is.Empty);
     }
+
+    // --- GetUser by ID ---
+
+    [Test]
+    public async Task GetUser_WhenNotBackoffice_ReturnsForbid()
+    {
+        _user.IsBackOffice.Returns(false);
+
+        var result = await _sut.GetUser("1");
+
+        Assert.That(result.Result, Is.InstanceOf<ForbidResult>());
+    }
+
+    [Test]
+    public async Task GetUser_WhenNotFound_ReturnsNotFound()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.GetUserByIdAsync("999").Returns((UserResponse?)null);
+
+        var result = await _sut.GetUser("999");
+
+        Assert.That(result.Result, Is.InstanceOf<NotFoundResult>());
+    }
+
+    [Test]
+    public async Task GetUser_WhenFound_ReturnsUser()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.GetUserByIdAsync("1").Returns(new UserResponse("1", "Alice Smith", "alice@test.com", "learner", true));
+
+        var result = await _sut.GetUser("1");
+
+        var ok = result.Result as OkObjectResult;
+        var user = ok!.Value as UserResponse;
+        Assert.That(user!.Name, Is.EqualTo("Alice Smith"));
+    }
+
+    // --- ChangeRole ---
+
+    [Test]
+    public async Task ChangeRole_WhenNotBackoffice_ReturnsForbid()
+    {
+        _user.IsBackOffice.Returns(false);
+
+        var result = await _sut.ChangeRole("1", new ChangeRoleRequest("team_manager"));
+
+        Assert.That(result, Is.InstanceOf<ForbidResult>());
+    }
+
+    [Test]
+    public async Task ChangeRole_WhenUserNotFound_ReturnsNotFound()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.ChangeRoleAsync("999", "learner").Returns(false);
+
+        var result = await _sut.ChangeRole("999", new ChangeRoleRequest("learner"));
+
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
+    }
+
+    [Test]
+    public async Task ChangeRole_WhenFound_ReturnsNoContent()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.ChangeRoleAsync("1", "team_manager").Returns(true);
+
+        var result = await _sut.ChangeRole("1", new ChangeRoleRequest("team_manager"));
+
+        Assert.That(result, Is.InstanceOf<NoContentResult>());
+    }
+
+    // --- DeactivateUser ---
+
+    [Test]
+    public async Task DeactivateUser_WhenNotBackoffice_ReturnsForbid()
+    {
+        _user.IsBackOffice.Returns(false);
+
+        var result = await _sut.DeactivateUser("1");
+
+        Assert.That(result, Is.InstanceOf<ForbidResult>());
+    }
+
+    [Test]
+    public async Task DeactivateUser_WhenUserNotFound_ReturnsNotFound()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.DeactivateAsync("999").Returns(false);
+
+        var result = await _sut.DeactivateUser("999");
+
+        Assert.That(result, Is.InstanceOf<NotFoundResult>());
+    }
+
+    [Test]
+    public async Task DeactivateUser_WhenFound_ReturnsNoContent()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.DeactivateAsync("1").Returns(true);
+
+        var result = await _sut.DeactivateUser("1");
+
+        Assert.That(result, Is.InstanceOf<NoContentResult>());
+    }
+
+    // --- ActivateUser ---
+
+    [Test]
+    public async Task ActivateUser_WhenNotBackoffice_ReturnsForbid()
+    {
+        _user.IsBackOffice.Returns(false);
+
+        var result = await _sut.ActivateUser("1");
+
+        Assert.That(result, Is.InstanceOf<ForbidResult>());
+    }
+
+    [Test]
+    public async Task ActivateUser_WhenFound_ReturnsNoContent()
+    {
+        _user.IsBackOffice.Returns(true);
+        _userRepository.ActivateAsync("1").Returns(true);
+
+        var result = await _sut.ActivateUser("1");
+
+        Assert.That(result, Is.InstanceOf<NoContentResult>());
+    }
 }

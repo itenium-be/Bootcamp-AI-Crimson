@@ -50,10 +50,33 @@
     "welcome": "Welkom",
     "signInDescription": "Voer uw gegevens in om in te loggen",
     "invalidCredentials": "Ongeldige gegevens",
-    "emailRequired": "E-mailadres is verplicht",
+    "accountDeactivated": "Account gedeactiveerd. Neem contact op met uw beheerder.",
+    "usernameRequired": "Gebruikersnaam is verplicht",
     "invalidEmail": "Voer een geldig e-mailadres in",
     "passwordRequired": "Wachtwoord is verplicht",
-    "loginBackground": "Login achtergrond"
+    "loginBackground": "Login achtergrond",
+    "email": "E-mail",
+    "emailRequired": "E-mail is verplicht",
+    "emailInvalid": "Voer een geldig e-mailadres in",
+    "enterEmail": "Voer uw e-mailadres in",
+    "forgotPasswordDescription": "Voer uw e-mail in en we sturen u een herstelkoppeling",
+    "sendResetLink": "Herstelkoppeling versturen",
+    "resetEmailSent": "Als dat e-mailadres is geregistreerd, ontvangt u binnenkort een herstelkoppeling.",
+    "backToSignIn": "Terug naar inloggen",
+    "resetPassword": "Wachtwoord Herstellen",
+    "resetPasswordDescription": "Voer hieronder uw nieuwe wachtwoord in",
+    "newPassword": "Nieuw Wachtwoord",
+    "enterNewPassword": "Voer uw nieuwe wachtwoord in",
+    "confirmPassword": "Bevestig Wachtwoord",
+    "confirmYourPassword": "Bevestig uw nieuwe wachtwoord",
+    "confirmPasswordRequired": "Bevestig uw wachtwoord",
+    "passwordTooShort": "Wachtwoord moet minimaal 8 tekens bevatten",
+    "passwordsMustMatch": "Wachtwoorden komen niet overeen",
+    "passwordResetSuccess": "Uw wachtwoord is hersteld. U kunt nu inloggen met uw nieuwe wachtwoord.",
+    "resetTokenExpired": "Deze herstelkoppeling is verlopen of ongeldig. Vraag een nieuwe aan.",
+    "ssoUserCannotReset": "Dit account gebruikt SSO. Herstel uw wachtwoord via uw SSO-provider.",
+    "invalidResetLink": "Deze herstelkoppeling is ongeldig. Vraag een nieuwe aan.",
+    "requestNewResetLink": "Nieuwe herstelkoppeling aanvragen"
   },
   "dashboard": {
     "title": "Dashboard - CRIMSON",
@@ -145,6 +168,22 @@
     "sessionExpired": "Sessie verlopen!",
     "internalServerError": "Interne serverfout!"
   },
+  "assignments": {
+    "title": "Cursus Toewijzen",
+    "assignTo": "Toewijzen Aan",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individueel",
+    "mandatory": "Verplicht",
+    "optional": "Optioneel",
+    "selectTeam": "Selecteer Team",
+    "selectLearner": "Selecteer Leerling",
+    "selectPlaceholder": "Selecteer...",
+    "assign": "Toewijzen",
+    "existing": "Huidige Toewijzingen",
+    "none": "Nog geen toewijzingen",
+    "alreadyAssigned": "Deze cursus is al toegewezen aan deze ontvanger"
+  },
   "quizAnalytics": {
     "title": "Quiz Analyse",
     "subtitle": "Bekijk geaggregeerde quiz prestatiestatistieken",
@@ -166,6 +205,41 @@
     "passed": "Geslaagd",
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
+  },
+  "lessons": {
+    "title": "Lessen",
+    "noLessons": "Geen lessen gevonden",
+    "progress": "{{done}} / {{total}} gedaan ({{pct}}%)",
+    "status": {
+      "new": "Niet gestart",
+      "done": "Gedaan",
+      "later": "Bewaar voor later"
+    }
+  },
+  "teams": {
+    "title": "Teams",
+    "name": "Naam",
+    "members": "Leden",
+    "viewMembers": "Bekijk leden →",
+    "noTeams": "Geen teams gevonden"
+  },
+  "teamDetail": {
+    "title": "Team Detail",
+    "backToTeams": "Terug naar Teams",
+    "addMember": "Lid Toevoegen",
+    "searchLearner": "Zoek leerling op naam of e-mail...",
+    "members": "Leden",
+    "noMembers": "Nog geen leden in dit team.",
+    "remove": "Verwijderen",
+    "confirmRemove": "\"{{name}}\" uit dit team verwijderen?"
+  },
+  "userDetail": {
+    "backToUsers": "Terug naar Gebruikers",
+    "changeRole": "Rol Wijzigen",
+    "deactivate": "Gebruiker Deactiveren",
+    "activate": "Gebruiker Activeren",
+    "confirmDeactivate": "Dit voorkomt dat {{name}} kan inloggen. Hun geschiedenis blijft bewaard.",
+    "confirmActivate": "{{name}} activeren? Ze krijgen opnieuw toegang tot het platform."
   },
   "managerCourses": {
     "title": "Cursusbeheer",

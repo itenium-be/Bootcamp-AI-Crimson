@@ -77,9 +77,11 @@ export function UserDetail({ userId }: UserDetailProps) {
 
       <div className="rounded-md border p-4 space-y-4">
         <div className="flex items-center gap-2">
-          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-            user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-          }`}>
+          <span
+            className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+              user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            }`}
+          >
             {user.isActive ? t('common.active') : t('users.inactive')}
           </span>
           {user.lastActiveAt && (
@@ -98,7 +100,9 @@ export function UserDetail({ userId }: UserDetailProps) {
               className="h-9 rounded-md border bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             >
               {ROLES.map((role) => (
-                <option key={role} value={role}>{t(`users.role.${role}`)}</option>
+                <option key={role} value={role}>
+                  {t(`users.role.${role}`)}
+                </option>
               ))}
             </select>
             <button
@@ -146,7 +150,9 @@ export function UserDetail({ userId }: UserDetailProps) {
                 {t('common.cancel')}
               </button>
               <button
-                onClick={() => confirmAction === 'deactivate' ? deactivateMutation.mutate() : activateMutation.mutate()}
+                onClick={() =>
+                  confirmAction === 'deactivate' ? deactivateMutation.mutate() : activateMutation.mutate()
+                }
                 disabled={deactivateMutation.isPending || activateMutation.isPending}
                 className={`h-9 rounded-md px-3 text-sm font-medium ${
                   confirmAction === 'deactivate'

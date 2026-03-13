@@ -3,6 +3,7 @@ using System;
 using Itenium.SkillForge.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Itenium.SkillForge.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313150000_AddEnrollmentEntity")]
+    partial class AddEnrollmentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,47 +93,6 @@ namespace Itenium.SkillForge.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("Itenium.SkillForge.Entities.CourseAssignmentEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AssignedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("AssignedBy")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("character varying(450)");
-
-                    b.Property<string>("AssigneeId")
-                        .IsRequired()
-                        .HasMaxLength(450)
-                        .HasColumnType("character varying(450)");
-
-                    b.Property<string>("AssigneeName")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<int>("AssigneeType")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("CourseAssignments");
                 });
 
             modelBuilder.Entity("Itenium.SkillForge.Entities.CourseEntity", b =>
@@ -243,6 +205,7 @@ namespace Itenium.SkillForge.Data.Migrations
 
                     b.ToTable("LessonStatuses");
                 });
+
             modelBuilder.Entity("Itenium.SkillForge.Entities.QuestionEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -721,16 +684,6 @@ namespace Itenium.SkillForge.Data.Migrations
                     b.ToTable("OpenIddictTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Itenium.SkillForge.Entities.CourseAssignmentEntity", b =>
-                {
-                    b.HasOne("Itenium.SkillForge.Entities.CourseEntity", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-                });
             modelBuilder.Entity("Itenium.SkillForge.Entities.EnrollmentEntity", b =>
                 {
                     b.HasOne("Itenium.SkillForge.Entities.CourseEntity", "Course")

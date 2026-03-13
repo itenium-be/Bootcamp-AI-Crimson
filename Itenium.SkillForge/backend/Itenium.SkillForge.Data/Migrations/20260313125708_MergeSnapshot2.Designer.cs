@@ -3,6 +3,7 @@ using System;
 using Itenium.SkillForge.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Itenium.SkillForge.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260313125708_MergeSnapshot2")]
+    partial class MergeSnapshot2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,6 +246,7 @@ namespace Itenium.SkillForge.Data.Migrations
 
                     b.ToTable("LessonStatuses");
                 });
+
             modelBuilder.Entity("Itenium.SkillForge.Entities.QuestionEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -731,6 +735,7 @@ namespace Itenium.SkillForge.Data.Migrations
 
                     b.Navigation("Course");
                 });
+
             modelBuilder.Entity("Itenium.SkillForge.Entities.EnrollmentEntity", b =>
                 {
                     b.HasOne("Itenium.SkillForge.Entities.CourseEntity", "Course")

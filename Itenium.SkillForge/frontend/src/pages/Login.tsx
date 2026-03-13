@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter, useSearch, Link } from '@tanstack/react-router';
+import { useRouter, useSearch } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,29 +22,21 @@ import {
   CardFooter,
 } from '@itenium-forge/ui';
 import { useAuthStore } from '@/stores';
-import { loginApi, initiateSsoLogin } from '@/api/client';
+import { loginWithEmailApi } from '@/api/client';
 
 const createFormSchema = (t: (key: string) => string) =>
   z.object({
-    username: z.string().min(1, t('auth.usernameRequired')),
+    email: z.string().min(1, t('auth.emailRequired')).email(t('auth.invalidEmail')),
     password: z.string().min(1, t('auth.passwordRequired')),
   });
 
 type FormData = z.infer<ReturnType<typeof createFormSchema>>;
 
-const testUsers = [
-  { username: 'backoffice', password: 'AdminPassword123!' },
-  { username: 'java', password: 'UserPassword123!' },
-  { username: 'dotnet', password: 'UserPassword123!' },
-  { username: 'multi', password: 'UserPassword123!' },
-  { username: 'learner', password: 'UserPassword123!' },
-];
-
-export function SignIn() {
+export function Login() {
   const { t } = useTranslation();
   const formSchema = createFormSchema(t);
   const router = useRouter();
-  const search = useSearch({ from: '/(auth)/sign-in' });
+  const search = useSearch({ from: '/(auth)/login' });
   const { setToken } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +44,7 @@ export function SignIn() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
@@ -61,32 +53,16 @@ export function SignIn() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await loginApi(data.username, data.password);
+      const response = await loginWithEmailApi(data.email, data.password);
       setToken(response.access_token);
 
-      // Navigate to redirect URL or home
-      const redirectTo = search.redirect || '/';
+      const redirectTo = (search as { redirect?: string }).redirect || '/';
       router.navigate({ to: redirectTo });
-    } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { data?: { error_description?: string } } };
-        const description = axiosError.response?.data?.error_description ?? '';
-        if (description.toLowerCase().includes('suspended') || description.toLowerCase().includes('locked')) {
-          setError(t('auth.accountDeactivated'));
-        } else {
-          setError(description || t('auth.invalidCredentials'));
-        }
-      } else {
-        setError(t('auth.invalidCredentials'));
-      }
+    } catch {
+      setError(t('auth.invalidCredentials'));
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const fillTestUser = (username: string, password: string) => {
-    form.setValue('username', username);
-    form.setValue('password', password);
   };
 
   return (
@@ -135,12 +111,12 @@ export function SignIn() {
                 {error && <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">{error}</div>}
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('auth.username')}</FormLabel>
+                      <FormLabel>{t('auth.email')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('auth.enterUsername')} {...field} />
+                        <Input type="email" placeholder={t('auth.enterEmail')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -159,47 +135,18 @@ export function SignIn() {
                     </FormItem>
                   )}
                 />
-                <div className="flex justify-end">
-                  <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground underline">
-                    {t('auth.forgotPassword')}
-                  </Link>
-                </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
                   <span className="ml-2">{t('auth.signIn')}</span>
                 </Button>
               </form>
             </Form>
-
-            <div className="relative my-4">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-card px-2 text-muted-foreground">{t('auth.orContinueWith')}</span>
-              </div>
-            </div>
-
-            <Button variant="outline" className="w-full" onClick={() => void initiateSsoLogin()}>
-              {t('auth.signInWithSso')}
-            </Button>
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-2 text-center text-xs text-muted-foreground">
-            <div>Test users:</div>
-            <div className="flex flex-wrap justify-center gap-2">
-              {testUsers.map((user) => (
-                <button
-                  key={user.username}
-                  type="button"
-                  onClick={() => fillTestUser(user.username, user.password)}
-                  className="px-2 py-1 rounded bg-muted hover:bg-muted/80 transition-colors"
-                >
-                  {user.username}
-                </button>
-              ))}
-            </div>
-            <div>Passwords: AdminPassword123! (backoffice) / UserPassword123! (others)</div>
+          <CardFooter className="flex flex-col gap-2 text-center text-sm text-muted-foreground">
+            <a href="#" className="underline underline-offset-4 hover:text-primary">
+              {t('auth.forgotPassword')}
+            </a>
           </CardFooter>
         </Card>
       </div>

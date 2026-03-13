@@ -31,14 +31,14 @@ export const test = base.extend<TestFixtures>({
       localStorage.setItem('language', 'en');
     });
 
-    // Navigate to sign-in page
-    await page.goto('/sign-in');
+    // Navigate to login page
+    await page.goto('/login');
 
     // Wait for the login form to appear
     await page.waitForSelector('text=Welcome');
 
     // Fill in credentials
-    await page.getByPlaceholder(/enter your username/i).fill('backoffice');
+    await page.getByPlaceholder(/enter your email/i).fill('backoffice@test.local');
     await page.getByPlaceholder(/enter your password/i).fill('AdminPassword123!');
 
     // Click sign in button

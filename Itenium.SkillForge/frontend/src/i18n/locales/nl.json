@@ -42,15 +42,17 @@
   "auth": {
     "signIn": "Inloggen",
     "signOut": "Uitloggen",
-    "username": "Gebruikersnaam",
+    "email": "E-mailadres",
     "password": "Wachtwoord",
     "forgotPassword": "Wachtwoord vergeten?",
-    "enterUsername": "Voer uw gebruikersnaam in",
+    "enterEmail": "Voer uw e-mailadres in",
     "enterPassword": "Voer uw wachtwoord in",
     "welcome": "Welkom",
     "signInDescription": "Voer uw gegevens in om in te loggen",
-    "invalidCredentials": "Ongeldige gebruikersnaam of wachtwoord",
+    "invalidCredentials": "Ongeldige gegevens",
+    "accountDeactivated": "Account gedeactiveerd. Neem contact op met uw beheerder.",
     "usernameRequired": "Gebruikersnaam is verplicht",
+    "invalidEmail": "Voer een geldig e-mailadres in",
     "passwordRequired": "Wachtwoord is verplicht",
     "loginBackground": "Login achtergrond",
     "email": "E-mail",
@@ -169,6 +171,22 @@
     "sessionExpired": "Sessie verlopen!",
     "internalServerError": "Interne serverfout!"
   },
+  "assignments": {
+    "title": "Cursus Toewijzen",
+    "assignTo": "Toewijzen Aan",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individueel",
+    "mandatory": "Verplicht",
+    "optional": "Optioneel",
+    "selectTeam": "Selecteer Team",
+    "selectLearner": "Selecteer Leerling",
+    "selectPlaceholder": "Selecteer...",
+    "assign": "Toewijzen",
+    "existing": "Huidige Toewijzingen",
+    "none": "Nog geen toewijzingen",
+    "alreadyAssigned": "Deze cursus is al toegewezen aan deze ontvanger"
+  },
   "quizAnalytics": {
     "title": "Quiz Analyse",
     "subtitle": "Bekijk geaggregeerde quiz prestatiestatistieken",
@@ -190,6 +208,16 @@
     "passed": "Geslaagd",
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
+  },
+  "lessons": {
+    "title": "Lessen",
+    "noLessons": "Geen lessen gevonden",
+    "progress": "{{done}} / {{total}} gedaan ({{pct}}%)",
+    "status": {
+      "new": "Niet gestart",
+      "done": "Gedaan",
+      "later": "Bewaar voor later"
+    }
   },
   "teams": {
     "title": "Teams",
@@ -213,8 +241,8 @@
     "changeRole": "Rol Wijzigen",
     "deactivate": "Gebruiker Deactiveren",
     "activate": "Gebruiker Activeren",
-    "confirmDeactivate": "\"{{name}}\" deactiveren? Ze verliezen toegang tot het platform.",
-    "confirmActivate": "\"{{name}}\" activeren? Ze krijgen opnieuw toegang tot het platform."
+    "confirmDeactivate": "Dit voorkomt dat {{name}} kan inloggen. Hun geschiedenis blijft bewaard.",
+    "confirmActivate": "{{name}} activeren? Ze krijgen opnieuw toegang tot het platform."
   },
   "managerCourses": {
     "title": "Cursusbeheer",

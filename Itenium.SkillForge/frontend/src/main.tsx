@@ -39,7 +39,7 @@ const queryClient = new QueryClient({
         if (error.response?.status === 401) {
           toast.error(i18n.t('errors.sessionExpired'));
           useAuthStore.getState().logout();
-          router.navigate({ to: '/sign-in', search: { redirect: router.history.location.href } });
+          router.navigate({ to: '/login', search: { redirect: router.history.location.href } });
         }
         if (error.response?.status === 500) {
           toast.error(i18n.t('errors.internalServerError'));

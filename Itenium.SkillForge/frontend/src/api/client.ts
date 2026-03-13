@@ -109,6 +109,11 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
+export async function loginWithEmailApi(email: string, password: string): Promise<LoginResponse> {
+  const response = await axios.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { email, password });
+  return response.data;
+}
+
 interface Team {
   id: number;
   name: string;
@@ -182,7 +187,43 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
-export interface User {
+export type AssigneeType = 'Team' | 'User';
+export type AssignmentType = 'Mandatory' | 'Optional';
+
+export interface CourseAssignment {
+  id: number;
+  courseId: number;
+  assigneeType: AssigneeType;
+  assigneeId: string;
+  assigneeName: string | null;
+  type: AssignmentType;
+  assignedAt: string;
+  assignedBy: string;
+}
+
+interface CreateAssignmentData {
+  assigneeType: AssigneeType;
+  assigneeId: string;
+  assigneeName: string | null;
+  type: AssignmentType;
+  assignedBy: string;
+}
+
+export async function fetchCourseAssignments(courseId: number): Promise<CourseAssignment[]> {
+  const response = await api.get<CourseAssignment[]>(`/api/courses/${courseId}/assignments`);
+  return response.data;
+}
+
+export async function createCourseAssignment(courseId: number, data: CreateAssignmentData): Promise<CourseAssignment> {
+  const response = await api.post<CourseAssignment>(`/api/courses/${courseId}/assignments`, data);
+  return response.data;
+}
+
+export async function deleteCourseAssignment(courseId: number, assignmentId: number): Promise<void> {
+  await api.delete(`/api/courses/${courseId}/assignments/${assignmentId}`);
+}
+
+interface User {
   id: string;
   name: string;
   email: string;
@@ -292,4 +333,22 @@ export async function fetchQuizLearnerAnalytics(quizId: number, teamId?: number)
     params: teamId ? { teamId } : undefined,
   });
   return response.data;
+}
+
+export type LessonStatus = 'new' | 'done' | 'later';
+
+export interface Lesson {
+  id: number;
+  title: string;
+  sortOrder: number;
+  status: LessonStatus;
+}
+
+export async function fetchLessons(courseId: number): Promise<Lesson[]> {
+  const response = await api.get<Lesson[]>('/api/lessons', { params: { courseId } });
+  return response.data;
+}
+
+export async function setLessonStatus(lessonId: number, status: LessonStatus): Promise<void> {
+  await api.put(`/api/lessons/${lessonId}/status`, { status });
 }

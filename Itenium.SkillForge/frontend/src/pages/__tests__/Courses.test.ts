@@ -2,9 +2,21 @@ import { describe, it, expect } from 'vitest';
 import { filterCourses, type Course, type CourseFilters } from '../Courses';
 
 const courses: Course[] = [
-  { id: 1, name: 'Introduction to Programming', description: 'Learn the basics', category: 'Development', level: 'Beginner' },
+  {
+    id: 1,
+    name: 'Introduction to Programming',
+    description: 'Learn the basics',
+    category: 'Development',
+    level: 'Beginner',
+  },
   { id: 2, name: 'Advanced C#', description: 'Deep dive into C#', category: 'Development', level: 'Advanced' },
-  { id: 3, name: 'Cloud Architecture', description: 'AWS and Azure patterns', category: 'Architecture', level: 'Intermediate' },
+  {
+    id: 3,
+    name: 'Cloud Architecture',
+    description: 'AWS and Azure patterns',
+    category: 'Architecture',
+    level: 'Intermediate',
+  },
   { id: 4, name: 'Agile Project Management', description: null, category: 'Management', level: 'Beginner' },
 ];
 

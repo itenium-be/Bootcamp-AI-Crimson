@@ -42,15 +42,17 @@
   "auth": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "username": "Username",
+    "email": "Email",
     "password": "Password",
     "forgotPassword": "Forgot password?",
-    "enterUsername": "Enter your username",
+    "enterEmail": "Enter your email",
     "enterPassword": "Enter your password",
     "welcome": "Welcome",
     "signInDescription": "Enter your credentials to sign in",
-    "invalidCredentials": "Invalid username or password",
+    "invalidCredentials": "Invalid credentials",
+    "accountDeactivated": "Account deactivated. Please contact your administrator.",
     "usernameRequired": "Username is required",
+    "invalidEmail": "Please enter a valid email address",
     "passwordRequired": "Password is required",
     "loginBackground": "Login background",
     "email": "Email",
@@ -169,6 +171,22 @@
     "sessionExpired": "Session expired!",
     "internalServerError": "Internal Server Error!"
   },
+  "assignments": {
+    "title": "Assign Course",
+    "assignTo": "Assign To",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individual",
+    "mandatory": "Mandatory",
+    "optional": "Optional",
+    "selectTeam": "Select Team",
+    "selectLearner": "Select Learner",
+    "selectPlaceholder": "Select...",
+    "assign": "Assign",
+    "existing": "Current Assignments",
+    "none": "No assignments yet",
+    "alreadyAssigned": "This course is already assigned to this assignee"
+  },
   "quizAnalytics": {
     "title": "Quiz Analytics",
     "subtitle": "View aggregated quiz performance statistics",
@@ -190,6 +208,16 @@
     "passed": "Passed",
     "failed": "Failed",
     "noLearners": "No learners found"
+  },
+  "lessons": {
+    "title": "Lessons",
+    "noLessons": "No lessons found",
+    "progress": "{{done}} / {{total}} done ({{pct}}%)",
+    "status": {
+      "new": "Not started",
+      "done": "Done",
+      "later": "Save for later"
+    }
   },
   "teams": {
     "title": "Teams",
@@ -213,8 +241,8 @@
     "changeRole": "Change Role",
     "deactivate": "Deactivate User",
     "activate": "Activate User",
-    "confirmDeactivate": "Deactivate \"{{name}}\"? They will lose access to the platform.",
-    "confirmActivate": "Activate \"{{name}}\"? They will regain access to the platform."
+    "confirmDeactivate": "This will prevent {{name}} from logging in. Their history is preserved.",
+    "confirmActivate": "Activate {{name}}? They will regain access to the platform."
   },
   "managerCourses": {
     "title": "Course Management",

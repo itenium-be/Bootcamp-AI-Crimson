@@ -8,7 +8,16 @@ export function Dashboard() {
   const { mode, selectedTeam } = useTeamStore();
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          backgroundImage: 'url(/logo-white.svg)',
+          backgroundSize: '200px auto',
+          backgroundRepeat: 'repeat',
+          opacity: 0.5,
+        }}
+      />
       <div>
         <h1 className="text-3xl font-bold">{t('dashboard.title')}</h1>
         <p className="text-muted-foreground">

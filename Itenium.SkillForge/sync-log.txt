@@ -282,3 +282,84 @@ To https://github.com/itenium-be/Bootcamp-AI-Crimson
 From https://github.com/itenium-be/Bootcamp-AI-Crimson
  * branch            master     -> FETCH_HEAD
 Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/frontend/src/pages/Dashboard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[33m[STARTED][39m Backing up original state...
+[32m[COMPLETED][39m Backed up original state in git stash (79b2765)
+[33m[STARTED][39m Hiding unstaged changes to partially staged files...
+[31m[FAILED][39m error: unable to unlink old 'Itenium.SkillForge/sync-log.txt': Invalid argument
+[33m[STARTED][39m Running tasks for staged files...
+[33m[SKIPPED][39m Running tasks for staged files...
+[33m[STARTED][39m Applying modifications from tasks...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Restoring unstaged changes...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Cleaning up temporary files...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+Any lost modifications can be restored from a git stash:
+
+  > git stash list --format="%h %s"
+  79b2765 On main: lint-staged automatic backup
+  > git apply --index 79b2765
+
+[master 8e089e7] Auto-sync: vr 13/03/2026 11:54:02,84
+ Committer: Heleen De Meue <heleen.de.meue@itenium.be>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 57 insertions(+), 10 deletions(-)
+To https://github.com/itenium-be/Bootcamp-AI-Crimson
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/itenium-be/Bootcamp-AI-Crimson'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[vr 13/03/2026 11:54:06,29] ERROR: Push failed. 
+[vr 13/03/2026 11:59:01,72] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+   8e7eb6b..cb1cb3a  master     -> origin/master
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+Merge made by the 'ort' strategy.
+ ...13104439_AddCourseStatusAndDuration.Designer.cs | 762 +++++++++++++++++++++
+ .../20260313104439_AddCourseStatusAndDuration.cs   |  39 ++
+ .../Migrations/AppDbContextModelSnapshot.cs        |   9 +-
+ .../Itenium.SkillForge.Entities/CourseEntity.cs    |   4 +
+ .../Itenium.SkillForge.Entities/CourseStatus.cs    |   8 +
+ .../CourseStatusControllerTests.cs                 | 157 +++++
+ .../Controllers/CourseController.cs                |  54 +-
+ .../Controllers/CreateCourseRequest.cs             |   2 +-
+ .../Controllers/UpdateCourseRequest.cs             |   2 +-
+ Itenium.SkillForge/frontend/src/api/client.ts      |  44 +-
+ .../frontend/src/i18n/locales/en.json              |  18 +
+ .../frontend/src/i18n/locales/nl.json              |  18 +
+ .../frontend/src/pages/ManagerCourseForm.tsx       | 146 ++++
+ .../frontend/src/pages/ManagerCourses.tsx          | 145 ++++
+ Itenium.SkillForge/frontend/src/routeTree.gen.ts   |  44 ++
+ .../routes/_authenticated/manager/courses/$id.tsx  |   6 +
+ .../_authenticated/manager/courses/index.tsx       |   6 +
+ 17 files changed, 1453 insertions(+), 11 deletions(-)
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/20260313104439_AddCourseStatusAndDuration.Designer.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/20260313104439_AddCourseStatusAndDuration.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.Entities/CourseStatus.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.WebApi.Tests/CourseStatusControllerTests.cs
+ create mode 100644 Itenium.SkillForge/frontend/src/pages/ManagerCourseForm.tsx
+ create mode 100644 Itenium.SkillForge/frontend/src/pages/ManagerCourses.tsx
+ create mode 100644 Itenium.SkillForge/frontend/src/routes/_authenticated/manager/courses/$id.tsx
+ create mode 100644 Itenium.SkillForge/frontend/src/routes/_authenticated/manager/courses/index.tsx

@@ -23,9 +23,15 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<QuestionResponseEntity> QuestionResponses => Set<QuestionResponseEntity>();
 
+    public DbSet<LessonEntity> Lessons => Set<LessonEntity>();
+
+    public DbSet<LessonStatusEntity> LessonStatuses => Set<LessonStatusEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<LessonStatusEntity>()
+            .HasKey(s => new { s.UserId, s.LessonId });
     }
 }

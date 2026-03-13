@@ -154,6 +154,16 @@
     "failed": "Failed",
     "noLearners": "No learners found"
   },
+  "lessons": {
+    "title": "Lessons",
+    "noLessons": "No lessons found",
+    "progress": "{{done}} / {{total}} done ({{pct}}%)",
+    "status": {
+      "new": "Not started",
+      "done": "Done",
+      "later": "Save for later"
+    }
+  },
   "managerCourses": {
     "title": "Course Management",
     "newCourse": "New Course",

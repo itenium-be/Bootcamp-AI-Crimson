@@ -154,6 +154,16 @@
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
   },
+  "lessons": {
+    "title": "Lessen",
+    "noLessons": "Geen lessen gevonden",
+    "progress": "{{done}} / {{total}} gedaan ({{pct}}%)",
+    "status": {
+      "new": "Niet gestart",
+      "done": "Gedaan",
+      "later": "Bewaar voor later"
+    }
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

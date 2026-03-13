@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { fetchCourses } from '@/api/client';
 
 export interface Course {
@@ -45,10 +46,7 @@ export function Courses() {
     [courses],
   );
 
-  const levels = useMemo(
-    () => [...new Set(courses.map((c) => c.level).filter(Boolean) as string[])].sort(),
-    [courses],
-  );
+  const levels = useMemo(() => [...new Set(courses.map((c) => c.level).filter(Boolean) as string[])].sort(), [courses]);
 
   const filtered = useMemo(() => filterCourses(courses, filters), [courses, filters]);
 
@@ -84,7 +82,9 @@ export function Courses() {
         >
           <option value="">{t('courses.allCategories')}</option>
           {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
           ))}
         </select>
 
@@ -95,7 +95,9 @@ export function Courses() {
         >
           <option value="">{t('courses.allLevels')}</option>
           {levels.map((lvl) => (
-            <option key={lvl} value={lvl}>{lvl}</option>
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
           ))}
         </select>
 
@@ -126,7 +128,11 @@ export function Courses() {
           <tbody>
             {filtered.map((course) => (
               <tr key={course.id} className="border-b">
-                <td className="p-3">{course.name}</td>
+                <td className="p-3">
+                  <Link to="/courses/$id" params={{ id: String(course.id) }} className="hover:underline text-primary">
+                    {course.name}
+                  </Link>
+                </td>
                 <td className="p-3 text-muted-foreground">{course.description || '-'}</td>
                 <td className="p-3">{course.category || '-'}</td>
                 <td className="p-3">{course.level || '-'}</td>

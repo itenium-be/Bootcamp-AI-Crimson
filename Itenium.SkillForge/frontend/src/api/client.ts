@@ -393,3 +393,53 @@ export async function getFeedbackSummary(): Promise<CourseFeedbackRanking[]> {
   const response = await api.get<CourseFeedbackRanking[]>('/api/reports/feedback-summary');
   return response.data;
 }
+
+export interface ModuleCourse {
+  courseId: number;
+  courseName: string;
+  order: number;
+}
+
+export interface Module {
+  id: number;
+  name: string;
+  description: string | null;
+  goal: string | null;
+  courses: ModuleCourse[];
+}
+
+export interface ModuleFormData {
+  name: string;
+  description: string | null;
+  goal: string | null;
+}
+
+export async function fetchModules(): Promise<Module[]> {
+  const response = await api.get<Module[]>('/api/modules');
+  return response.data;
+}
+
+export async function createModule(data: ModuleFormData): Promise<Module> {
+  const response = await api.post<Module>('/api/modules', data);
+  return response.data;
+}
+
+export async function updateModule(id: number, data: ModuleFormData): Promise<void> {
+  await api.put(`/api/modules/${id}`, data);
+}
+
+export async function deleteModule(id: number): Promise<void> {
+  await api.delete(`/api/modules/${id}`);
+}
+
+export async function addCourseToModule(moduleId: number, courseId: number, order: number): Promise<void> {
+  await api.post(`/api/modules/${moduleId}/courses`, { courseId, order });
+}
+
+export async function removeCourseFromModule(moduleId: number, courseId: number): Promise<void> {
+  await api.delete(`/api/modules/${moduleId}/courses/${courseId}`);
+}
+
+export async function reorderModuleCourses(moduleId: number, orderedCourseIds: number[]): Promise<void> {
+  await api.put(`/api/modules/${moduleId}/courses/reorder`, { orderedCourseIds });
+}

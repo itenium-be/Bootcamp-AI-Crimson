@@ -96,10 +96,17 @@ export function ManagerModules() {
             />
           </div>
           <div className="flex gap-2">
-            <button type="submit" className="rounded bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90">
+            <button
+              type="submit"
+              className="rounded bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90"
+            >
               {t('modules.save')}
             </button>
-            <button type="button" onClick={() => setShowForm(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-muted">
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="rounded border px-3 py-1.5 text-sm hover:bg-muted"
+            >
               {t('modules.cancel')}
             </button>
           </div>

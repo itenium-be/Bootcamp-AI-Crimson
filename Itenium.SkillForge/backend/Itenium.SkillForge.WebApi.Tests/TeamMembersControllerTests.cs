@@ -21,13 +21,31 @@ public class TeamMembersControllerTests : DatabaseTestBase
     }
 
     [Test]
-    public async Task GetTeamMembers_WhenNotBackoffice_ReturnsForbid()
+    public async Task GetTeamMembers_WhenManagerOfDifferentTeam_ReturnsForbid()
     {
         _user.IsBackOffice.Returns(false);
+        _user.Teams.Returns(new List<int> { 99 });
 
         var result = await _sut.GetTeamMembers(1);
 
         Assert.That(result.Result, Is.InstanceOf<ForbidResult>());
+    }
+
+    [Test]
+    public async Task GetTeamMembers_WhenManagerOfTeam_ReturnsMembers()
+    {
+        _user.IsBackOffice.Returns(false);
+        _user.Teams.Returns(new List<int> { 1 });
+        _userRepository.GetTeamMembersAsync(1).Returns(new List<UserResponse>
+        {
+            new("u1", "Alice Smith", "alice@test.com", "learner", true),
+        });
+
+        var result = await _sut.GetTeamMembers(1);
+
+        var ok = result.Result as OkObjectResult;
+        var members = ok!.Value as IList<UserResponse>;
+        Assert.That(members, Has.Count.EqualTo(1));
     }
 
     [Test]

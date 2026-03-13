@@ -408,7 +408,7 @@ export interface Module {
   courses: ModuleCourse[];
 }
 
-export interface ModuleFormData {
+interface ModuleFormData {
   name: string;
   description: string | null;
   goal: string | null;

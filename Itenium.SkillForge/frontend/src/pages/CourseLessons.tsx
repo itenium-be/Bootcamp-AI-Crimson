@@ -1,7 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
-import { fetchLessons, setLessonStatus, trackLastVisited, fetchResumeLesson, type Lesson, type LessonStatus } from '@/api/client';
+import {
+  fetchLessons,
+  setLessonStatus,
+  trackLastVisited,
+  fetchResumeLesson,
+  type Lesson,
+  type LessonStatus,
+} from '@/api/client';
 
 const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
   new: 'done',
@@ -58,7 +65,7 @@ export function CourseLessons() {
   }
 
   function handleLessonClick(lessonId: number) {
-    trackLastVisited(courseId, lessonId).catch(() => {});
+    void trackLastVisited(courseId, lessonId);
   }
 
   function handleResume() {
@@ -85,15 +92,12 @@ export function CourseLessons() {
             </p>
           )}
         </div>
-        {resume && (
-          resume.isComplete ? (
+        {resume &&
+          (resume.isComplete ? (
             <div className="flex flex-col items-end gap-1">
               <span className="text-sm text-green-700 font-medium">{t('myLearning.courseComplete')}</span>
               {resume.lessonId && (
-                <button
-                  onClick={handleResume}
-                  className="text-sm rounded border px-3 py-1.5 hover:bg-muted"
-                >
+                <button onClick={handleResume} className="text-sm rounded border px-3 py-1.5 hover:bg-muted">
                   {t('myLearning.revisit')}
                 </button>
               )}
@@ -105,8 +109,7 @@ export function CourseLessons() {
             >
               {t('lessons.resume')}
             </button>
-          ) : null
-        )}
+          ) : null)}
       </div>
 
       {lessons.length > 0 && (

@@ -137,10 +137,16 @@
     "statusActive": "In Progress",
     "statusCompleted": "Completed",
     "enrolledOn": "Enrolled on",
+    "completedOn": "Completed on",
     "noEnrollments": "You haven't enrolled in any courses yet.",
+    "noCompleted": "You haven't completed any courses yet.",
     "resume": "Resume",
     "courseComplete": "Course complete!",
-    "revisit": "Revisit last lesson"
+    "revisit": "Revisit last lesson",
+    "tabInProgress": "In Progress",
+    "tabCompleted": "Completed",
+    "module": "Path",
+    "certificate": "Certificate"
   },
   "learners": {
     "title": "Learners",
@@ -236,7 +242,12 @@
     "backToCourse": "← Back to course",
     "moveUp": "Move up",
     "moveDown": "Move down",
-    "nameRequired": "Title is required"
+    "nameRequired": "Title is required",
+    "resume": "Resume",
+    "resumeCourse": "Resume Course",
+    "courseComplete": "Course Complete!",
+    "revisitFromStart": "Revisit from start",
+    "allLessonsDone": "You've completed all lessons in this course."
   },
   "teams": {
     "title": "Teams",

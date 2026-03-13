@@ -10,6 +10,8 @@ const enrollments: Enrollment[] = [
     courseLevel: 'Beginner',
     enrolledAt: '2026-01-01',
     status: 'Active',
+    completedAt: null,
+    moduleName: null,
   },
   {
     id: 2,
@@ -19,6 +21,8 @@ const enrollments: Enrollment[] = [
     courseLevel: 'Advanced',
     enrolledAt: '2026-01-05',
     status: 'Active',
+    completedAt: null,
+    moduleName: 'Backend Development',
   },
   {
     id: 3,
@@ -28,6 +32,8 @@ const enrollments: Enrollment[] = [
     courseLevel: 'Intermediate',
     enrolledAt: '2026-01-10',
     status: 'Completed',
+    completedAt: '2026-02-15',
+    moduleName: 'Cloud Path',
   },
   {
     id: 4,
@@ -37,6 +43,8 @@ const enrollments: Enrollment[] = [
     courseLevel: 'Beginner',
     enrolledAt: '2026-01-15',
     status: 'Completed',
+    completedAt: '2026-03-01',
+    moduleName: null,
   },
 ];
 

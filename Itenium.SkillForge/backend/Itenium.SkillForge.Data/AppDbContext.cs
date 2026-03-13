@@ -48,5 +48,9 @@ public class AppDbContext : ForgeIdentityDbContext
 
         builder.Entity<LessonProgressEntity>()
             .HasKey(p => new { p.UserId, p.LessonId });
+
+        builder.Entity<EnrollmentEntity>()
+            .HasIndex(e => new { e.UserId, e.CourseId })
+            .IsUnique();
     }
 }

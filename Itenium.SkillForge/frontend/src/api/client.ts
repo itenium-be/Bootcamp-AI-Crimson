@@ -280,6 +280,8 @@ interface Enrollment {
   courseLevel: string | null;
   enrolledAt: string;
   status: string;
+  completedAt: string | null;
+  moduleName: string | null;
 }
 
 export async function enrollCourse(courseId: number): Promise<Enrollment> {
@@ -292,7 +294,7 @@ export async function fetchMyEnrollments(): Promise<Enrollment[]> {
   return response.data;
 }
 
-export interface ResumeInfo {
+interface ResumeInfo {
   lessonId: number | null;
   isComplete: boolean;
 }
@@ -367,7 +369,7 @@ export async function setLessonStatus(lessonId: number, status: LessonStatus): P
   await api.put(`/api/lessons/${lessonId}/status`, { status });
 }
 
-export interface LessonProgressSummary {
+interface LessonProgressSummary {
   lessonId: number;
   completedCount: number;
 }
@@ -560,13 +562,13 @@ export async function reorderContentBlocks(lessonId: number, orderedIds: number[
   await api.put(`/api/lessons/${lessonId}/content-blocks/reorder`, { orderedIds });
 }
 
-export interface ReportSummary {
+interface ReportSummary {
   activeLearners: number;
   completionsThisMonth: number;
   totalEnrollments: number;
 }
 
-export interface CourseUsage {
+interface CourseUsage {
   courseId: number;
   courseName: string;
   totalEnrollments: number;

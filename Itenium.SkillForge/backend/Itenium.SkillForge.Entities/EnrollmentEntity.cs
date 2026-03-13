@@ -19,4 +19,6 @@ public class EnrollmentEntity
     public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
 
     public EnrollmentStatus Status { get; set; } = EnrollmentStatus.Active;
+
+    public int? LastVisitedLessonId { get; set; }
 }

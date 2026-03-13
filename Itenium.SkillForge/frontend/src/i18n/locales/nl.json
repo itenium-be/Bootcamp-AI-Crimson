@@ -137,7 +137,10 @@
     "statusActive": "Bezig",
     "statusCompleted": "Voltooid",
     "enrolledOn": "Ingeschreven op",
-    "noEnrollments": "Je bent nog niet ingeschreven voor een cursus."
+    "noEnrollments": "Je bent nog niet ingeschreven voor een cursus.",
+    "resume": "Verdergaan",
+    "courseComplete": "Cursus voltooid!",
+    "revisit": "Laatste les opnieuw bekijken"
   },
   "learners": {
     "title": "Leerlingen",

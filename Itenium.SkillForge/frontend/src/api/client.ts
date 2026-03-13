@@ -292,6 +292,20 @@ export async function fetchMyEnrollments(): Promise<Enrollment[]> {
   return response.data;
 }
 
+export interface ResumeInfo {
+  lessonId: number | null;
+  isComplete: boolean;
+}
+
+export async function fetchResumeLesson(courseId: number): Promise<ResumeInfo> {
+  const response = await api.get<ResumeInfo>(`/api/courses/${courseId}/resume`);
+  return response.data;
+}
+
+export async function trackLastVisited(courseId: number, lessonId: number): Promise<void> {
+  await api.put(`/api/courses/${courseId}/last-visited/${lessonId}`);
+}
+
 interface QuestionStat {
   questionId: number;
   questionText: string;

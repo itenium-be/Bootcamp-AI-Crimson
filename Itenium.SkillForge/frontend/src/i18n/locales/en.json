@@ -137,7 +137,10 @@
     "statusActive": "In Progress",
     "statusCompleted": "Completed",
     "enrolledOn": "Enrolled on",
-    "noEnrollments": "You haven't enrolled in any courses yet."
+    "noEnrollments": "You haven't enrolled in any courses yet.",
+    "resume": "Resume",
+    "courseComplete": "Course complete!",
+    "revisit": "Revisit last lesson"
   },
   "learners": {
     "title": "Learners",

@@ -362,7 +362,7 @@ export interface FeedbackEntry {
   isFlagged: boolean;
 }
 
-export interface CourseFeedbackSummary {
+interface CourseFeedbackSummary {
   averageRating: number;
   entries: FeedbackEntry[];
 }

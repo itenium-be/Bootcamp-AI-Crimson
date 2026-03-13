@@ -39,7 +39,8 @@
     "completion": "Voltooiing",
     "feedback": "Feedback",
     "settingsSection": "Instellingen",
-    "certificateTemplates": "Certificaat Sjablonen"
+    "certificateTemplates": "Certificaat Sjablonen",
+    "suggestions": "Inhoudsuggesties"
   },
   "auth": {
     "signIn": "Inloggen",
@@ -350,6 +351,22 @@
       "mostPopular": "Meest Populaire Cursussen",
       "lowestCompletion": "Laagste Voltooiingspercentage"
     }
+  },
+  "suggestions": {
+    "title": "Inhoudsuggesties",
+    "subtitle": "Suggesties ingediend door leden van het {{team}} team",
+    "noTeam": "Selecteer een team om suggesties te bekijken.",
+    "noSuggestions": "Geen suggesties gevonden.",
+    "allStatuses": "Alle statussen",
+    "statusPending": "In behandeling",
+    "statusApproved": "Goedgekeurd",
+    "statusRejected": "Afgewezen",
+    "submittedBy": "Ingediend door {{name}}",
+    "topic": "Onderwerp",
+    "notePlaceholder": "Optionele beoordelingsnoot...",
+    "approve": "Goedkeuren",
+    "reject": "Afwijzen",
+    "reviewNote": "Beoordelingsnoot"
   },
   "managerCourses": {
     "title": "Cursusbeheer",

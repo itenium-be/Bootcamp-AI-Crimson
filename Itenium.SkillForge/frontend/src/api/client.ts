@@ -292,7 +292,7 @@ export async function fetchMyEnrollments(): Promise<Enrollment[]> {
   return response.data;
 }
 
-export interface ResumeInfo {
+interface ResumeInfo {
   lessonId: number | null;
   isComplete: boolean;
 }
@@ -367,7 +367,7 @@ export async function setLessonStatus(lessonId: number, status: LessonStatus): P
   await api.put(`/api/lessons/${lessonId}/status`, { status });
 }
 
-export interface LessonProgressSummary {
+interface LessonProgressSummary {
   lessonId: number;
   completedCount: number;
 }
@@ -596,13 +596,13 @@ export async function reorderContentBlocks(lessonId: number, orderedIds: number[
   await api.put(`/api/lessons/${lessonId}/content-blocks/reorder`, { orderedIds });
 }
 
-export interface ReportSummary {
+interface ReportSummary {
   activeLearners: number;
   completionsThisMonth: number;
   totalEnrollments: number;
 }
 
-export interface CourseUsage {
+interface CourseUsage {
   courseId: number;
   courseName: string;
   totalEnrollments: number;
@@ -622,4 +622,36 @@ export async function fetchCourseUsage(params?: {
 }): Promise<CourseUsage[]> {
   const response = await api.get<CourseUsage[]>('/api/reports/course-usage', { params });
   return response.data;
+}
+
+export type ContentSuggestionStatus = 'pending' | 'approved' | 'rejected';
+
+export interface ContentSuggestion {
+  id: number;
+  submittedBy: string;
+  submitterName: string | null;
+  teamId: number | null;
+  title: string;
+  description: string | null;
+  url: string | null;
+  relatedCourseId: number | null;
+  topic: string | null;
+  status: ContentSuggestionStatus;
+  reviewedBy: string | null;
+  reviewedAt: string | null;
+  reviewNote: string | null;
+  submittedAt: string;
+}
+
+export async function fetchContentSuggestions(teamId: number, status?: string): Promise<ContentSuggestion[]> {
+  const response = await api.get<ContentSuggestion[]>('/api/content-suggestions', { params: { teamId, status } });
+  return response.data;
+}
+
+export async function approveContentSuggestion(id: number, note?: string): Promise<void> {
+  await api.put(`/api/content-suggestions/${id}/approve`, { note: note ?? null });
+}
+
+export async function rejectContentSuggestion(id: number, note?: string): Promise<void> {
+  await api.put(`/api/content-suggestions/${id}/reject`, { note: note ?? null });
 }

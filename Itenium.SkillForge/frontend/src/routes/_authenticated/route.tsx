@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_authenticated')({
     const { isAuthenticated } = useAuthStore.getState();
     if (!isAuthenticated) {
       throw redirect({
-        to: '/sign-in',
+        to: '/login',
         search: {
           redirect: location.href,
         },

@@ -50,6 +50,11 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
+export async function loginWithEmailApi(email: string, password: string): Promise<LoginResponse> {
+  const response = await axios.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { email, password });
+  return response.data;
+}
+
 interface Team {
   id: number;
   name: string;

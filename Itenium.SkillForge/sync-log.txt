@@ -363,3 +363,49 @@ Merge made by the 'ort' strategy.
  create mode 100644 Itenium.SkillForge/frontend/src/pages/ManagerCourses.tsx
  create mode 100644 Itenium.SkillForge/frontend/src/routes/_authenticated/manager/courses/$id.tsx
  create mode 100644 Itenium.SkillForge/frontend/src/routes/_authenticated/manager/courses/index.tsx
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[33m[STARTED][39m Backing up original state...
+[32m[COMPLETED][39m Backed up original state in git stash (edc4eaf)
+[33m[STARTED][39m Hiding unstaged changes to partially staged files...
+[31m[FAILED][39m error: unable to unlink old 'Itenium.SkillForge/sync-log.txt': Invalid argument
+[33m[STARTED][39m Running tasks for staged files...
+[33m[SKIPPED][39m Running tasks for staged files...
+[33m[STARTED][39m Applying modifications from tasks...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Restoring unstaged changes...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Cleaning up temporary files...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+Any lost modifications can be restored from a git stash:
+
+  > git stash list --format="%h %s"
+  edc4eaf On main: lint-staged automatic backup
+  > git apply --index edc4eaf
+
+[master 12486f6] Auto-sync: vr 13/03/2026 11:59:04,35
+ Committer: Heleen De Meue <heleen.de.meue@itenium.be>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 3 files changed, 86 insertions(+)
+To https://github.com/itenium-be/Bootcamp-AI-Crimson
+   cb1cb3a..12486f6  master -> master
+[vr 13/03/2026 11:59:10,30] Sync complete. 
+[vr 13/03/2026 12:04:01,69] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.

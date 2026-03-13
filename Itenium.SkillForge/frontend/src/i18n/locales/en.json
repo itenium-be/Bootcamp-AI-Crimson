@@ -32,6 +32,7 @@
     "coursesSection": "Courses",
     "manageCourses": "Manage Courses",
     "manageModules": "Learning Paths",
+    "lessonProgress": "Lesson Progress",
     "administration": "Administration",
     "reports": "Reports",
     "usage": "Usage",
@@ -281,6 +282,17 @@
     "entries": "Entries for {{name}}",
     "backToSummary": "Back to summary",
     "anonymous": "Anonymous"
+  },
+  "lessonProgress": {
+    "title": "Lesson Progress",
+    "subtitle": "Learner completion per lesson. Editing content does not reset progress.",
+    "lesson": "Lesson",
+    "completedCount": "Completions",
+    "warning": "{{count}} learner(s) have completed this lesson. Editing content won't reset their progress.",
+    "reset": "Reset Progress",
+    "confirmReset": "Reset all progress for \"{{title}}\"? This cannot be undone.",
+    "noLessons": "No lessons found",
+    "selectCourse": "Select a course to view lesson progress"
   },
   "modules": {
     "title": "Learning Paths",

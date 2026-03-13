@@ -11,6 +11,8 @@ public record SetLessonStatusRequest(string Status);
 
 public record LessonWithStatusDto(int Id, string Title, int SortOrder, string Status);
 
+public record LessonProgressSummaryDto(int LessonId, int CompletedCount);
+
 [ApiController]
 [Route("api/lessons")]
 [Authorize]
@@ -210,7 +212,51 @@ public class LessonController : ControllerBase
             row.UpdatedAt = DateTime.UtcNow;
         }
 
+        // Record completion in LessonProgress when status is set to "done"
+        if (statusValue == LessonStatusValue.Done)
+        {
+            var alreadyCompleted = await _db.LessonProgresses
+                .AnyAsync(p => p.UserId == _user.UserId && p.LessonId == lessonId);
+            if (!alreadyCompleted)
+            {
+                _db.LessonProgresses.Add(new LessonProgressEntity
+                {
+                    UserId = _user.UserId!,
+                    LessonId = lessonId,
+                });
+            }
+        }
+
         await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Get the number of learners who have completed a lesson.
+    /// </summary>
+    [HttpGet("{lessonId:int}/progress-summary")]
+    public async Task<ActionResult<LessonProgressSummaryDto>> GetProgressSummary(int lessonId)
+    {
+        var count = await _db.LessonProgresses
+            .AsNoTracking()
+            .CountAsync(p => p.LessonId == lessonId);
+
+        return Ok(new LessonProgressSummaryDto(lessonId, count));
+    }
+
+    /// <summary>
+    /// Reset all learner progress for a lesson. Manager/backoffice only.
+    /// </summary>
+    [HttpDelete("{lessonId:int}/progress")]
+    public async Task<IActionResult> ResetProgress(int lessonId)
+    {
+        if (!_user.IsBackOffice)
+            return Forbid();
+
+        var rows = await _db.LessonProgresses.Where(p => p.LessonId == lessonId).ToListAsync();
+        _db.LessonProgresses.RemoveRange(rows);
+        await _db.SaveChangesAsync();
+
         return NoContent();
     }
 

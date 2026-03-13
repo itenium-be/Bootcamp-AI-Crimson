@@ -22,6 +22,7 @@ import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-p
 import { Route as AuthenticatedCoursesIndexRouteImport } from './routes/_authenticated/courses/index'
 import { Route as AuthenticatedTeamMembersRouteImport } from './routes/_authenticated/team/members'
 import { Route as AuthenticatedReportsFeedbackRouteImport } from './routes/_authenticated/reports/feedback'
+import { Route as AuthenticatedManagerLessonProgressRouteImport } from './routes/_authenticated/manager/lesson-progress'
 import { Route as AuthenticatedLessonsLessonIdRouteImport } from './routes/_authenticated/lessons/$lessonId'
 import { Route as AuthenticatedCoursesIdRouteImport } from './routes/_authenticated/courses/$id'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
@@ -101,6 +102,12 @@ const AuthenticatedReportsFeedbackRoute =
   AuthenticatedReportsFeedbackRouteImport.update({
     id: '/reports/feedback',
     path: '/reports/feedback',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedManagerLessonProgressRoute =
+  AuthenticatedManagerLessonProgressRouteImport.update({
+    id: '/manager/lesson-progress',
+    path: '/manager/lesson-progress',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedLessonsLessonIdRoute =
@@ -193,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/courses/$id': typeof AuthenticatedCoursesIdRoute
   '/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
+  '/manager/lesson-progress': typeof AuthenticatedManagerLessonProgressRoute
   '/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/team/members': typeof AuthenticatedTeamMembersRoute
   '/courses/': typeof AuthenticatedCoursesIndexRoute
@@ -219,6 +227,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/courses/$id': typeof AuthenticatedCoursesIdRoute
   '/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
+  '/manager/lesson-progress': typeof AuthenticatedManagerLessonProgressRoute
   '/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/team/members': typeof AuthenticatedTeamMembersRoute
   '/courses': typeof AuthenticatedCoursesIndexRoute
@@ -248,6 +257,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/_authenticated/courses/$id': typeof AuthenticatedCoursesIdRoute
   '/_authenticated/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
+  '/_authenticated/manager/lesson-progress': typeof AuthenticatedManagerLessonProgressRoute
   '/_authenticated/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/_authenticated/team/members': typeof AuthenticatedTeamMembersRoute
   '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/courses/$id'
     | '/lessons/$lessonId'
+    | '/manager/lesson-progress'
     | '/reports/feedback'
     | '/team/members'
     | '/courses/'
@@ -303,6 +314,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/courses/$id'
     | '/lessons/$lessonId'
+    | '/manager/lesson-progress'
     | '/reports/feedback'
     | '/team/members'
     | '/courses'
@@ -331,6 +343,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/users'
     | '/_authenticated/courses/$id'
     | '/_authenticated/lessons/$lessonId'
+    | '/_authenticated/manager/lesson-progress'
     | '/_authenticated/reports/feedback'
     | '/_authenticated/team/members'
     | '/_authenticated/courses/'
@@ -445,6 +458,13 @@ declare module '@tanstack/react-router' {
       path: '/reports/feedback'
       fullPath: '/reports/feedback'
       preLoaderRoute: typeof AuthenticatedReportsFeedbackRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/manager/lesson-progress': {
+      id: '/_authenticated/manager/lesson-progress'
+      path: '/manager/lesson-progress'
+      fullPath: '/manager/lesson-progress'
+      preLoaderRoute: typeof AuthenticatedManagerLessonProgressRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/lessons/$lessonId': {
@@ -605,6 +625,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminTeamsRoute: typeof AuthenticatedAdminTeamsRouteWithChildren
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRouteWithChildren
   AuthenticatedLessonsLessonIdRoute: typeof AuthenticatedLessonsLessonIdRoute
+  AuthenticatedManagerLessonProgressRoute: typeof AuthenticatedManagerLessonProgressRoute
   AuthenticatedReportsFeedbackRoute: typeof AuthenticatedReportsFeedbackRoute
   AuthenticatedTeamMembersRoute: typeof AuthenticatedTeamMembersRoute
   AuthenticatedManagerCoursesIdRoute: typeof AuthenticatedManagerCoursesIdRouteWithChildren
@@ -623,6 +644,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminTeamsRoute: AuthenticatedAdminTeamsRouteWithChildren,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRouteWithChildren,
   AuthenticatedLessonsLessonIdRoute: AuthenticatedLessonsLessonIdRoute,
+  AuthenticatedManagerLessonProgressRoute:
+    AuthenticatedManagerLessonProgressRoute,
   AuthenticatedReportsFeedbackRoute: AuthenticatedReportsFeedbackRoute,
   AuthenticatedTeamMembersRoute: AuthenticatedTeamMembersRoute,
   AuthenticatedManagerCoursesIdRoute:

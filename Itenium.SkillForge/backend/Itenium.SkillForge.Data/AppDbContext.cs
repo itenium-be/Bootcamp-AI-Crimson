@@ -35,6 +35,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<ModuleEntity> Modules => Set<ModuleEntity>();
 
+    public DbSet<LessonProgressEntity> LessonProgresses => Set<LessonProgressEntity>();
+
     public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -43,5 +45,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
         builder.Entity<LessonStatusEntity>()
             .HasKey(s => new { s.UserId, s.LessonId });
+
+        builder.Entity<LessonProgressEntity>()
+            .HasKey(p => new { p.UserId, p.LessonId });
     }
 }

@@ -131,6 +131,34 @@ namespace Itenium.SkillForge.Data.Migrations
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("Itenium.SkillForge.Entities.EnrollmentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Enrollments");
+                });
+
             modelBuilder.Entity("Itenium.SkillForge.Entities.LessonEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -651,6 +679,17 @@ namespace Itenium.SkillForge.Data.Migrations
                     b.HasIndex("ApplicationId", "Status", "Subject", "Type");
 
                     b.ToTable("OpenIddictTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Itenium.SkillForge.Entities.EnrollmentEntity", b =>
+                {
+                    b.HasOne("Itenium.SkillForge.Entities.CourseEntity", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Itenium.SkillForge.Entities.QuestionEntity", b =>

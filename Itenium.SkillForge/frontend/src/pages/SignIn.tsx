@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRouter, useSearch } from '@tanstack/react-router';
+import { useRouter, useSearch, Link } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -154,6 +154,11 @@ export function SignIn() {
                     </FormItem>
                   )}
                 />
+                <div className="flex justify-end">
+                  <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground underline">
+                    {t('auth.forgotPassword')}
+                  </Link>
+                </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? <Loader2 className="size-4 animate-spin" /> : <LogIn className="size-4" />}
                   <span className="ml-2">{t('auth.signIn')}</span>

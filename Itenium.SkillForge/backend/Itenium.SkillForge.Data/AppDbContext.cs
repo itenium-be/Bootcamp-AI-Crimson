@@ -39,6 +39,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
 
+    public DbSet<LessonAnnotationEntity> LessonAnnotations => Set<LessonAnnotationEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

@@ -368,5 +368,16 @@
       "published": "Published",
       "archived": "Archived"
     }
+  },
+  "annotations": {
+    "title": "Community Notes",
+    "addNote": "Add Note",
+    "shareExperience": "Share your experience or context with other learners",
+    "contentPlaceholder": "Write your experience, context or tips...",
+    "ratingOptional": "Content rating (optional):",
+    "post": "Post",
+    "noAnnotations": "No community notes yet. Be the first to share!",
+    "confirmDelete": "Delete this annotation?",
+    "showingOf": "Showing {{shown}} of {{total}}"
   }
 }

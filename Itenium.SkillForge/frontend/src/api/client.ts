@@ -623,3 +623,38 @@ export async function fetchCourseUsage(params?: {
   const response = await api.get<CourseUsage[]>('/api/reports/course-usage', { params });
   return response.data;
 }
+
+export interface Annotation {
+  id: number;
+  displayName: string;
+  content: string;
+  rating: number | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwn: boolean;
+}
+
+export interface AnnotationsPage {
+  items: Annotation[];
+  totalCount: number;
+}
+
+export async function fetchAnnotations(lessonId: number, page = 1, pageSize = 20): Promise<AnnotationsPage> {
+  const response = await api.get<AnnotationsPage>(`/api/lessons/${lessonId}/annotations`, {
+    params: { page, pageSize },
+  });
+  return response.data;
+}
+
+export async function createAnnotation(lessonId: number, content: string, rating?: number): Promise<Annotation> {
+  const response = await api.post<Annotation>(`/api/lessons/${lessonId}/annotations`, { content, rating });
+  return response.data;
+}
+
+export async function updateAnnotation(id: number, content: string, rating?: number): Promise<void> {
+  await api.put(`/api/annotations/${id}`, { content, rating });
+}
+
+export async function deleteAnnotation(id: number): Promise<void> {
+  await api.delete(`/api/annotations/${id}`);
+}

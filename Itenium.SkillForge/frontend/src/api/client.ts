@@ -134,7 +134,7 @@ export async function fetchUsers(): Promise<User[]> {
   return response.data;
 }
 
-export interface Enrollment {
+interface Enrollment {
   id: number;
   courseId: number;
   courseName: string;

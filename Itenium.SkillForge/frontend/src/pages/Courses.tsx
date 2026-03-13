@@ -46,10 +46,7 @@ export function Courses() {
     queryFn: fetchMyEnrollments,
   });
 
-  const enrolledCourseIds = useMemo(
-    () => new Set(enrollments.map((e) => e.courseId)),
-    [enrollments],
-  );
+  const enrolledCourseIds = useMemo(() => new Set(enrollments.map((e) => e.courseId)), [enrollments]);
 
   const enrollMutation = useMutation({
     mutationFn: enrollCourse,

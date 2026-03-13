@@ -33,6 +33,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<CourseFeedbackEntity> CourseFeedbacks => Set<CourseFeedbackEntity>();
 
+    public DbSet<ModuleEntity> Modules => Set<ModuleEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

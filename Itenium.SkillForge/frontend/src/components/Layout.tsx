@@ -242,7 +242,10 @@ export function Layout() {
   ];
 
   // Courses management - shown for managers
-  const coursesNavItems = [{ path: '/manager/courses', icon: BookOpen, label: t('nav.manageCourses') }];
+  const coursesNavItems = [
+    { path: '/manager/courses', icon: BookOpen, label: t('nav.manageCourses') },
+    { path: '/manager/modules', icon: BookOpen, label: t('nav.manageModules') },
+  ];
 
   // Administration - shown for backoffice
   const adminNavItems = [

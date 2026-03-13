@@ -144,3 +144,37 @@ error: failed to push some refs to 'https://github.com/itenium-be/Bootcamp-AI-Cr
 From https://github.com/itenium-be/Bootcamp-AI-Crimson
  * branch            master     -> FETCH_HEAD
 Already up to date.
+[vr 13/03/2026 11:24:01,67] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+ + 0c941fc...cb4cf05 master     -> origin/master  (forced update)
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+Auto-merging Itenium.SkillForge/backend/Itenium.SkillForge.Data/AppDbContext.cs
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/backend/Itenium.SkillForge.Data/AppDbContext.cs
+Auto-merging Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/AppDbContextModelSnapshot.cs
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/backend/Itenium.SkillForge.Data/Migrations/AppDbContextModelSnapshot.cs
+Auto-merging Itenium.SkillForge/frontend/src/api/client.ts
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/frontend/src/api/client.ts
+Auto-merging Itenium.SkillForge/frontend/src/i18n/locales/en.json
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/frontend/src/i18n/locales/en.json
+Auto-merging Itenium.SkillForge/frontend/src/i18n/locales/nl.json
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/frontend/src/i18n/locales/nl.json
+Auto-merging Itenium.SkillForge/frontend/src/routeTree.gen.ts
+CONFLICT (add/add): Merge conflict in Itenium.SkillForge/frontend/src/routeTree.gen.ts
+Automatic merge failed; fix conflicts and then commit the result.
+[vr 13/03/2026 11:24:03,02] ERROR: Pull failed. 
+[vr 13/03/2026 11:29:01,63] Starting sync... 
+error: Pulling is not possible because you have unmerged files.
+hint: Fix them up in the work tree, and then use 'git add/rm <file>'
+hint: as appropriate to mark resolution and make a commit.
+fatal: Exiting because of an unresolved conflict.
+[vr 13/03/2026 11:29:01,75] ERROR: Pull failed. 
+[vr 13/03/2026 11:34:01,69] Starting sync... 
+error: You have not concluded your merge (MERGE_HEAD exists).
+hint: Please, commit your changes before merging.
+fatal: Exiting because of unfinished merge.
+[vr 13/03/2026 11:34:01,81] ERROR: Pull failed. 
+[vr 13/03/2026 11:39:01,70] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.

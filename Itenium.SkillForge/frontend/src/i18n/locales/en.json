@@ -79,7 +79,9 @@
     "searchPlaceholder": "Search by name or description...",
     "allCategories": "All Categories",
     "allLevels": "All Levels",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "enroll": "Enroll",
+    "enrolled": "Enrolled"
   },
   "users": {
     "title": "Users",
@@ -98,6 +100,16 @@
       "team_manager": "Team Manager",
       "backoffice": "Backoffice"
     }
+  },
+  "myLearning": {
+    "title": "My Learning",
+    "subtitle": "Courses you are enrolled in",
+    "searchPlaceholder": "Search by course name or category...",
+    "allStatuses": "All Statuses",
+    "statusActive": "In Progress",
+    "statusCompleted": "Completed",
+    "enrolledOn": "Enrolled on",
+    "noEnrollments": "You haven't enrolled in any courses yet."
   },
   "learners": {
     "title": "Learners",

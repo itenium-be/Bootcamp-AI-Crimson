@@ -11,6 +11,8 @@ public class SkillForgeUser : CurrentUser, ISkillForgeUser
     {
     }
 
+    public string? Id => User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
     public bool IsBackOffice => User?.IsInRole("backoffice") ?? false;
 
     public ICollection<int> Teams

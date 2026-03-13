@@ -134,6 +134,26 @@ export async function fetchUsers(): Promise<User[]> {
   return response.data;
 }
 
+export interface Enrollment {
+  id: number;
+  courseId: number;
+  courseName: string;
+  courseCategory: string | null;
+  courseLevel: string | null;
+  enrolledAt: string;
+  status: string;
+}
+
+export async function enrollCourse(courseId: number): Promise<Enrollment> {
+  const response = await api.post<Enrollment>(`/api/courses/${courseId}/enroll`);
+  return response.data;
+}
+
+export async function fetchMyEnrollments(): Promise<Enrollment[]> {
+  const response = await api.get<Enrollment[]>('/api/enrollments/me');
+  return response.data;
+}
+
 interface QuestionStat {
   questionId: number;
   questionText: string;

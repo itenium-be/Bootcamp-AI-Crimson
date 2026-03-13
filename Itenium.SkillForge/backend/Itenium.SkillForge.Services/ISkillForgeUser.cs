@@ -13,6 +13,11 @@ public interface ISkillForgeUser : ICurrentUser
     bool IsBackOffice { get; }
 
     /// <summary>
+    /// Gets the ID of the current user.
+    /// </summary>
+    string? Id { get; }
+
+    /// <summary>
     /// Gets the IDs of the Teams the user has access to.
     /// </summary>
     ICollection<int> Teams { get; }

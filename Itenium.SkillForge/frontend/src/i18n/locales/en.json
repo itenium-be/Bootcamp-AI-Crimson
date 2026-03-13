@@ -226,6 +226,12 @@
     "viewMembers": "View members →",
     "noTeams": "No teams found"
   },
+  "myTeam": {
+    "title": "My Team",
+    "noMembers": "No members in this team yet.",
+    "lastActive": "Last Active",
+    "never": "Never"
+  },
   "teamDetail": {
     "title": "Team Detail",
     "backToTeams": "Back to Teams",

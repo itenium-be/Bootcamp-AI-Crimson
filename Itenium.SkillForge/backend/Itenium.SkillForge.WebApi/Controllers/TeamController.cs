@@ -39,11 +39,11 @@ public class TeamController : ControllerBase
             .ToListAsync();
     }
 
-    /// <summary>Get members of a team. BackOffice only.</summary>
+    /// <summary>Get members of a team. BackOffice or the team's own manager.</summary>
     [HttpGet("{id}/members")]
     public async Task<ActionResult<IList<UserResponse>>> GetTeamMembers(int id)
     {
-        if (!_user.IsBackOffice) return Forbid();
+        if (!_user.IsBackOffice && !_user.Teams.Contains(id)) return Forbid();
         var members = await _userRepository.GetTeamMembersAsync(id);
         return Ok(members);
     }

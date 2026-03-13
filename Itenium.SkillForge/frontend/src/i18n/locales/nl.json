@@ -226,6 +226,12 @@
     "viewMembers": "Bekijk leden →",
     "noTeams": "Geen teams gevonden"
   },
+  "myTeam": {
+    "title": "Mijn Team",
+    "noMembers": "Nog geen leden in dit team.",
+    "lastActive": "Laatste Activiteit",
+    "never": "Nooit"
+  },
   "teamDetail": {
     "title": "Team Detail",
     "backToTeams": "Terug naar Teams",

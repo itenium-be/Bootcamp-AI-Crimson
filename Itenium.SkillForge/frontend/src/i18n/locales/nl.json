@@ -166,6 +166,23 @@
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
   },
+  "teams": {
+    "title": "Teams",
+    "name": "Naam",
+    "members": "Leden",
+    "viewMembers": "Bekijk leden →",
+    "noTeams": "Geen teams gevonden"
+  },
+  "teamDetail": {
+    "title": "Team Detail",
+    "backToTeams": "Terug naar Teams",
+    "addMember": "Lid Toevoegen",
+    "searchLearner": "Zoek leerling op naam of e-mail...",
+    "members": "Leden",
+    "noMembers": "Nog geen leden in dit team.",
+    "remove": "Verwijderen",
+    "confirmRemove": "\"{{name}}\" uit dit team verwijderen?"
+  },
   "userDetail": {
     "backToUsers": "Terug naar Gebruikers",
     "changeRole": "Rol Wijzigen",

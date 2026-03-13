@@ -20,9 +20,7 @@ namespace Itenium.SkillForge.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropIndex(
-                name: "IX_Enrollments_UserId_CourseId",
-                table: "Enrollments");
+            migrationBuilder.DropTable(name: "Enrollments");
         }
     }
 }

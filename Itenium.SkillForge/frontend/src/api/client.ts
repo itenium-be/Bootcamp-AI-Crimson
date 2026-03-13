@@ -740,3 +740,30 @@ export async function fetchCourseProgress(teamId: number, courseId: number): Pro
   const response = await api.get<CourseMemberProgress>(`/api/team/${teamId}/courses/${courseId}/progress`);
   return response.data;
 }
+
+export interface LearnerCourseProgress {
+  courseId: number;
+  courseName: string;
+  completedLessons: number;
+  totalLessons: number;
+  completionPercent: number;
+  isMandatory: boolean;
+}
+
+export interface LearnerModule {
+  id: number;
+  name: string;
+  description: string | null;
+  completionPercent: number;
+  courses: LearnerCourseProgress[];
+}
+
+export async function fetchMyModules(): Promise<LearnerModule[]> {
+  const response = await api.get<LearnerModule[]>('/api/learners/me/modules');
+  return response.data;
+}
+
+export async function fetchModuleProgress(moduleId: number): Promise<LearnerModule> {
+  const response = await api.get<LearnerModule>(`/api/modules/${moduleId}/progress`);
+  return response.data;
+}

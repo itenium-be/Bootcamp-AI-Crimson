@@ -435,5 +435,13 @@
     "noAnnotations": "No community notes yet. Be the first to share!",
     "confirmDelete": "Delete this annotation?",
     "showingOf": "Showing {{shown}} of {{total}}"
+  },
+  "teamMembers": {
+    "title": "Team Members",
+    "name": "Name",
+    "email": "Email",
+    "lastActive": "Last Active",
+    "noMembers": "No members found",
+    "noTeam": "No team selected"
   }
 }

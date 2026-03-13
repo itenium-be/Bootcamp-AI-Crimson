@@ -1,5 +1,4 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
-  "ignoreDependencies": ["tailwindcss"],
-  "entry": ["src/main.tsx", "src/routes/**/*.tsx"]
+  "entry": ["src/routes/**/*.tsx"]
 }

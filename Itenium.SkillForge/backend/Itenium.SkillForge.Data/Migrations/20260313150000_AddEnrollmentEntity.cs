@@ -10,7 +10,6 @@ namespace Itenium.SkillForge.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Table already created by AddUserTeamManagement; only add the unique index
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_UserId_CourseId",
                 table: "Enrollments",

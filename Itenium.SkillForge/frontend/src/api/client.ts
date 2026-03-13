@@ -690,3 +690,53 @@ export async function fetchMyContentSuggestions(): Promise<ContentSuggestion[]> 
   const response = await api.get<ContentSuggestion[]>('/api/learners/me/content-suggestions');
   return response.data;
 }
+
+export interface CourseProgressItem {
+  courseId: number;
+  courseName: string;
+  totalLessons: number;
+  completedLessons: number;
+  percentComplete: number;
+  isMandatory: boolean;
+  isOverdue: boolean;
+}
+
+export interface TeamMemberProgress {
+  userId: string;
+  userName: string;
+  enrolledCourses: number;
+  completedCourses: number;
+  overallPercent: number;
+  courses: CourseProgressItem[];
+}
+
+export interface TeamProgressData {
+  members: TeamMemberProgress[];
+}
+
+export async function fetchTeamProgress(teamId: number): Promise<TeamProgressData> {
+  const response = await api.get<TeamProgressData>(`/api/team/${teamId}/progress`);
+  return response.data;
+}
+
+export interface CourseMemberItem {
+  userId: string;
+  userName: string;
+  status: 'NotStarted' | 'InProgress' | 'Completed';
+  completedLessons: number;
+  percentComplete: number;
+  isMandatory: boolean;
+  isOverdue: boolean;
+}
+
+export interface CourseMemberProgress {
+  courseId: number;
+  courseName: string;
+  totalLessons: number;
+  members: CourseMemberItem[];
+}
+
+export async function fetchCourseProgress(teamId: number, courseId: number): Promise<CourseMemberProgress> {
+  const response = await api.get<CourseMemberProgress>(`/api/team/${teamId}/courses/${courseId}/progress`);
+  return response.data;
+}

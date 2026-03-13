@@ -21,6 +21,7 @@ import { Route as authResetPasswordRouteImport } from './routes/(auth)/reset-pas
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
 import { Route as AuthenticatedCoursesIndexRouteImport } from './routes/_authenticated/courses/index'
+import { Route as AuthenticatedTeamProgressRouteImport } from './routes/_authenticated/team/progress'
 import { Route as AuthenticatedTeamMembersRouteImport } from './routes/_authenticated/team/members'
 import { Route as AuthenticatedReportsUsageRouteImport } from './routes/_authenticated/reports/usage'
 import { Route as AuthenticatedReportsFeedbackRouteImport } from './routes/_authenticated/reports/feedback'
@@ -99,6 +100,12 @@ const AuthenticatedCoursesIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedCoursesRoute,
+  } as any)
+const AuthenticatedTeamProgressRoute =
+  AuthenticatedTeamProgressRouteImport.update({
+    id: '/team/progress',
+    path: '/team/progress',
+    getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedTeamMembersRoute =
   AuthenticatedTeamMembersRouteImport.update({
@@ -219,6 +226,7 @@ export interface FileRoutesByFullPath {
   '/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/reports/usage': typeof AuthenticatedReportsUsageRoute
   '/team/members': typeof AuthenticatedTeamMembersRoute
+  '/team/progress': typeof AuthenticatedTeamProgressRoute
   '/courses/': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
@@ -248,6 +256,7 @@ export interface FileRoutesByTo {
   '/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/reports/usage': typeof AuthenticatedReportsUsageRoute
   '/team/members': typeof AuthenticatedTeamMembersRoute
+  '/team/progress': typeof AuthenticatedTeamProgressRoute
   '/courses': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
@@ -280,6 +289,7 @@ export interface FileRoutesById {
   '/_authenticated/reports/feedback': typeof AuthenticatedReportsFeedbackRoute
   '/_authenticated/reports/usage': typeof AuthenticatedReportsUsageRoute
   '/_authenticated/team/members': typeof AuthenticatedTeamMembersRoute
+  '/_authenticated/team/progress': typeof AuthenticatedTeamProgressRoute
   '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
   '/_authenticated/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/_authenticated/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
@@ -312,6 +322,7 @@ export interface FileRouteTypes {
     | '/reports/feedback'
     | '/reports/usage'
     | '/team/members'
+    | '/team/progress'
     | '/courses/'
     | '/admin/teams/$id'
     | '/admin/users/$id'
@@ -341,6 +352,7 @@ export interface FileRouteTypes {
     | '/reports/feedback'
     | '/reports/usage'
     | '/team/members'
+    | '/team/progress'
     | '/courses'
     | '/admin/teams/$id'
     | '/admin/users/$id'
@@ -372,6 +384,7 @@ export interface FileRouteTypes {
     | '/_authenticated/reports/feedback'
     | '/_authenticated/reports/usage'
     | '/_authenticated/team/members'
+    | '/_authenticated/team/progress'
     | '/_authenticated/courses/'
     | '/_authenticated/admin/teams/$id'
     | '/_authenticated/admin/users/$id'
@@ -478,6 +491,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/courses/'
       preLoaderRoute: typeof AuthenticatedCoursesIndexRouteImport
       parentRoute: typeof AuthenticatedCoursesRoute
+    }
+    '/_authenticated/team/progress': {
+      id: '/_authenticated/team/progress'
+      path: '/team/progress'
+      fullPath: '/team/progress'
+      preLoaderRoute: typeof AuthenticatedTeamProgressRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/team/members': {
       id: '/_authenticated/team/members'
@@ -670,6 +690,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedReportsFeedbackRoute: typeof AuthenticatedReportsFeedbackRoute
   AuthenticatedReportsUsageRoute: typeof AuthenticatedReportsUsageRoute
   AuthenticatedTeamMembersRoute: typeof AuthenticatedTeamMembersRoute
+  AuthenticatedTeamProgressRoute: typeof AuthenticatedTeamProgressRoute
   AuthenticatedManagerCoursesIdRoute: typeof AuthenticatedManagerCoursesIdRouteWithChildren
   AuthenticatedManagerLessonsLessonIdRoute: typeof AuthenticatedManagerLessonsLessonIdRoute
   AuthenticatedManagerModulesIdRoute: typeof AuthenticatedManagerModulesIdRoute
@@ -692,6 +713,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedReportsFeedbackRoute: AuthenticatedReportsFeedbackRoute,
   AuthenticatedReportsUsageRoute: AuthenticatedReportsUsageRoute,
   AuthenticatedTeamMembersRoute: AuthenticatedTeamMembersRoute,
+  AuthenticatedTeamProgressRoute: AuthenticatedTeamProgressRoute,
   AuthenticatedManagerCoursesIdRoute:
     AuthenticatedManagerCoursesIdRouteWithChildren,
   AuthenticatedManagerLessonsLessonIdRoute:

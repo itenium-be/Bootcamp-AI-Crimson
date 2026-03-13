@@ -132,6 +132,22 @@
     "sessionExpired": "Session expired!",
     "internalServerError": "Internal Server Error!"
   },
+  "assignments": {
+    "title": "Assign Course",
+    "assignTo": "Assign To",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individual",
+    "mandatory": "Mandatory",
+    "optional": "Optional",
+    "selectTeam": "Select Team",
+    "selectLearner": "Select Learner",
+    "selectPlaceholder": "Select...",
+    "assign": "Assign",
+    "existing": "Current Assignments",
+    "none": "No assignments yet",
+    "alreadyAssigned": "This course is already assigned to this assignee"
+  },
   "quizAnalytics": {
     "title": "Quiz Analytics",
     "subtitle": "View aggregated quiz performance statistics",

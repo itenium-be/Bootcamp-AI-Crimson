@@ -132,6 +132,22 @@
     "sessionExpired": "Sessie verlopen!",
     "internalServerError": "Interne serverfout!"
   },
+  "assignments": {
+    "title": "Cursus Toewijzen",
+    "assignTo": "Toewijzen Aan",
+    "type": "Type",
+    "team": "Team",
+    "individual": "Individueel",
+    "mandatory": "Verplicht",
+    "optional": "Optioneel",
+    "selectTeam": "Selecteer Team",
+    "selectLearner": "Selecteer Leerling",
+    "selectPlaceholder": "Selecteer...",
+    "assign": "Toewijzen",
+    "existing": "Huidige Toewijzingen",
+    "none": "Nog geen toewijzingen",
+    "alreadyAssigned": "Deze cursus is al toegewezen aan deze ontvanger"
+  },
   "quizAnalytics": {
     "title": "Quiz Analyse",
     "subtitle": "Bekijk geaggregeerde quiz prestatiestatistieken",

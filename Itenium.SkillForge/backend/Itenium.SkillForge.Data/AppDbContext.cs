@@ -23,6 +23,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<QuestionResponseEntity> QuestionResponses => Set<QuestionResponseEntity>();
 
+    public DbSet<CourseAssignmentEntity> CourseAssignments => Set<CourseAssignmentEntity>();
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

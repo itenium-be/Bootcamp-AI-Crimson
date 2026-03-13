@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCourses } from '@/api/client';
+import { useTeamStore } from '@/stores';
+import { AssignCourseModal } from '@/components/AssignCourseModal';
 
 export interface Course {
   id: number;
@@ -33,7 +35,9 @@ export function filterCourses(courses: Course[], filters: CourseFilters): Course
 
 export function Courses() {
   const { t } = useTranslation();
+  const { mode } = useTeamStore();
   const [filters, setFilters] = useState<CourseFilters>({ search: '', category: '', level: '' });
+  const [assigningCourse, setAssigningCourse] = useState<{ id: number; name: string } | null>(null);
 
   const { data: courses = [], isLoading } = useQuery({
     queryKey: ['courses'],
@@ -45,10 +49,7 @@ export function Courses() {
     [courses],
   );
 
-  const levels = useMemo(
-    () => [...new Set(courses.map((c) => c.level).filter(Boolean) as string[])].sort(),
-    [courses],
-  );
+  const levels = useMemo(() => [...new Set(courses.map((c) => c.level).filter(Boolean) as string[])].sort(), [courses]);
 
   const filtered = useMemo(() => filterCourses(courses, filters), [courses, filters]);
 
@@ -84,7 +85,9 @@ export function Courses() {
         >
           <option value="">{t('courses.allCategories')}</option>
           {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
           ))}
         </select>
 
@@ -95,7 +98,9 @@ export function Courses() {
         >
           <option value="">{t('courses.allLevels')}</option>
           {levels.map((lvl) => (
-            <option key={lvl} value={lvl}>{lvl}</option>
+            <option key={lvl} value={lvl}>
+              {lvl}
+            </option>
           ))}
         </select>
 
@@ -121,6 +126,7 @@ export function Courses() {
               <th className="p-3 text-left font-medium">{t('courses.description')}</th>
               <th className="p-3 text-left font-medium">{t('courses.category')}</th>
               <th className="p-3 text-left font-medium">{t('courses.level')}</th>
+              {mode === 'manager' && <th className="p-3 text-left font-medium">{t('courses.actions')}</th>}
             </tr>
           </thead>
           <tbody>
@@ -130,11 +136,21 @@ export function Courses() {
                 <td className="p-3 text-muted-foreground">{course.description || '-'}</td>
                 <td className="p-3">{course.category || '-'}</td>
                 <td className="p-3">{course.level || '-'}</td>
+                {mode === 'manager' && (
+                  <td className="p-3">
+                    <button
+                      onClick={() => setAssigningCourse({ id: course.id, name: course.name })}
+                      className="h-8 rounded-md bg-primary px-3 text-xs font-medium text-primary-foreground hover:bg-primary/90"
+                    >
+                      {t('assignments.assign')}
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={4} className="p-3 text-center text-muted-foreground">
+                <td colSpan={mode === 'manager' ? 5 : 4} className="p-3 text-center text-muted-foreground">
                   {hasActiveFilters ? t('common.noResults') : t('courses.noCourses')}
                 </td>
               </tr>
@@ -142,6 +158,14 @@ export function Courses() {
           </tbody>
         </table>
       </div>
+
+      {assigningCourse && (
+        <AssignCourseModal
+          courseId={assigningCourse.id}
+          courseName={assigningCourse.name}
+          onClose={() => setAssigningCourse(null)}
+        />
+      )}
     </div>
   );
 }

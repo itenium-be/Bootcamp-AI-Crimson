@@ -72,3 +72,46 @@ export async function fetchCourses(): Promise<Course[]> {
   const response = await api.get<Course[]>('/api/course');
   return response.data;
 }
+
+interface QuestionStat {
+  questionId: number;
+  questionText: string;
+  correctRate: number;
+}
+
+interface ScoreDistribution {
+  range: string;
+  count: number;
+}
+
+interface QuizAnalytics {
+  averageScore: number;
+  passRate: number;
+  totalAttempts: number;
+  uniqueLearners: number;
+  questionStats: QuestionStat[];
+  scoreDistribution: ScoreDistribution[];
+}
+
+interface QuizLearnerAnalyticsItem {
+  userId: string;
+  userName: string;
+  latestScore: number;
+  isPassed: boolean;
+  completedAt: string;
+}
+
+export async function fetchQuizAnalytics(
+  quizId: number,
+  params?: { dateFrom?: string; dateTo?: string },
+): Promise<QuizAnalytics> {
+  const response = await api.get<QuizAnalytics>(`/api/quizzes/${quizId}/analytics`, { params });
+  return response.data;
+}
+
+export async function fetchQuizLearnerAnalytics(quizId: number, teamId?: number): Promise<QuizLearnerAnalyticsItem[]> {
+  const response = await api.get<QuizLearnerAnalyticsItem[]>(`/api/quizzes/${quizId}/analytics/learners`, {
+    params: teamId ? { teamId } : undefined,
+  });
+  return response.data;
+}

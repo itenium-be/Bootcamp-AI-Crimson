@@ -55,7 +55,7 @@
     "loginBackground": "Login background"
   },
   "dashboard": {
-    "title": "Dashboard",
+    "title": "Dashboard - CRIMSON",
     "welcome": "Welcome to Itenium SkillForge",
     "totalCourses": "Total Courses",
     "activeLearners": "Active Learners",
@@ -109,5 +109,27 @@
   "errors": {
     "sessionExpired": "Session expired!",
     "internalServerError": "Internal Server Error!"
+  },
+  "quizAnalytics": {
+    "title": "Quiz Analytics",
+    "subtitle": "View aggregated quiz performance statistics",
+    "dateFrom": "From",
+    "dateTo": "To",
+    "averageScore": "Average Score",
+    "passRate": "Pass Rate",
+    "totalAttempts": "Total Attempts",
+    "uniqueLearners": "Unique Learners",
+    "scoreDistribution": "Score Distribution",
+    "questionStats": "Question Stats (Most Missed First)",
+    "question": "Question",
+    "correctRate": "Correct Rate",
+    "learnerBreakdown": "Learner Breakdown",
+    "learner": "Learner",
+    "latestScore": "Latest Score",
+    "result": "Result",
+    "completedAt": "Completed",
+    "passed": "Passed",
+    "failed": "Failed",
+    "noLearners": "No learners found"
   }
 }

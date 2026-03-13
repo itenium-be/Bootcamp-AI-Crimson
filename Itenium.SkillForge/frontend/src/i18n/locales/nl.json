@@ -55,7 +55,7 @@
     "loginBackground": "Login achtergrond"
   },
   "dashboard": {
-    "title": "Dashboard",
+    "title": "Dashboard - CRIMSON",
     "welcome": "Welkom bij Itenium SkillForge",
     "totalCourses": "Totaal Cursussen",
     "activeLearners": "Actieve Leerlingen",
@@ -109,5 +109,27 @@
   "errors": {
     "sessionExpired": "Sessie verlopen!",
     "internalServerError": "Interne serverfout!"
+  },
+  "quizAnalytics": {
+    "title": "Quiz Analyse",
+    "subtitle": "Bekijk geaggregeerde quiz prestatiestatistieken",
+    "dateFrom": "Van",
+    "dateTo": "Tot",
+    "averageScore": "Gemiddelde Score",
+    "passRate": "Slaagpercentage",
+    "totalAttempts": "Totaal Pogingen",
+    "uniqueLearners": "Unieke Leerlingen",
+    "scoreDistribution": "Scoreverdeling",
+    "questionStats": "Vraagstatistieken (Meest Gemist Eerst)",
+    "question": "Vraag",
+    "correctRate": "Juist Percentage",
+    "learnerBreakdown": "Leerling Overzicht",
+    "learner": "Leerling",
+    "latestScore": "Laatste Score",
+    "result": "Resultaat",
+    "completedAt": "Voltooid",
+    "passed": "Geslaagd",
+    "failed": "Gezakt",
+    "noLearners": "Geen leerlingen gevonden"
   }
 }

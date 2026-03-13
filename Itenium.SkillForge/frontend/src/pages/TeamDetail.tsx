@@ -3,7 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { fetchTeamMembers, fetchAvailableLearners, addTeamMember, removeTeamMember } from '@/api/client';
-import type { User } from '@/api/client';
+
+interface TeamMember {
+  id: string;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
 
 interface TeamDetailProps {
   teamId: number;
@@ -15,7 +21,7 @@ export function TeamDetail({ teamId, teamName }: TeamDetailProps) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchLearner, setSearchLearner] = useState('');
-  const [confirmRemove, setConfirmRemove] = useState<User | null>(null);
+  const [confirmRemove, setConfirmRemove] = useState<TeamMember | null>(null);
 
   const { data: members = [], isLoading: loadingMembers } = useQuery({
     queryKey: ['team-members', teamId],

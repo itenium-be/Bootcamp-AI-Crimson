@@ -2,6 +2,7 @@ using System.Text.Json;
 using Itenium.SkillForge.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Itenium.SkillForge.WebApi.Controllers;
 
@@ -11,11 +12,13 @@ public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IConfiguration _configuration;
 
-    public AuthController(IAuthService authService, IHttpClientFactory httpClientFactory)
+    public AuthController(IAuthService authService, IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _authService = authService;
         _httpClientFactory = httpClientFactory;
+        _configuration = configuration;
     }
 
     /// <summary>
@@ -39,7 +42,7 @@ public class AuthController : ControllerBase
             ["scope"] = "openid profile email",
         });
 
-        var baseUrl = $"{Request.Scheme}://{Request.Host}";
+        var baseUrl = _configuration["Auth:InternalBaseUrl"] ?? $"{Request.Scheme}://{Request.Host}";
         var response = await client.PostAsync($"{baseUrl}/connect/token", tokenRequest);
         if (!response.IsSuccessStatusCode)
             return Unauthorized();

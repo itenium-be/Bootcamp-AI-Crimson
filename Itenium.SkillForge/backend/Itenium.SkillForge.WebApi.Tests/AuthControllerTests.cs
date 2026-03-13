@@ -4,6 +4,7 @@ using Itenium.SkillForge.Services;
 using Itenium.SkillForge.WebApi.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NSubstitute;
 
 namespace Itenium.SkillForge.WebApi.Tests;
@@ -21,7 +22,7 @@ public class AuthControllerTests
         _authService = Substitute.For<IAuthService>();
         _httpClientFactory = Substitute.For<IHttpClientFactory>();
 
-        _sut = new AuthController(_authService, _httpClientFactory);
+        _sut = new AuthController(_authService, _httpClientFactory, new ConfigurationBuilder().Build());
 
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Scheme = "http";

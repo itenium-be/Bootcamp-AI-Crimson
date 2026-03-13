@@ -29,5 +29,9 @@ public class CourseEntity
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public int? ModuleId { get; set; }
+
+    public int ModuleOrder { get; set; }
+
     public override string ToString() => $"{Name} ({Category})";
 }

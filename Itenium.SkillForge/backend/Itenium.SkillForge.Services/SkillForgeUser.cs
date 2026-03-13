@@ -15,6 +15,8 @@ public class SkillForgeUser : CurrentUser, ISkillForgeUser
 
     public bool IsBackOffice => User?.IsInRole("backoffice") ?? false;
 
+    public bool IsManager => User?.IsInRole("team_manager") ?? false;
+
     public ICollection<int> Teams
     {
         get

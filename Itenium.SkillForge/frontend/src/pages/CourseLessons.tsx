@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 import { fetchLessons, setLessonStatus, type Lesson, type LessonStatus } from '@/api/client';
 
 const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
@@ -86,7 +86,13 @@ export function CourseLessons() {
             >
               {STATUS_LABEL[lesson.status]}
             </button>
-            <span className={lesson.status === 'done' ? 'line-through text-muted-foreground' : ''}>{lesson.title}</span>
+            <Link
+              to="/lessons/$lessonId"
+              params={{ lessonId: String(lesson.id) }}
+              className={`hover:underline ${lesson.status === 'done' ? 'line-through text-muted-foreground' : ''}`}
+            >
+              {lesson.title}
+            </Link>
           </div>
         ))}
         {lessons.length === 0 && <div className="p-4 text-center text-muted-foreground">{t('lessons.noLessons')}</div>}

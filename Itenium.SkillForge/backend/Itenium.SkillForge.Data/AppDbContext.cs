@@ -37,6 +37,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<LessonProgressEntity> LessonProgresses => Set<LessonProgressEntity>();
 
+    public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

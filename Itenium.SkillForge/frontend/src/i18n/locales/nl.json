@@ -297,6 +297,17 @@
     "backToList": "Terug naar leerpaden",
     "courseCount": "{{count}} cursus(sen)"
   },
+  "lessonContent": {
+    "title": "Les Inhoud",
+    "back": "Terug",
+    "backToLessons": "Terug naar Lessen",
+    "noBlocks": "Nog geen inhoudsblokken.",
+    "addBlock": "Inhoudsblok Toevoegen",
+    "markdown": "Markdown / Tekst",
+    "label": "Label",
+    "linkLabel": "Link label",
+    "preview": "Voorbeeld"
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

@@ -166,6 +166,14 @@
     "failed": "Gezakt",
     "noLearners": "Geen leerlingen gevonden"
   },
+  "userDetail": {
+    "backToUsers": "Terug naar Gebruikers",
+    "changeRole": "Rol Wijzigen",
+    "deactivate": "Gebruiker Deactiveren",
+    "activate": "Gebruiker Activeren",
+    "confirmDeactivate": "\"{{name}}\" deactiveren? Ze verliezen toegang tot het platform.",
+    "confirmActivate": "\"{{name}}\" activeren? Ze krijgen opnieuw toegang tot het platform."
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

@@ -94,7 +94,7 @@ export function MyLearning() {
             <div
               key={enrollment.id}
               className="rounded-md border p-4 space-y-2 cursor-pointer hover:bg-muted/50"
-              onClick={() => navigate({ to: '/courses/$id', params: { id: String(enrollment.courseId) } })}
+              onClick={() => navigate({ to: '/manager/courses/$id', params: { id: String(enrollment.courseId) } })}
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold leading-tight">{enrollment.courseName}</h3>

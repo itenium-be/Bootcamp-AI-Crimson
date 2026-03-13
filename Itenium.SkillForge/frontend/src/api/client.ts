@@ -129,6 +129,23 @@ export async function fetchUsers(): Promise<User[]> {
   return response.data;
 }
 
+export async function fetchUser(id: string): Promise<User> {
+  const response = await api.get<User>(`/api/users/${id}`);
+  return response.data;
+}
+
+export async function changeUserRole(id: string, role: string): Promise<void> {
+  await api.put(`/api/users/${id}/role`, { role });
+}
+
+export async function deactivateUser(id: string): Promise<void> {
+  await api.put(`/api/users/${id}/deactivate`);
+}
+
+export async function activateUser(id: string): Promise<void> {
+  await api.put(`/api/users/${id}/activate`);
+}
+
 export interface Enrollment {
   id: number;
   courseId: number;

@@ -60,6 +60,14 @@ export async function fetchUserTeams(): Promise<Team[]> {
   return response.data;
 }
 
+export async function requestPasswordReset(email: string): Promise<void> {
+  await axios.post(`${API_BASE_URL}/api/auth/password-reset/request`, { email });
+}
+
+export async function confirmPasswordReset(email: string, token: string, newPassword: string): Promise<void> {
+  await axios.post(`${API_BASE_URL}/api/auth/password-reset/confirm`, { email, token, newPassword });
+}
+
 export type CourseStatus = 'Draft' | 'Published' | 'Archived';
 
 export interface Course {
@@ -115,7 +123,7 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -126,6 +134,61 @@ interface User {
 
 export async function fetchUsers(): Promise<User[]> {
   const response = await api.get<User[]>('/api/users');
+  return response.data;
+}
+
+export async function fetchUser(id: string): Promise<User> {
+  const response = await api.get<User>(`/api/users/${id}`);
+  return response.data;
+}
+
+export async function changeUserRole(id: string, role: string): Promise<void> {
+  await api.put(`/api/users/${id}/role`, { role });
+}
+
+export async function deactivateUser(id: string): Promise<void> {
+  await api.put(`/api/users/${id}/deactivate`);
+}
+
+export async function activateUser(id: string): Promise<void> {
+  await api.put(`/api/users/${id}/activate`);
+}
+
+export async function fetchTeamMembers(teamId: number): Promise<User[]> {
+  const response = await api.get<User[]>(`/api/team/${teamId}/members`);
+  return response.data;
+}
+
+export async function fetchAvailableLearners(teamId: number): Promise<User[]> {
+  const response = await api.get<User[]>(`/api/team/${teamId}/available-learners`);
+  return response.data;
+}
+
+export async function addTeamMember(teamId: number, userId: string): Promise<void> {
+  await api.post(`/api/team/${teamId}/members`, { userId });
+}
+
+export async function removeTeamMember(teamId: number, userId: string): Promise<void> {
+  await api.delete(`/api/team/${teamId}/members/${userId}`);
+}
+
+interface Enrollment {
+  id: number;
+  courseId: number;
+  courseName: string;
+  courseCategory: string | null;
+  courseLevel: string | null;
+  enrolledAt: string;
+  status: string;
+}
+
+export async function enrollCourse(courseId: number): Promise<Enrollment> {
+  const response = await api.post<Enrollment>(`/api/courses/${courseId}/enroll`);
+  return response.data;
+}
+
+export async function fetchMyEnrollments(): Promise<Enrollment[]> {
+  const response = await api.get<Enrollment[]>('/api/enrollments/me');
   return response.data;
 }
 

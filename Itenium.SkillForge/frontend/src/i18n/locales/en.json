@@ -52,7 +52,29 @@
     "invalidCredentials": "Invalid username or password",
     "usernameRequired": "Username is required",
     "passwordRequired": "Password is required",
-    "loginBackground": "Login background"
+    "loginBackground": "Login background",
+    "email": "Email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Enter a valid email address",
+    "enterEmail": "Enter your email address",
+    "forgotPasswordDescription": "Enter your email and we'll send you a reset link",
+    "sendResetLink": "Send reset link",
+    "resetEmailSent": "If that email address is registered, you'll receive a reset link shortly.",
+    "backToSignIn": "Back to sign in",
+    "resetPassword": "Reset Password",
+    "resetPasswordDescription": "Enter your new password below",
+    "newPassword": "New Password",
+    "enterNewPassword": "Enter your new password",
+    "confirmPassword": "Confirm Password",
+    "confirmYourPassword": "Confirm your new password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordsMustMatch": "Passwords do not match",
+    "passwordResetSuccess": "Your password has been reset. You can now sign in with your new password.",
+    "resetTokenExpired": "This reset link has expired or is invalid. Please request a new one.",
+    "ssoUserCannotReset": "This account uses SSO. Please reset your password through your SSO provider.",
+    "invalidResetLink": "This reset link is invalid. Please request a new one.",
+    "requestNewResetLink": "Request a new reset link"
   },
   "dashboard": {
     "title": "Dashboard - CRIMSON",
@@ -78,7 +100,9 @@
     "searchPlaceholder": "Search by name or description...",
     "allCategories": "All Categories",
     "allLevels": "All Levels",
-    "clearFilters": "Clear filters"
+    "clearFilters": "Clear filters",
+    "enroll": "Enroll",
+    "enrolled": "Enrolled"
   },
   "users": {
     "title": "Users",
@@ -97,6 +121,16 @@
       "team_manager": "Team Manager",
       "backoffice": "Backoffice"
     }
+  },
+  "myLearning": {
+    "title": "My Learning",
+    "subtitle": "Courses you are enrolled in",
+    "searchPlaceholder": "Search by course name or category...",
+    "allStatuses": "All Statuses",
+    "statusActive": "In Progress",
+    "statusCompleted": "Completed",
+    "enrolledOn": "Enrolled on",
+    "noEnrollments": "You haven't enrolled in any courses yet."
   },
   "learners": {
     "title": "Learners",
@@ -163,6 +197,31 @@
       "done": "Done",
       "later": "Save for later"
     }
+  },
+  "teams": {
+    "title": "Teams",
+    "name": "Name",
+    "members": "Members",
+    "viewMembers": "View members →",
+    "noTeams": "No teams found"
+  },
+  "teamDetail": {
+    "title": "Team Detail",
+    "backToTeams": "Back to Teams",
+    "addMember": "Add Member",
+    "searchLearner": "Search learner by name or email...",
+    "members": "Members",
+    "noMembers": "No members in this team yet.",
+    "remove": "Remove",
+    "confirmRemove": "Remove \"{{name}}\" from this team?"
+  },
+  "userDetail": {
+    "backToUsers": "Back to Users",
+    "changeRole": "Change Role",
+    "deactivate": "Deactivate User",
+    "activate": "Activate User",
+    "confirmDeactivate": "Deactivate \"{{name}}\"? They will lose access to the platform.",
+    "confirmActivate": "Activate \"{{name}}\"? They will regain access to the platform."
   },
   "managerCourses": {
     "title": "Course Management",

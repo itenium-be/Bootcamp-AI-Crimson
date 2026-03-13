@@ -24,6 +24,7 @@ try
 
     builder.Services.AddScoped<ISkillForgeUser, SkillForgeUser>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IEmailSender, ConsoleEmailSender>();
 
     builder.AddForgeControllers();
     builder.AddForgeSwagger();

@@ -260,6 +260,41 @@ public class LessonController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Mark a lesson as completed for the current user.
+    /// </summary>
+    [HttpPost("{lessonId:int}/complete")]
+    public async Task<IActionResult> CompleteLesson(int lessonId)
+    {
+        var lessonExists = await _db.Lessons.AnyAsync(l => l.Id == lessonId);
+        if (!lessonExists)
+        {
+            return NotFound();
+        }
+
+        var row = await _db.LessonStatuses
+            .SingleOrDefaultAsync(s => s.UserId == _user.UserId && s.LessonId == lessonId);
+
+        if (row == null)
+        {
+            _db.LessonStatuses.Add(new LessonStatusEntity
+            {
+                UserId = _user.UserId!,
+                LessonId = lessonId,
+                Status = LessonStatusValue.Done,
+                UpdatedAt = DateTime.UtcNow,
+            });
+        }
+        else
+        {
+            row.Status = LessonStatusValue.Done;
+            row.UpdatedAt = DateTime.UtcNow;
+        }
+
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
     private static string StatusToString(LessonStatusValue status) => status switch
     {
         LessonStatusValue.Done => "done",

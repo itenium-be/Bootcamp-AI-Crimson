@@ -101,9 +101,9 @@ export function CourseLessons() {
           ) : resume.lessonId ? (
             <button
               onClick={handleResume}
-              className="shrink-0 rounded bg-primary px-4 py-2 text-sm text-primary-foreground hover:opacity-90"
+              className="shrink-0 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
             >
-              {t('myLearning.resume')}
+              {t('lessons.resume')}
             </button>
           ) : null
         )}

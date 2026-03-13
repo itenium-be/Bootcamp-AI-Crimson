@@ -218,6 +218,8 @@
     "title": "Lessons",
     "noLessons": "No lessons yet",
     "progress": "{{done}} / {{total}} done ({{pct}}%)",
+    "resume": "Resume",
+    "markComplete": "Mark as Complete",
     "status": {
       "new": "Not started",
       "done": "Done",

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Link } from '@tanstack/react-router';
 import { fetchCourses, fetchMyEnrollments, enrollCourse } from '@/api/client';
 import { useTeamStore } from '@/stores';
 import { AssignCourseModal } from '@/components/AssignCourseModal';
@@ -147,7 +148,11 @@ export function Courses() {
               const isEnrolled = enrolledCourseIds.has(course.id);
               return (
                 <tr key={course.id} className="border-b">
-                  <td className="p-3">{course.name}</td>
+                  <td className="p-3">
+                    <Link to="/courses/$id" params={{ id: String(course.id) }} className="hover:underline text-primary">
+                      {course.name}
+                    </Link>
+                  </td>
                   <td className="p-3 text-muted-foreground">{course.description || '-'}</td>
                   <td className="p-3">{course.category || '-'}</td>
                   <td className="p-3">{course.level || '-'}</td>

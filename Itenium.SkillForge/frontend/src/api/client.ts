@@ -159,7 +159,7 @@ export async function deleteCourseAssignment(courseId: number, assignmentId: num
   await api.delete(`/api/courses/${courseId}/assignments/${assignmentId}`);
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   email: string;
@@ -269,4 +269,22 @@ export async function fetchQuizLearnerAnalytics(quizId: number, teamId?: number)
     params: teamId ? { teamId } : undefined,
   });
   return response.data;
+}
+
+export type LessonStatus = 'new' | 'done' | 'later';
+
+export interface Lesson {
+  id: number;
+  title: string;
+  sortOrder: number;
+  status: LessonStatus;
+}
+
+export async function fetchLessons(courseId: number): Promise<Lesson[]> {
+  const response = await api.get<Lesson[]>('/api/lessons', { params: { courseId } });
+  return response.data;
+}
+
+export async function setLessonStatus(lessonId: number, status: LessonStatus): Promise<void> {
+  await api.put(`/api/lessons/${lessonId}/status`, { status });
 }

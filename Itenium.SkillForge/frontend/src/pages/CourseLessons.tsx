@@ -1,0 +1,96 @@
+import { useTranslation } from 'react-i18next';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams } from '@tanstack/react-router';
+import { fetchLessons, setLessonStatus, type Lesson, type LessonStatus } from '@/api/client';
+
+const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
+  new: 'done',
+  done: 'later',
+  later: 'new',
+};
+
+const STATUS_LABEL: Record<LessonStatus, string> = {
+  new: '○',
+  done: '✓',
+  later: '◷',
+};
+
+export function CourseLessons() {
+  const { t } = useTranslation();
+  const { id } = useParams({ from: '/_authenticated/courses/$id' });
+  const courseId = Number(id);
+  const queryClient = useQueryClient();
+
+  const { data: lessons = [], isLoading } = useQuery({
+    queryKey: ['lessons', courseId],
+    queryFn: () => fetchLessons(courseId),
+  });
+
+  const mutation = useMutation({
+    mutationFn: ({ lessonId, status }: { lessonId: number; status: LessonStatus }) => setLessonStatus(lessonId, status),
+    onMutate: async ({ lessonId, status }) => {
+      await queryClient.cancelQueries({ queryKey: ['lessons', courseId] });
+      const previous = queryClient.getQueryData<Lesson[]>(['lessons', courseId]);
+      queryClient.setQueryData<Lesson[]>(['lessons', courseId], (old = []) =>
+        old.map((l) => (l.id === lessonId ? { ...l, status } : l)),
+      );
+      return { previous };
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['lessons', courseId], context.previous);
+      }
+    },
+  });
+
+  function toggleStatus(lesson: Lesson) {
+    const next = STATUS_CYCLE[lesson.status];
+    mutation.mutate({ lessonId: lesson.id, status: next });
+  }
+
+  const doneCount = lessons.filter((l) => l.status === 'done').length;
+  const progress = lessons.length > 0 ? Math.round((doneCount / lessons.length) * 100) : 0;
+
+  if (isLoading) {
+    return <div>{t('common.loading')}</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold">{t('lessons.title')}</h1>
+        {lessons.length > 0 && (
+          <p className="text-muted-foreground mt-1">
+            {t('lessons.progress', { done: doneCount, total: lessons.length, pct: progress })}
+          </p>
+        )}
+      </div>
+
+      {lessons.length > 0 && (
+        <div className="h-2 rounded-full bg-muted overflow-hidden">
+          <div className="h-full bg-primary transition-all" style={{ width: `${progress}%` }} />
+        </div>
+      )}
+
+      <div className="rounded-md border divide-y">
+        {lessons.map((lesson) => (
+          <div key={lesson.id} className="flex items-center gap-3 p-3">
+            <button
+              onClick={() => toggleStatus(lesson)}
+              title={t(`lessons.status.${lesson.status}`)}
+              className={`text-xl w-8 h-8 flex items-center justify-center rounded-full transition-colors
+                ${lesson.status === 'done' ? 'text-green-600 bg-green-50 hover:bg-green-100' : ''}
+                ${lesson.status === 'later' ? 'text-amber-600 bg-amber-50 hover:bg-amber-100' : ''}
+                ${lesson.status === 'new' ? 'text-muted-foreground hover:bg-muted' : ''}
+              `}
+            >
+              {STATUS_LABEL[lesson.status]}
+            </button>
+            <span className={lesson.status === 'done' ? 'line-through text-muted-foreground' : ''}>{lesson.title}</span>
+          </div>
+        ))}
+        {lessons.length === 0 && <div className="p-4 text-center text-muted-foreground">{t('lessons.noLessons')}</div>}
+      </div>
+    </div>
+  );
+}

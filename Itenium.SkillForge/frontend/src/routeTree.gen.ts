@@ -17,6 +17,8 @@ import { Route as AuthenticatedCoursesRouteImport } from './routes/_authenticate
 import { Route as authSignInRouteImport } from './routes/(auth)/sign-in'
 import { Route as authResetPasswordRouteImport } from './routes/(auth)/reset-password'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
+import { Route as AuthenticatedCoursesIndexRouteImport } from './routes/_authenticated/courses/index'
+import { Route as AuthenticatedCoursesIdRouteImport } from './routes/_authenticated/courses/$id'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAdminTeamsRouteImport } from './routes/_authenticated/admin/teams'
 import { Route as AuthenticatedManagerCoursesIndexRouteImport } from './routes/_authenticated/manager/courses/index'
@@ -64,6 +66,17 @@ const authForgotPasswordRoute = authForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedCoursesIndexRoute =
+  AuthenticatedCoursesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedCoursesRoute,
+  } as any)
+const AuthenticatedCoursesIdRoute = AuthenticatedCoursesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedCoursesRoute,
+} as any)
 const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
   id: '/admin/users',
   path: '/admin/users',
@@ -109,12 +122,14 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof authForgotPasswordRoute
   '/reset-password': typeof authResetPasswordRoute
   '/sign-in': typeof authSignInRoute
-  '/courses': typeof AuthenticatedCoursesRoute
+  '/courses': typeof AuthenticatedCoursesRouteWithChildren
   '/my-learning': typeof AuthenticatedMyLearningRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/courses/': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
@@ -125,12 +140,13 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof authForgotPasswordRoute
   '/reset-password': typeof authResetPasswordRoute
   '/sign-in': typeof authSignInRoute
-  '/courses': typeof AuthenticatedCoursesRoute
   '/my-learning': typeof AuthenticatedMyLearningRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/courses': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
@@ -143,12 +159,14 @@ export interface FileRoutesById {
   '/(auth)/forgot-password': typeof authForgotPasswordRoute
   '/(auth)/reset-password': typeof authResetPasswordRoute
   '/(auth)/sign-in': typeof authSignInRoute
-  '/_authenticated/courses': typeof AuthenticatedCoursesRoute
+  '/_authenticated/courses': typeof AuthenticatedCoursesRouteWithChildren
   '/_authenticated/my-learning': typeof AuthenticatedMyLearningRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
+  '/_authenticated/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
   '/_authenticated/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/_authenticated/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/_authenticated/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
@@ -167,6 +185,8 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/teams'
     | '/admin/users'
+    | '/courses/$id'
+    | '/courses/'
     | '/admin/teams/$id'
     | '/admin/users/$id'
     | '/manager/courses/$id'
@@ -177,12 +197,13 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/sign-in'
-    | '/courses'
     | '/my-learning'
     | '/settings'
     | '/'
     | '/admin/teams'
     | '/admin/users'
+    | '/courses/$id'
+    | '/courses'
     | '/admin/teams/$id'
     | '/admin/users/$id'
     | '/manager/courses/$id'
@@ -200,6 +221,8 @@ export interface FileRouteTypes {
     | '/_authenticated/'
     | '/_authenticated/admin/teams'
     | '/_authenticated/admin/users'
+    | '/_authenticated/courses/$id'
+    | '/_authenticated/courses/'
     | '/_authenticated/admin/teams/$id'
     | '/_authenticated/admin/users/$id'
     | '/_authenticated/manager/courses/$id'
@@ -272,6 +295,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/courses/': {
+      id: '/_authenticated/courses/'
+      path: '/'
+      fullPath: '/courses/'
+      preLoaderRoute: typeof AuthenticatedCoursesIndexRouteImport
+      parentRoute: typeof AuthenticatedCoursesRoute
+    }
+    '/_authenticated/courses/$id': {
+      id: '/_authenticated/courses/$id'
+      path: '/$id'
+      fullPath: '/courses/$id'
+      preLoaderRoute: typeof AuthenticatedCoursesIdRouteImport
+      parentRoute: typeof AuthenticatedCoursesRoute
+    }
     '/_authenticated/admin/users': {
       id: '/_authenticated/admin/users'
       path: '/admin/users'
@@ -324,6 +361,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedCoursesRouteChildren {
+  AuthenticatedCoursesIdRoute: typeof AuthenticatedCoursesIdRoute
+  AuthenticatedCoursesIndexRoute: typeof AuthenticatedCoursesIndexRoute
+}
+
+const AuthenticatedCoursesRouteChildren: AuthenticatedCoursesRouteChildren = {
+  AuthenticatedCoursesIdRoute: AuthenticatedCoursesIdRoute,
+  AuthenticatedCoursesIndexRoute: AuthenticatedCoursesIndexRoute,
+}
+
+const AuthenticatedCoursesRouteWithChildren =
+  AuthenticatedCoursesRoute._addFileChildren(AuthenticatedCoursesRouteChildren)
+
 interface AuthenticatedAdminTeamsRouteChildren {
   AuthenticatedAdminTeamsIdRoute: typeof AuthenticatedAdminTeamsIdRoute
 }
@@ -353,7 +403,7 @@ const AuthenticatedAdminUsersRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRoute
+  AuthenticatedCoursesRoute: typeof AuthenticatedCoursesRouteWithChildren
   AuthenticatedMyLearningRoute: typeof AuthenticatedMyLearningRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -365,7 +415,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedCoursesRoute: AuthenticatedCoursesRoute,
+  AuthenticatedCoursesRoute: AuthenticatedCoursesRouteWithChildren,
   AuthenticatedMyLearningRoute: AuthenticatedMyLearningRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,

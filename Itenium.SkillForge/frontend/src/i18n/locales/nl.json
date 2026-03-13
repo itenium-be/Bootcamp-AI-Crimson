@@ -40,7 +40,8 @@
     "feedback": "Feedback",
     "settingsSection": "Instellingen",
     "certificateTemplates": "Certificaat Sjablonen",
-    "suggestions": "Inhoudsuggesties"
+    "suggestions": "Inhoudsuggesties",
+    "suggestContent": "Inhoud Voorstellen"
   },
   "auth": {
     "signIn": "Inloggen",
@@ -138,10 +139,16 @@
     "statusActive": "Bezig",
     "statusCompleted": "Voltooid",
     "enrolledOn": "Ingeschreven op",
+    "completedOn": "Voltooid op",
     "noEnrollments": "Je bent nog niet ingeschreven voor een cursus.",
+    "noCompleted": "Je hebt nog geen cursussen voltooid.",
     "resume": "Verdergaan",
     "courseComplete": "Cursus voltooid!",
-    "revisit": "Laatste les opnieuw bekijken"
+    "revisit": "Laatste les opnieuw bekijken",
+    "tabInProgress": "Bezig",
+    "tabCompleted": "Voltooid",
+    "module": "Pad",
+    "certificate": "Certificaat"
   },
   "learners": {
     "title": "Leerlingen",
@@ -237,7 +244,12 @@
     "backToCourse": "← Terug naar cursus",
     "moveUp": "Omhoog",
     "moveDown": "Omlaag",
-    "nameRequired": "Titel is verplicht"
+    "nameRequired": "Titel is verplicht",
+    "resume": "Hervat",
+    "resumeCourse": "Cursus Hervatten",
+    "courseComplete": "Cursus Voltooid!",
+    "revisitFromStart": "Opnieuw bekijken",
+    "allLessonsDone": "Je hebt alle lessen in deze cursus voltooid."
   },
   "teams": {
     "title": "Teams",
@@ -368,6 +380,50 @@
     "reject": "Afwijzen",
     "reviewNote": "Beoordelingsnoot"
   },
+  "suggestContent": {
+    "title": "Inhoud Voorstellen",
+    "subtitle": "Stel een resource of onderwerp voor dat je aan het platform wilt zien toegevoegd.",
+    "formTitle": "Titel",
+    "formDescription": "Beschrijving",
+    "formUrl": "URL (optioneel)",
+    "formTopic": "Onderwerp (optioneel)",
+    "formRelatedCourse": "Gerelateerde cursus (optioneel)",
+    "submit": "Voorstel Indienen",
+    "submitting": "Bezig met indienen...",
+    "successMessage": "Je voorstel is ingediend. Bedankt!",
+    "mySuggestions": "Mijn Voorstellen",
+    "noSuggestions": "Je hebt nog geen voorstellen ingediend.",
+    "status": {
+      "Pending": "In afwachting",
+      "Approved": "Goedgekeurd",
+      "Rejected": "Afgewezen"
+    },
+    "reviewNote": "Beoordelingsnotitie"
+  },
+  "teamProgress": {
+    "title": "Leervoortgang Team",
+    "subtitle": "Volg de cursusinschrijving en voltooiing van je team.",
+    "filterByMember": "Filter op lid",
+    "memberPlaceholder": "Zoek lid...",
+    "filterByCourse": "Filter op cursus",
+    "allCourses": "Alle cursussen (overzicht)",
+    "member": "Lid",
+    "enrolled": "Ingeschreven",
+    "completed": "Voltooid",
+    "overallPercent": "Totale Voortgang",
+    "overdueWarning": "Achterstallig",
+    "overdueCount": "{{count}} achterstallige verplichte",
+    "overdue": "Achterstallig",
+    "noMembers": "Geen leden in dit team.",
+    "noTeam": "Geen team geselecteerd.",
+    "status": "Status",
+    "completedLessons": "Lessen Gedaan",
+    "percent": "Voortgang",
+    "totalLessons": "{{count}} les(sen)",
+    "notStarted": "Niet gestart",
+    "inProgress": "Bezig",
+    "completedStatus": "Voltooid"
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",
@@ -385,5 +441,16 @@
       "published": "Gepubliceerd",
       "archived": "Gearchiveerd"
     }
+  },
+  "annotations": {
+    "title": "Community Notities",
+    "addNote": "Notitie Toevoegen",
+    "shareExperience": "Deel je ervaring of context met andere leerlingen",
+    "contentPlaceholder": "Schrijf je ervaring, context of tips...",
+    "ratingOptional": "Inhoudsbeoordeling (optioneel):",
+    "post": "Plaatsen",
+    "noAnnotations": "Nog geen community notities. Wees de eerste die deelt!",
+    "confirmDelete": "Deze annotatie verwijderen?",
+    "showingOf": "{{shown}} van {{total}} getoond"
   }
 }

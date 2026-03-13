@@ -280,6 +280,8 @@ interface Enrollment {
   courseLevel: string | null;
   enrolledAt: string;
   status: string;
+  completedAt: string | null;
+  moduleName: string | null;
 }
 
 export async function enrollCourse(courseId: number): Promise<Enrollment> {
@@ -654,4 +656,107 @@ export async function approveContentSuggestion(id: number, note?: string): Promi
 
 export async function rejectContentSuggestion(id: number, note?: string): Promise<void> {
   await api.put(`/api/content-suggestions/${id}/reject`, { note: note ?? null });
+}
+
+export interface Annotation {
+  id: number;
+  displayName: string;
+  content: string;
+  rating: number | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwn: boolean;
+}
+
+interface AnnotationsPage {
+  items: Annotation[];
+  totalCount: number;
+}
+
+export async function fetchAnnotations(lessonId: number, page = 1, pageSize = 20): Promise<AnnotationsPage> {
+  const response = await api.get<AnnotationsPage>(`/api/lessons/${lessonId}/annotations`, {
+    params: { page, pageSize },
+  });
+  return response.data;
+}
+
+export async function createAnnotation(lessonId: number, content: string, rating?: number): Promise<Annotation> {
+  const response = await api.post<Annotation>(`/api/lessons/${lessonId}/annotations`, { content, rating });
+  return response.data;
+}
+
+export async function updateAnnotation(id: number, content: string, rating?: number): Promise<void> {
+  await api.put(`/api/annotations/${id}`, { content, rating });
+}
+
+export async function deleteAnnotation(id: number): Promise<void> {
+  await api.delete(`/api/annotations/${id}`);
+}
+
+export interface SubmitContentSuggestionRequest {
+  title: string;
+  description?: string;
+  url?: string;
+  relatedCourseId?: number;
+  topic?: string;
+}
+
+export async function submitContentSuggestion(request: SubmitContentSuggestionRequest): Promise<ContentSuggestion> {
+  const response = await api.post<ContentSuggestion>('/api/content-suggestions', request);
+  return response.data;
+}
+
+export async function fetchMyContentSuggestions(): Promise<ContentSuggestion[]> {
+  const response = await api.get<ContentSuggestion[]>('/api/learners/me/content-suggestions');
+  return response.data;
+}
+
+export interface CourseProgressItem {
+  courseId: number;
+  courseName: string;
+  totalLessons: number;
+  completedLessons: number;
+  percentComplete: number;
+  isMandatory: boolean;
+  isOverdue: boolean;
+}
+
+export interface TeamMemberProgress {
+  userId: string;
+  userName: string;
+  enrolledCourses: number;
+  completedCourses: number;
+  overallPercent: number;
+  courses: CourseProgressItem[];
+}
+
+export interface TeamProgressData {
+  members: TeamMemberProgress[];
+}
+
+export async function fetchTeamProgress(teamId: number): Promise<TeamProgressData> {
+  const response = await api.get<TeamProgressData>(`/api/team/${teamId}/progress`);
+  return response.data;
+}
+
+export interface CourseMemberItem {
+  userId: string;
+  userName: string;
+  status: 'NotStarted' | 'InProgress' | 'Completed';
+  completedLessons: number;
+  percentComplete: number;
+  isMandatory: boolean;
+  isOverdue: boolean;
+}
+
+export interface CourseMemberProgress {
+  courseId: number;
+  courseName: string;
+  totalLessons: number;
+  members: CourseMemberItem[];
+}
+
+export async function fetchCourseProgress(teamId: number, courseId: number): Promise<CourseMemberProgress> {
+  const response = await api.get<CourseMemberProgress>(`/api/team/${teamId}/courses/${courseId}/progress`);
+  return response.data;
 }

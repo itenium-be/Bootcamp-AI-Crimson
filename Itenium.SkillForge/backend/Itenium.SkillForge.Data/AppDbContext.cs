@@ -39,6 +39,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
 
+    public DbSet<LessonAnnotationEntity> LessonAnnotations => Set<LessonAnnotationEntity>();
+
     public DbSet<ContentSuggestionEntity> ContentSuggestions => Set<ContentSuggestionEntity>();
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -50,5 +52,9 @@ public class AppDbContext : ForgeIdentityDbContext
 
         builder.Entity<LessonProgressEntity>()
             .HasKey(p => new { p.UserId, p.LessonId });
+
+        builder.Entity<EnrollmentEntity>()
+            .HasIndex(e => new { e.UserId, e.CourseId })
+            .IsUnique();
     }
 }

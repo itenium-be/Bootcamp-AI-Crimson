@@ -17,6 +17,11 @@ public class SkillForgeUser : CurrentUser, ISkillForgeUser
 
     public bool IsManager => (User?.IsInRole("team_manager") ?? false) || IsBackOffice;
 
+    public string? DisplayName =>
+        User?.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value
+        ?? User?.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value
+        ?? User?.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value?.Split('@')[0];
+
     public ICollection<int> Teams
     {
         get

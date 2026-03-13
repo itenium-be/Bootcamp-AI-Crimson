@@ -26,4 +26,9 @@ public interface ISkillForgeUser : ICurrentUser
     /// Gets the IDs of the Teams the user has access to.
     /// </summary>
     ICollection<int> Teams { get; }
+
+    /// <summary>
+    /// Gets a pseudonym or first name for community-facing display.
+    /// </summary>
+    string? DisplayName { get; }
 }

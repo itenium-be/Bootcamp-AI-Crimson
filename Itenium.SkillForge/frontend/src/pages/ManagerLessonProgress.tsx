@@ -49,13 +49,15 @@ export function ManagerLessonProgress() {
         >
           <option value="">{t('lessonProgress.selectCourse')}</option>
           {courses?.map((c) => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
           ))}
         </select>
       </div>
 
-      {selectedCourseId && (
-        lessonsLoading ? (
+      {selectedCourseId &&
+        (lessonsLoading ? (
           <div>{t('common.loading')}</div>
         ) : lessons.length === 0 ? (
           <p className="text-muted-foreground">{t('lessonProgress.noLessons')}</p>
@@ -72,17 +74,12 @@ export function ManagerLessonProgress() {
               </thead>
               <tbody>
                 {lessons.map((lesson) => (
-                  <LessonProgressRow
-                    key={lesson.id}
-                    lesson={lesson}
-                    onReset={handleReset}
-                  />
+                  <LessonProgressRow key={lesson.id} lesson={lesson} onReset={handleReset} />
                 ))}
               </tbody>
             </table>
           </div>
-        )
-      )}
+        ))}
     </div>
   );
 }
@@ -110,10 +107,7 @@ function LessonProgressRow({ lesson, onReset }: { lesson: Lesson; onReset: (l: L
       </td>
       <td className="p-3 text-center">
         {count > 0 && (
-          <button
-            onClick={() => onReset(lesson)}
-            className="text-xs text-destructive underline hover:no-underline"
-          >
+          <button onClick={() => onReset(lesson)} className="text-xs text-destructive underline hover:no-underline">
             {t('lessonProgress.reset')}
           </button>
         )}

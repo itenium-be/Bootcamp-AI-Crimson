@@ -192,6 +192,7 @@ public class LessonController : ControllerBase
             {
                 _db.LessonStatuses.Remove(row);
                 await _db.SaveChangesAsync();
+                await UpdateEnrollmentCompletionAsync(lessonId, null);
             }
             return NoContent();
         }
@@ -228,6 +229,10 @@ public class LessonController : ControllerBase
         }
 
         await _db.SaveChangesAsync();
+
+        // Auto-complete enrollment when all lessons in the course are done
+        await UpdateEnrollmentCompletionAsync(lessonId, statusValue);
+
         return NoContent();
     }
 
@@ -293,6 +298,41 @@ public class LessonController : ControllerBase
 
         await _db.SaveChangesAsync();
         return NoContent();
+    }
+
+    private async Task UpdateEnrollmentCompletionAsync(int lessonId, LessonStatusValue? newStatus)
+    {
+        var lesson = await _db.Lessons.AsNoTracking().FirstOrDefaultAsync(l => l.Id == lessonId);
+        if (lesson == null) return;
+
+        var enrollment = await _db.Enrollments
+            .FirstOrDefaultAsync(e => e.UserId == _user.UserId && e.CourseId == lesson.CourseId);
+        if (enrollment == null) return;
+
+        var allLessonIds = await _db.Lessons
+            .AsNoTracking()
+            .Where(l => l.CourseId == lesson.CourseId)
+            .Select(l => l.Id)
+            .ToListAsync();
+
+        var doneCount = await _db.LessonStatuses
+            .AsNoTracking()
+            .CountAsync(s => s.UserId == _user.UserId && allLessonIds.Contains(s.LessonId) && s.Status == LessonStatusValue.Done);
+
+        var allDone = doneCount == allLessonIds.Count;
+
+        if (allDone && enrollment.Status != EnrollmentStatus.Completed)
+        {
+            enrollment.Status = EnrollmentStatus.Completed;
+            enrollment.CompletedAt = DateTime.UtcNow;
+            await _db.SaveChangesAsync();
+        }
+        else if (!allDone && enrollment.Status == EnrollmentStatus.Completed)
+        {
+            enrollment.Status = EnrollmentStatus.Active;
+            enrollment.CompletedAt = null;
+            await _db.SaveChangesAsync();
+        }
     }
 
     private static string StatusToString(LessonStatusValue status) => status switch

@@ -21,4 +21,6 @@ public class EnrollmentEntity
     public EnrollmentStatus Status { get; set; } = EnrollmentStatus.Active;
 
     public int? LastVisitedLessonId { get; set; }
+
+    public DateTime? CompletedAt { get; set; }
 }

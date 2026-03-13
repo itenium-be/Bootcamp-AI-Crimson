@@ -496,3 +496,152 @@ To https://github.com/itenium-be/Bootcamp-AI-Crimson
 From https://github.com/itenium-be/Bootcamp-AI-Crimson
  * branch            master     -> FETCH_HEAD
 Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/frontend/src/pages/Dashboard.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[33m[STARTED][39m Backing up original state...
+[32m[COMPLETED][39m Backed up original state in git stash (8d5f75a)
+[33m[STARTED][39m Hiding unstaged changes to partially staged files...
+[31m[FAILED][39m error: unable to unlink old 'Itenium.SkillForge/sync-log.txt': Invalid argument
+[33m[STARTED][39m Running tasks for staged files...
+[33m[SKIPPED][39m Running tasks for staged files...
+[33m[STARTED][39m Applying modifications from tasks...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Restoring unstaged changes...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+[33m[STARTED][39m Cleaning up temporary files...
+[33m[SKIPPED][39m 
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+
+  [0;31m[0;31m✖[0m lint-staged failed due to a git error.[0m
+Any lost modifications can be restored from a git stash:
+
+  > git stash list --format="%h %s"
+  8d5f75a On main: lint-staged automatic backup
+  > git apply --index 8d5f75a
+
+[master 3aa3058] Auto-sync: vr 13/03/2026 12:14:04,25
+ Committer: Heleen De Meue <heleen.de.meue@itenium.be>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 3 files changed, 50 insertions(+), 2 deletions(-)
+To https://github.com/itenium-be/Bootcamp-AI-Crimson
+   15b1097..3aa3058  master -> master
+[vr 13/03/2026 12:14:11,10] Sync complete. 
+[vr 13/03/2026 12:19:01,72] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+   3aa3058..18793d3  master     -> origin/master
+Updating 3aa3058..18793d3
+Fast-forward
+ CLAUDE.md                                          |   8 ++
+ .../Itenium.SkillForge.Services/IUserRepository.cs |   6 +
+ .../Itenium.SkillForge.Services/UserResponse.cs    |  10 ++
+ .../UsersControllerTests.cs                        |  83 +++++++++++
+ .../Controllers/UsersController.cs                 |  35 +++++
+ .../backend/Itenium.SkillForge.WebApi/Program.cs   |   1 +
+ .../Itenium.SkillForge.WebApi/UserRepository.cs    |  37 +++++
+ Itenium.SkillForge/frontend/src/api/client.ts      |  14 ++
+ .../src/components/__tests__/Layout.test.tsx       |   2 +-
+ .../frontend/src/i18n/locales/en.json              |  18 +++
+ .../frontend/src/i18n/locales/nl.json              |  18 +++
+ Itenium.SkillForge/frontend/src/pages/Users.tsx    | 157 +++++++++++++++++++++
+ .../frontend/src/pages/__tests__/Users.test.ts     |  62 ++++++++
+ .../src/routes/_authenticated/admin/users.tsx      |   6 +
+ 14 files changed, 456 insertions(+), 1 deletion(-)
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.Services/IUserRepository.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.Services/UserResponse.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.WebApi.Tests/UsersControllerTests.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.WebApi/Controllers/UsersController.cs
+ create mode 100644 Itenium.SkillForge/backend/Itenium.SkillForge.WebApi/UserRepository.cs
+ create mode 100644 Itenium.SkillForge/frontend/src/pages/Users.tsx
+ create mode 100644 Itenium.SkillForge/frontend/src/pages/__tests__/Users.test.ts
+ create mode 100644 Itenium.SkillForge/frontend/src/routes/_authenticated/admin/users.tsx
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[0;34m→[0m lint-staged could not find any staged files matching configured tasks.
+$ knip
+[93m[4mUnused files[24m[39m (1)
+src/routes/_authenticated/admin/users.tsx
+[93m[4mUnused exports[24m[39m (1)
+Users  function  src/pages/Users.tsx:39:17
+[93m[4mUnused exported types[24m[39m (1)
+User  interface  src/api/client.ts:118:18
+[33m[4mConfiguration hints[24m (1)[39m
+tailwindcss    knip.json  [90mRemove from [97mignoreDependencies[90m[39m
+error: script "knip" exited with code 1
+husky - pre-commit script failed (code 1)
+Everything up-to-date
+[vr 13/03/2026 12:19:16,27] Sync complete. 
+[vr 13/03/2026 12:24:01,76] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/settings.local.json', LF will be replaced by CRLF the next time Git touches it
+[0;34m→[0m lint-staged could not find any staged files matching configured tasks.
+$ knip
+[93m[4mUnused files[24m[39m (1)
+src/routes/_authenticated/admin/users.tsx
+[93m[4mUnused exports[24m[39m (1)
+Users  function  src/pages/Users.tsx:39:17
+[93m[4mUnused exported types[24m[39m (1)
+User  interface  src/api/client.ts:118:18
+[33m[4mConfiguration hints[24m (1)[39m
+tailwindcss    knip.json  [90mRemove from [97mignoreDependencies[90m[39m
+error: script "knip" exited with code 1
+husky - pre-commit script failed (code 1)
+Everything up-to-date
+[vr 13/03/2026 12:24:15,40] Sync complete. 
+[vr 13/03/2026 12:29:01,94] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[0;34m→[0m lint-staged could not find any staged files matching configured tasks.
+$ knip
+[93m[4mUnused files[24m[39m (1)
+src/routes/_authenticated/admin/users.tsx
+[93m[4mUnused exports[24m[39m (1)
+Users  function  src/pages/Users.tsx:39:17
+[93m[4mUnused exported types[24m[39m (1)
+User  interface  src/api/client.ts:118:18
+[33m[4mConfiguration hints[24m (1)[39m
+tailwindcss    knip.json  [90mRemove from [97mignoreDependencies[90m[39m
+error: script "knip" exited with code 1
+husky - pre-commit script failed (code 1)
+Everything up-to-date
+[vr 13/03/2026 12:29:37,74] Sync complete. 
+[vr 13/03/2026 12:34:01,79] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[0;34m→[0m lint-staged could not find any staged files matching configured tasks.
+$ knip
+[93m[4mUnused files[24m[39m (1)
+src/routes/_authenticated/admin/users.tsx
+[93m[4mUnused exports[24m[39m (1)
+Users  function  src/pages/Users.tsx:39:17
+[93m[4mUnused exported types[24m[39m (1)
+User  interface  src/api/client.ts:118:18
+[33m[4mConfiguration hints[24m (1)[39m
+tailwindcss    knip.json  [90mRemove from [97mignoreDependencies[90m[39m
+error: script "knip" exited with code 1
+husky - pre-commit script failed (code 1)
+Everything up-to-date
+[vr 13/03/2026 12:34:13,47] Sync complete. 
+[vr 13/03/2026 12:39:02,10] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.

@@ -70,7 +70,12 @@ export function SignIn() {
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as { response?: { data?: { error_description?: string } } };
-        setError(axiosError.response?.data?.error_description || t('auth.invalidCredentials'));
+        const description = axiosError.response?.data?.error_description ?? '';
+        if (description.toLowerCase().includes('suspended') || description.toLowerCase().includes('locked')) {
+          setError(t('auth.accountDeactivated'));
+        } else {
+          setError(description || t('auth.invalidCredentials'));
+        }
       } else {
         setError(t('auth.invalidCredentials'));
       }

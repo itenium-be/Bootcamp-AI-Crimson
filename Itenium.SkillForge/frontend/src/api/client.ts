@@ -123,6 +123,42 @@ export async function deleteCourse(id: number): Promise<void> {
   await api.delete(`/api/course/${id}`);
 }
 
+export type AssigneeType = 'Team' | 'User';
+export type AssignmentType = 'Mandatory' | 'Optional';
+
+export interface CourseAssignment {
+  id: number;
+  courseId: number;
+  assigneeType: AssigneeType;
+  assigneeId: string;
+  assigneeName: string | null;
+  type: AssignmentType;
+  assignedAt: string;
+  assignedBy: string;
+}
+
+interface CreateAssignmentData {
+  assigneeType: AssigneeType;
+  assigneeId: string;
+  assigneeName: string | null;
+  type: AssignmentType;
+  assignedBy: string;
+}
+
+export async function fetchCourseAssignments(courseId: number): Promise<CourseAssignment[]> {
+  const response = await api.get<CourseAssignment[]>(`/api/courses/${courseId}/assignments`);
+  return response.data;
+}
+
+export async function createCourseAssignment(courseId: number, data: CreateAssignmentData): Promise<CourseAssignment> {
+  const response = await api.post<CourseAssignment>(`/api/courses/${courseId}/assignments`, data);
+  return response.data;
+}
+
+export async function deleteCourseAssignment(courseId: number, assignmentId: number): Promise<void> {
+  await api.delete(`/api/courses/${courseId}/assignments/${assignmentId}`);
+}
+
 export interface User {
   id: string;
   name: string;

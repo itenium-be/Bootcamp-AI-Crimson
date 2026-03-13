@@ -9,6 +9,40 @@ namespace Itenium.SkillForge.WebApi.Controllers;
 
 public record AddTeamMemberRequest(string UserId);
 
+public record TeamProgressDto(IList<TeamMemberProgressDto> Members);
+
+public record TeamMemberProgressDto(
+    string UserId,
+    string UserName,
+    int EnrolledCourses,
+    int CompletedCourses,
+    double OverallPercent,
+    IList<CourseProgressItem> Courses);
+
+public record CourseProgressItem(
+    int CourseId,
+    string CourseName,
+    int TotalLessons,
+    int CompletedLessons,
+    double PercentComplete,
+    bool IsMandatory,
+    bool IsOverdue);
+
+public record CourseMemberProgressDto(
+    int CourseId,
+    string CourseName,
+    int TotalLessons,
+    IList<CourseMemberItem> Members);
+
+public record CourseMemberItem(
+    string UserId,
+    string UserName,
+    string Status,
+    int CompletedLessons,
+    double PercentComplete,
+    bool IsMandatory,
+    bool IsOverdue);
+
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
@@ -75,5 +109,151 @@ public class TeamController : ControllerBase
         var found = await _userRepository.RemoveTeamMemberAsync(id, userId);
         if (!found) return NotFound();
         return NoContent();
+    }
+
+    /// <summary>Get learning progress for all members of a team. BackOffice or the team's own manager.</summary>
+    [HttpGet("{id}/progress")]
+    public async Task<ActionResult<TeamProgressDto>> GetTeamProgress(int id)
+    {
+        if (!_user.IsBackOffice && !_user.Teams.Contains(id)) return Forbid();
+
+        var members = await _userRepository.GetTeamMembersAsync(id);
+        var memberIds = members.Select(m => m.Id).ToList();
+
+        var lessonsByCourse = await _db.Lessons
+            .AsNoTracking()
+            .Select(l => new { l.Id, l.CourseId })
+            .ToListAsync();
+
+        var lessonCourseMap = lessonsByCourse.ToDictionary(l => l.Id, l => l.CourseId);
+        var lessonCountByCourse = lessonsByCourse.GroupBy(l => l.CourseId)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var enrollments = await _db.Enrollments
+            .AsNoTracking()
+            .Include(e => e.Course)
+            .Where(e => memberIds.Contains(e.UserId))
+            .ToListAsync();
+
+        var lessonProgresses = await _db.LessonProgresses
+            .AsNoTracking()
+            .Where(p => memberIds.Contains(p.UserId))
+            .ToListAsync();
+
+        var mandatoryAssignments = await _db.CourseAssignments
+            .AsNoTracking()
+            .Where(a => a.Type == AssignmentType.Mandatory &&
+                        ((a.AssigneeType == AssigneeType.Team && a.AssigneeId == id.ToString(System.Globalization.CultureInfo.InvariantCulture)) ||
+                         (a.AssigneeType == AssigneeType.User && memberIds.Contains(a.AssigneeId))))
+            .ToListAsync();
+
+        var mandatoryCourseIds = mandatoryAssignments.Select(a => a.CourseId).ToHashSet();
+
+        var memberDtos = members.Select(member =>
+        {
+            var memberEnrollments = enrollments.Where(e => e.UserId == member.Id).ToList();
+            var memberProgressLessonIds = lessonProgresses
+                .Where(p => p.UserId == member.Id)
+                .Select(p => p.LessonId)
+                .ToHashSet();
+
+            var courses = memberEnrollments.Select(enrollment =>
+            {
+                var totalLessons = lessonCountByCourse.GetValueOrDefault(enrollment.CourseId, 0);
+                var completedLessons = lessonsByCourse
+                    .Count(l => l.CourseId == enrollment.CourseId && memberProgressLessonIds.Contains(l.Id));
+                var pct = totalLessons > 0 ? Math.Round((double)completedLessons / totalLessons * 100, 1) : 0.0;
+                var isMandatory = mandatoryCourseIds.Contains(enrollment.CourseId);
+                var isCompleted = totalLessons > 0 && completedLessons == totalLessons;
+                return new CourseProgressItem(
+                    enrollment.CourseId,
+                    enrollment.Course.Name,
+                    totalLessons,
+                    completedLessons,
+                    pct,
+                    isMandatory,
+                    IsOverdue: isMandatory && !isCompleted);
+            }).ToList();
+
+            var totalLessonsAll = courses.Sum(c => c.TotalLessons);
+            var completedLessonsAll = courses.Sum(c => c.CompletedLessons);
+            var overallPct = totalLessonsAll > 0
+                ? Math.Round((double)completedLessonsAll / totalLessonsAll * 100, 1)
+                : 0.0;
+
+            return new TeamMemberProgressDto(
+                member.Id,
+                member.Name ?? member.Email,
+                memberEnrollments.Count,
+                courses.Count(c => c.TotalLessons > 0 && c.CompletedLessons == c.TotalLessons),
+                overallPct,
+                courses);
+        }).ToList();
+
+        return Ok(new TeamProgressDto(memberDtos));
+    }
+
+    /// <summary>Get per-course progress breakdown for a team. BackOffice or the team's own manager.</summary>
+    [HttpGet("{id}/courses/{courseId}/progress")]
+    public async Task<ActionResult<CourseMemberProgressDto>> GetCourseProgress(int id, int courseId)
+    {
+        if (!_user.IsBackOffice && !_user.Teams.Contains(id)) return Forbid();
+
+        var members = await _userRepository.GetTeamMembersAsync(id);
+        var memberIds = members.Select(m => m.Id).ToList();
+
+        var course = await _db.Courses.AsNoTracking().FirstOrDefaultAsync(c => c.Id == courseId);
+        var courseName = course?.Name ?? string.Empty;
+
+        var lessons = await _db.Lessons
+            .AsNoTracking()
+            .Where(l => l.CourseId == courseId)
+            .Select(l => l.Id)
+            .ToListAsync();
+
+        var totalLessons = lessons.Count;
+
+        var enrolledUserIds = await _db.Enrollments
+            .AsNoTracking()
+            .Where(e => e.CourseId == courseId && memberIds.Contains(e.UserId))
+            .Select(e => e.UserId)
+            .ToHashSetAsync();
+
+        var progressByUser = await _db.LessonProgresses
+            .AsNoTracking()
+            .Where(p => memberIds.Contains(p.UserId) && lessons.Contains(p.LessonId))
+            .GroupBy(p => p.UserId)
+            .Select(g => new { UserId = g.Key, Count = g.Count() })
+            .ToDictionaryAsync(x => x.UserId, x => x.Count);
+
+        var mandatoryForTeam = await _db.CourseAssignments
+            .AsNoTracking()
+            .AnyAsync(a => a.CourseId == courseId &&
+                           a.Type == AssignmentType.Mandatory &&
+                           ((a.AssigneeType == AssigneeType.Team && a.AssigneeId == id.ToString(System.Globalization.CultureInfo.InvariantCulture)) ||
+                            (a.AssigneeType == AssigneeType.User && memberIds.Contains(a.AssigneeId))));
+
+        var memberItems = members.Select(member =>
+        {
+            var completedLessons = progressByUser.GetValueOrDefault(member.Id, 0);
+            var pct = totalLessons > 0 ? Math.Round((double)completedLessons / totalLessons * 100, 1) : 0.0;
+            var isCompleted = totalLessons > 0 && completedLessons == totalLessons;
+            var isEnrolled = enrolledUserIds.Contains(member.Id);
+
+            var status = !isEnrolled ? "NotStarted"
+                : isCompleted ? "Completed"
+                : "InProgress";
+
+            return new CourseMemberItem(
+                member.Id,
+                member.Name ?? member.Email,
+                status,
+                completedLessons,
+                pct,
+                mandatoryForTeam,
+                IsOverdue: mandatoryForTeam && !isCompleted);
+        }).ToList();
+
+        return Ok(new CourseMemberProgressDto(courseId, courseName, totalLessons, memberItems));
     }
 }

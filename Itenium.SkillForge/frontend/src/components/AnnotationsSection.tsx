@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchAnnotations, createAnnotation, updateAnnotation, deleteAnnotation, type Annotation } from '@/api/client';
 
-function StarRating({ value, onChange, readonly }: { value: number; onChange?: (v: number) => void; readonly?: boolean }) {
+function StarRating({
+  value,
+  onChange,
+  readonly,
+}: {
+  value: number;
+  onChange?: (v: number) => void;
+  readonly?: boolean;
+}) {
   const [hovered, setHovered] = useState(0);
   return (
     <div className="flex gap-0.5">
@@ -135,10 +143,7 @@ export function AnnotationsSection({ lessonId }: { lessonId: number }) {
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold">{t('annotations.title')}</h2>
         {!showForm && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="text-sm rounded border px-3 py-1 hover:bg-muted"
-          >
+          <button onClick={() => setShowForm(true)} className="text-sm rounded border px-3 py-1 hover:bg-muted">
             {t('annotations.addNote')}
           </button>
         )}

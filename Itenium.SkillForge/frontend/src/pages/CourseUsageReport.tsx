@@ -70,7 +70,10 @@ export function CourseUsageReport() {
         </div>
         {(dateFrom || dateTo) && (
           <button
-            onClick={() => { setDateFrom(''); setDateTo(''); }}
+            onClick={() => {
+              setDateFrom('');
+              setDateTo('');
+            }}
             className="self-end text-sm text-muted-foreground hover:text-foreground"
           >
             {t('courses.clearFilters')}
@@ -149,7 +152,9 @@ export function CourseUsageReport() {
                 <span className="text-red-600">{c.completionRate.toFixed(1)}%</span>
               </li>
             ))}
-            {lowestCompletion.length === 0 && <li className="text-muted-foreground text-sm">{t('common.noResults')}</li>}
+            {lowestCompletion.length === 0 && (
+              <li className="text-muted-foreground text-sm">{t('common.noResults')}</li>
+            )}
           </ul>
         </div>
       </div>

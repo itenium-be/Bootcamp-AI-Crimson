@@ -79,7 +79,12 @@ export function FeedbackForm({ queryKey, fetchFn, submitFn, updateFn }: Feedback
         </div>
         <div className="flex gap-0.5">
           {[1, 2, 3, 4, 5].map((s) => (
-            <span key={s} className={`text-xl ${s <= existing.rating ? 'text-yellow-400' : 'text-muted-foreground/30'}`}>★</span>
+            <span
+              key={s}
+              className={`text-xl ${s <= existing.rating ? 'text-yellow-400' : 'text-muted-foreground/30'}`}
+            >
+              ★
+            </span>
           ))}
         </div>
         {existing.comment && <p className="text-sm text-muted-foreground">{existing.comment}</p>}
@@ -107,10 +112,7 @@ export function FeedbackForm({ queryKey, fetchFn, submitFn, updateFn }: Feedback
           {mutation.isPending ? t('common.loading') : t('common.save')}
         </button>
         {editing && (
-          <button
-            onClick={() => setEditing(false)}
-            className="rounded border px-3 py-1.5 text-sm hover:bg-muted"
-          >
+          <button onClick={() => setEditing(false)} className="rounded border px-3 py-1.5 text-sm hover:bg-muted">
             {t('common.cancel')}
           </button>
         )}

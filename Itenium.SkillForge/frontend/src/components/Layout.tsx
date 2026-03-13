@@ -215,7 +215,7 @@ export function Layout() {
 
   const handleLogout = () => {
     logout();
-    router.navigate({ to: '/sign-in' });
+    router.navigate({ to: '/login' });
   };
 
   // Determine if user is learner only (no team management access)

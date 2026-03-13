@@ -50,7 +50,7 @@ export async function loginApi(username: string, password: string): Promise<Logi
   return response.data;
 }
 
-interface Team {
+export interface Team {
   id: number;
   name: string;
 }
@@ -144,6 +144,24 @@ export async function deactivateUser(id: string): Promise<void> {
 
 export async function activateUser(id: string): Promise<void> {
   await api.put(`/api/users/${id}/activate`);
+}
+
+export async function fetchTeamMembers(teamId: number): Promise<User[]> {
+  const response = await api.get<User[]>(`/api/team/${teamId}/members`);
+  return response.data;
+}
+
+export async function fetchAvailableLearners(teamId: number): Promise<User[]> {
+  const response = await api.get<User[]>(`/api/team/${teamId}/available-learners`);
+  return response.data;
+}
+
+export async function addTeamMember(teamId: number, userId: string): Promise<void> {
+  await api.post(`/api/team/${teamId}/members`, { userId });
+}
+
+export async function removeTeamMember(teamId: number, userId: string): Promise<void> {
+  await api.delete(`/api/team/${teamId}/members/${userId}`);
 }
 
 export interface Enrollment {

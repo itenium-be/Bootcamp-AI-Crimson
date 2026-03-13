@@ -166,6 +166,23 @@
     "failed": "Failed",
     "noLearners": "No learners found"
   },
+  "teams": {
+    "title": "Teams",
+    "name": "Name",
+    "members": "Members",
+    "viewMembers": "View members →",
+    "noTeams": "No teams found"
+  },
+  "teamDetail": {
+    "title": "Team Detail",
+    "backToTeams": "Back to Teams",
+    "addMember": "Add Member",
+    "searchLearner": "Search learner by name or email...",
+    "members": "Members",
+    "noMembers": "No members in this team yet.",
+    "remove": "Remove",
+    "confirmRemove": "Remove \"{{name}}\" from this team?"
+  },
   "userDetail": {
     "backToUsers": "Back to Users",
     "changeRole": "Change Role",

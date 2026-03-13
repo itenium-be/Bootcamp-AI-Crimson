@@ -109,9 +109,10 @@ jobs:
         run: |
           bun run test 2>&1 | tee unit-output.txt
           EXIT_CODE=${PIPESTATUS[0]}
-          # Parse Vitest summary: "Tests  X passed" line (not "Test Files  X passed")
-          PASSED=$(grep -P '^\s+Tests\s+' unit-output.txt | grep -oP '\d+(?=\s+passed)' | head -1)
-          FAILED=$(grep -P '^\s+Tests\s+' unit-output.txt | grep -oP '\d+(?=\s+failed)' | head -1)
+          # Strip ANSI codes then parse Vitest summary: "Tests  X passed" line (not "Test Files  X passed")
+          PLAIN=$(sed 's/\x1b\[[0-9;]*m//g' unit-output.txt)
+          PASSED=$(echo "$PLAIN" | grep -P '^\s+Tests\s+' | grep -oP '\d+(?=\s+passed)' | head -1)
+          FAILED=$(echo "$PLAIN" | grep -P '^\s+Tests\s+' | grep -oP '\d+(?=\s+failed)' | head -1)
           PASSED=${PASSED:-0}
           FAILED=${FAILED:-0}
           TOTAL=$((PASSED + FAILED))

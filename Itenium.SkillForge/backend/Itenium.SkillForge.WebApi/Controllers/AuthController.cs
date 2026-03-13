@@ -33,7 +33,7 @@ public class AuthController : ControllerBase
             return Unauthorized();
 
         var client = _httpClientFactory.CreateClient();
-        var tokenRequest = new FormUrlEncodedContent(new Dictionary<string, string>(StringComparer.Ordinal)
+        var tokenContent = new FormUrlEncodedContent(new Dictionary<string, string>(StringComparer.Ordinal)
         {
             ["grant_type"] = "password",
             ["username"] = username,
@@ -42,8 +42,16 @@ public class AuthController : ControllerBase
             ["scope"] = "openid profile email",
         });
 
-        var baseUrl = _configuration["Auth:InternalBaseUrl"] ?? $"{Request.Scheme}://{Request.Host}";
-        var response = await client.PostAsync($"{baseUrl}/connect/token", tokenRequest);
+        // When Auth:InternalBaseUrl is set (e.g. in Docker), send the request to the internal port
+        // but forward the original Host header so OpenIddict generates the token with the correct
+        // external issuer URL (matching what the frontend uses for subsequent API calls).
+        var internalBaseUrl = _configuration["Auth:InternalBaseUrl"];
+        var tokenUrl = $"{(internalBaseUrl ?? $"{Request.Scheme}://{Request.Host}")}/connect/token";
+        var tokenRequest = new HttpRequestMessage(HttpMethod.Post, tokenUrl) { Content = tokenContent };
+        if (internalBaseUrl != null)
+            tokenRequest.Headers.Host = Request.Host.Value;
+
+        var response = await client.SendAsync(tokenRequest);
         if (!response.IsSuccessStatusCode)
             return Unauthorized();
 

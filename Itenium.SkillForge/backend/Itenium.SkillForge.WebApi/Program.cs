@@ -25,6 +25,7 @@ try
     builder.Services.AddScoped<ISkillForgeUser, SkillForgeUser>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddHttpClient();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
 
     builder.AddForgeControllers();
     builder.AddForgeSwagger();

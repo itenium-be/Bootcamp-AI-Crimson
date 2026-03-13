@@ -30,6 +30,7 @@
     "teamProgress": "Progress",
     "assignments": "Assignments",
     "coursesSection": "Courses",
+    "manageCourses": "Manage Courses",
     "administration": "Administration",
     "reports": "Reports",
     "usage": "Usage",
@@ -74,7 +75,29 @@
     "addCourse": "Add Course",
     "editCourse": "Edit Course",
     "deleteCourse": "Delete Course",
-    "noCourses": "No courses found"
+    "noCourses": "No courses found",
+    "searchPlaceholder": "Search by name or description...",
+    "allCategories": "All Categories",
+    "allLevels": "All Levels",
+    "clearFilters": "Clear filters"
+  },
+  "users": {
+    "title": "Users",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "lastActive": "Last Active",
+    "inactive": "Inactive",
+    "noUsers": "No users found",
+    "searchPlaceholder": "Search by name or email...",
+    "allRoles": "All Roles",
+    "allStatuses": "All Statuses",
+    "role": {
+      "learner": "Learner",
+      "team_manager": "Team Manager",
+      "backoffice": "Backoffice"
+    }
   },
   "learners": {
     "title": "Learners",

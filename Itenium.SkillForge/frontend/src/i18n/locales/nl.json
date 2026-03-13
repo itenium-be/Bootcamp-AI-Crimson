@@ -30,6 +30,7 @@
     "teamProgress": "Voortgang",
     "assignments": "Toewijzingen",
     "coursesSection": "Cursussen",
+    "manageCourses": "Cursussen Beheren",
     "administration": "Administratie",
     "reports": "Rapporten",
     "usage": "Gebruik",
@@ -74,7 +75,29 @@
     "addCourse": "Cursus Toevoegen",
     "editCourse": "Cursus Bewerken",
     "deleteCourse": "Cursus Verwijderen",
-    "noCourses": "Geen cursussen gevonden"
+    "noCourses": "Geen cursussen gevonden",
+    "searchPlaceholder": "Zoek op naam of beschrijving...",
+    "allCategories": "Alle Categorieën",
+    "allLevels": "Alle Niveaus",
+    "clearFilters": "Filters wissen"
+  },
+  "users": {
+    "title": "Gebruikers",
+    "name": "Naam",
+    "email": "E-mail",
+    "role": "Rol",
+    "status": "Status",
+    "lastActive": "Laatst Actief",
+    "inactive": "Inactief",
+    "noUsers": "Geen gebruikers gevonden",
+    "searchPlaceholder": "Zoek op naam of e-mail...",
+    "allRoles": "Alle Rollen",
+    "allStatuses": "Alle Statussen",
+    "role": {
+      "learner": "Leerling",
+      "team_manager": "Teammanager",
+      "backoffice": "Backoffice"
+    }
   },
   "learners": {
     "title": "Leerlingen",

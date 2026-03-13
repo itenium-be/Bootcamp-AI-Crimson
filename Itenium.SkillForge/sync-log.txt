@@ -1,0 +1,146 @@
+[vr 13/03/2026 11:17:04,92] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+warning: in the working copy of 'Itenium.SkillForge/frontend/src/routeTree.gen.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-advanced-elicitation/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/brain-methods.csv', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-01-session-setup.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-01b-continue.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02a-user-selected.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02c-random-selection.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-03-technique-execution.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-04-idea-organization.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/template.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-brainstorming/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-help/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-help/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-help/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-index-docs/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-index-docs/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-index-docs/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-master/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-01-agent-loading.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-02-discussion-orchestration.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-03-graceful-exit.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-party-mode/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-shard-doc/SKILL.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-shard-doc/bmad-skill-manifest.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/.claude/skills/bmad-shard-doc/workflow.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'Itenium.SkillForge/sync-log.txt', LF will be replaced by CRLF the next time Git touches it
+[0;34m→[0m lint-staged could not find any staged files matching configured tasks.
+$ knip
+[33m[4mConfiguration hints[24m (1)[39m
+tailwindcss    knip.json  [90mRemove from [97mignoreDependencies[90m[39m
+[master b77b6d8] Auto-sync: vr 13/03/2026 11:17:05,84
+ Committer: Heleen De Meue <heleen.de.meue@itenium.be>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 46 files changed, 3553 insertions(+), 1 deletion(-)
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-advanced-elicitation/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/brain-methods.csv
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-01-session-setup.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-01b-continue.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02a-user-selected.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02c-random-selection.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-03-technique-execution.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/steps/step-04-idea-organization.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/template.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-brainstorming/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-prose/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-editorial-review-structure/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-help/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-help/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-help/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-index-docs/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-index-docs/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-index-docs/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-master/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-01-agent-loading.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-02-discussion-orchestration.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/steps/step-03-graceful-exit.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-party-mode/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-adversarial-general/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-review-edge-case-hunter/workflow.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-shard-doc/SKILL.md
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-shard-doc/bmad-skill-manifest.yaml
+ create mode 100644 Itenium.SkillForge/.claude/skills/bmad-shard-doc/workflow.md
+ create mode 100644 Itenium.SkillForge/sync-log.txt
+ create mode 100644 Itenium.SkillForge/sync-silent.bat
+ create mode 100644 Itenium.SkillForge/sync.bat
+remote: error: GH013: Repository rule violations found for refs/heads/master.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:      (?) This repository does not have Secret Scanning enabled, but is eligible. Enable Secret Scanning to view and manage detected secrets.        
+remote:      Visit the repository settings page, https://github.com/itenium-be/Bootcamp-AI-Crimson/settings/security_analysis        
+remote:             
+remote:             
+remote:       —— GitHub Personal Access Token ——————————————————————        
+remote:        locations:        
+remote:          - commit: b77b6d8de3fac3b20bf5db5553164019fa12ab24        
+remote:            path: Itenium.SkillForge/backend/nuget.config:20        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/itenium-be/Bootcamp-AI-Crimson/security/secret-scanning/unblock-secret/3At1QDSL1Z4fsai3r1mtgUor9tf        
+remote:             
+remote: 
+remote: 
+To https://github.com/itenium-be/Bootcamp-AI-Crimson
+ ! [remote rejected] master -> master (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/itenium-be/Bootcamp-AI-Crimson'
+[vr 13/03/2026 11:17:15,00] ERROR: Push failed. 
+[vr 13/03/2026 11:19:01,58] Starting sync... 
+From https://github.com/itenium-be/Bootcamp-AI-Crimson
+ * branch            master     -> FETCH_HEAD
+Already up to date.

@@ -31,6 +31,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<LessonStatusEntity> LessonStatuses => Set<LessonStatusEntity>();
 
+    public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

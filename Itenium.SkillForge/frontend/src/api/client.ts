@@ -352,3 +352,46 @@ export async function fetchLessons(courseId: number): Promise<Lesson[]> {
 export async function setLessonStatus(lessonId: number, status: LessonStatus): Promise<void> {
   await api.put(`/api/lessons/${lessonId}/status`, { status });
 }
+
+export type ContentBlockType = 'text' | 'image' | 'video' | 'pdf' | 'link' | 'youtube';
+
+export interface ContentBlock {
+  id: number;
+  lessonId: number;
+  type: ContentBlockType;
+  content: string;
+  order: number;
+}
+
+interface ContentBlockFormData {
+  type: ContentBlockType;
+  content: string;
+  order: number;
+}
+
+export async function fetchContentBlocks(lessonId: number): Promise<ContentBlock[]> {
+  const response = await api.get<ContentBlock[]>(`/api/lessons/${lessonId}/content-blocks`);
+  return response.data;
+}
+
+export async function createContentBlock(lessonId: number, data: ContentBlockFormData): Promise<ContentBlock> {
+  const response = await api.post<ContentBlock>(`/api/lessons/${lessonId}/content-blocks`, data);
+  return response.data;
+}
+
+export async function updateContentBlock(
+  lessonId: number,
+  blockId: number,
+  data: ContentBlockFormData,
+): Promise<ContentBlock> {
+  const response = await api.put<ContentBlock>(`/api/lessons/${lessonId}/content-blocks/${blockId}`, data);
+  return response.data;
+}
+
+export async function deleteContentBlock(lessonId: number, blockId: number): Promise<void> {
+  await api.delete(`/api/lessons/${lessonId}/content-blocks/${blockId}`);
+}
+
+export async function reorderContentBlocks(lessonId: number, orderedIds: number[]): Promise<void> {
+  await api.put(`/api/lessons/${lessonId}/content-blocks/reorder`, { orderedIds });
+}

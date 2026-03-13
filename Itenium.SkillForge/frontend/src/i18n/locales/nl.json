@@ -244,6 +244,17 @@
     "confirmDeactivate": "Dit voorkomt dat {{name}} kan inloggen. Hun geschiedenis blijft bewaard.",
     "confirmActivate": "{{name}} activeren? Ze krijgen opnieuw toegang tot het platform."
   },
+  "lessonContent": {
+    "title": "Les Inhoud",
+    "back": "Terug",
+    "backToLessons": "Terug naar Lessen",
+    "noBlocks": "Nog geen inhoudsblokken.",
+    "addBlock": "Inhoudsblok Toevoegen",
+    "markdown": "Markdown / Tekst",
+    "label": "Label",
+    "linkLabel": "Link label",
+    "preview": "Voorbeeld"
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",

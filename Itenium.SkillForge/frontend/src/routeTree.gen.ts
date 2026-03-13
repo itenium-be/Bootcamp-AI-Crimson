@@ -20,10 +20,12 @@ import { Route as authResetPasswordRouteImport } from './routes/(auth)/reset-pas
 import { Route as authLoginRouteImport } from './routes/(auth)/login'
 import { Route as authForgotPasswordRouteImport } from './routes/(auth)/forgot-password'
 import { Route as AuthenticatedCoursesIndexRouteImport } from './routes/_authenticated/courses/index'
+import { Route as AuthenticatedLessonsLessonIdRouteImport } from './routes/_authenticated/lessons/$lessonId'
 import { Route as AuthenticatedCoursesIdRouteImport } from './routes/_authenticated/courses/$id'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
 import { Route as AuthenticatedAdminTeamsRouteImport } from './routes/_authenticated/admin/teams'
 import { Route as AuthenticatedManagerCoursesIndexRouteImport } from './routes/_authenticated/manager/courses/index'
+import { Route as AuthenticatedManagerLessonsLessonIdRouteImport } from './routes/_authenticated/manager/lessons/$lessonId'
 import { Route as AuthenticatedManagerCoursesIdRouteImport } from './routes/_authenticated/manager/courses/$id'
 import { Route as AuthenticatedAdminUsersIdRouteImport } from './routes/_authenticated/admin/users.$id'
 import { Route as AuthenticatedAdminTeamsIdRouteImport } from './routes/_authenticated/admin/teams.$id'
@@ -84,6 +86,12 @@ const AuthenticatedCoursesIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedCoursesRoute,
   } as any)
+const AuthenticatedLessonsLessonIdRoute =
+  AuthenticatedLessonsLessonIdRouteImport.update({
+    id: '/lessons/$lessonId',
+    path: '/lessons/$lessonId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCoursesIdRoute = AuthenticatedCoursesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -103,6 +111,12 @@ const AuthenticatedManagerCoursesIndexRoute =
   AuthenticatedManagerCoursesIndexRouteImport.update({
     id: '/manager/courses/',
     path: '/manager/courses/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedManagerLessonsLessonIdRoute =
+  AuthenticatedManagerLessonsLessonIdRouteImport.update({
+    id: '/manager/lessons/$lessonId',
+    path: '/manager/lessons/$lessonId',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedManagerCoursesIdRoute =
@@ -143,10 +157,12 @@ export interface FileRoutesByFullPath {
   '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
   '/courses/': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
+  '/manager/lessons/$lessonId': typeof AuthenticatedManagerLessonsLessonIdRoute
   '/manager/courses': typeof AuthenticatedManagerCoursesIndexRoute
   '/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
@@ -162,10 +178,12 @@ export interface FileRoutesByTo {
   '/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
   '/courses': typeof AuthenticatedCoursesIndexRoute
   '/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
+  '/manager/lessons/$lessonId': typeof AuthenticatedManagerLessonsLessonIdRoute
   '/manager/courses': typeof AuthenticatedManagerCoursesIndexRoute
   '/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
@@ -184,10 +202,12 @@ export interface FileRoutesById {
   '/_authenticated/admin/teams': typeof AuthenticatedAdminTeamsRouteWithChildren
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRouteWithChildren
   '/_authenticated/courses/$id': typeof AuthenticatedCoursesIdRoute
+  '/_authenticated/lessons/$lessonId': typeof AuthenticatedLessonsLessonIdRoute
   '/_authenticated/courses/': typeof AuthenticatedCoursesIndexRoute
   '/_authenticated/admin/teams/$id': typeof AuthenticatedAdminTeamsIdRoute
   '/_authenticated/admin/users/$id': typeof AuthenticatedAdminUsersIdRoute
   '/_authenticated/manager/courses/$id': typeof AuthenticatedManagerCoursesIdRoute
+  '/_authenticated/manager/lessons/$lessonId': typeof AuthenticatedManagerLessonsLessonIdRoute
   '/_authenticated/manager/courses/': typeof AuthenticatedManagerCoursesIndexRoute
   '/_authenticated/manager/quizzes/$id/analytics': typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
@@ -206,10 +226,12 @@ export interface FileRouteTypes {
     | '/admin/teams'
     | '/admin/users'
     | '/courses/$id'
+    | '/lessons/$lessonId'
     | '/courses/'
     | '/admin/teams/$id'
     | '/admin/users/$id'
     | '/manager/courses/$id'
+    | '/manager/lessons/$lessonId'
     | '/manager/courses'
     | '/manager/quizzes/$id/analytics'
   fileRoutesByTo: FileRoutesByTo
@@ -225,10 +247,12 @@ export interface FileRouteTypes {
     | '/admin/teams'
     | '/admin/users'
     | '/courses/$id'
+    | '/lessons/$lessonId'
     | '/courses'
     | '/admin/teams/$id'
     | '/admin/users/$id'
     | '/manager/courses/$id'
+    | '/manager/lessons/$lessonId'
     | '/manager/courses'
     | '/manager/quizzes/$id/analytics'
   id:
@@ -246,10 +270,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/teams'
     | '/_authenticated/admin/users'
     | '/_authenticated/courses/$id'
+    | '/_authenticated/lessons/$lessonId'
     | '/_authenticated/courses/'
     | '/_authenticated/admin/teams/$id'
     | '/_authenticated/admin/users/$id'
     | '/_authenticated/manager/courses/$id'
+    | '/_authenticated/manager/lessons/$lessonId'
     | '/_authenticated/manager/courses/'
     | '/_authenticated/manager/quizzes/$id/analytics'
   fileRoutesById: FileRoutesById
@@ -342,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCoursesIndexRouteImport
       parentRoute: typeof AuthenticatedCoursesRoute
     }
+    '/_authenticated/lessons/$lessonId': {
+      id: '/_authenticated/lessons/$lessonId'
+      path: '/lessons/$lessonId'
+      fullPath: '/lessons/$lessonId'
+      preLoaderRoute: typeof AuthenticatedLessonsLessonIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/courses/$id': {
       id: '/_authenticated/courses/$id'
       path: '/$id'
@@ -368,6 +401,13 @@ declare module '@tanstack/react-router' {
       path: '/manager/courses'
       fullPath: '/manager/courses'
       preLoaderRoute: typeof AuthenticatedManagerCoursesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/manager/lessons/$lessonId': {
+      id: '/_authenticated/manager/lessons/$lessonId'
+      path: '/manager/lessons/$lessonId'
+      fullPath: '/manager/lessons/$lessonId'
+      preLoaderRoute: typeof AuthenticatedManagerLessonsLessonIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/manager/courses/$id': {
@@ -449,7 +489,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminTeamsRoute: typeof AuthenticatedAdminTeamsRouteWithChildren
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRouteWithChildren
+  AuthenticatedLessonsLessonIdRoute: typeof AuthenticatedLessonsLessonIdRoute
   AuthenticatedManagerCoursesIdRoute: typeof AuthenticatedManagerCoursesIdRoute
+  AuthenticatedManagerLessonsLessonIdRoute: typeof AuthenticatedManagerLessonsLessonIdRoute
   AuthenticatedManagerCoursesIndexRoute: typeof AuthenticatedManagerCoursesIndexRoute
   AuthenticatedManagerQuizzesIdAnalyticsRoute: typeof AuthenticatedManagerQuizzesIdAnalyticsRoute
 }
@@ -461,7 +503,10 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminTeamsRoute: AuthenticatedAdminTeamsRouteWithChildren,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRouteWithChildren,
+  AuthenticatedLessonsLessonIdRoute: AuthenticatedLessonsLessonIdRoute,
   AuthenticatedManagerCoursesIdRoute: AuthenticatedManagerCoursesIdRoute,
+  AuthenticatedManagerLessonsLessonIdRoute:
+    AuthenticatedManagerLessonsLessonIdRoute,
   AuthenticatedManagerCoursesIndexRoute: AuthenticatedManagerCoursesIndexRoute,
   AuthenticatedManagerQuizzesIdAnalyticsRoute:
     AuthenticatedManagerQuizzesIdAnalyticsRoute,

@@ -39,7 +39,8 @@
     "completion": "Voltooiing",
     "feedback": "Feedback",
     "settingsSection": "Instellingen",
-    "certificateTemplates": "Certificaat Sjablonen"
+    "certificateTemplates": "Certificaat Sjablonen",
+    "suggestContent": "Inhoud Voorstellen"
   },
   "auth": {
     "signIn": "Inloggen",
@@ -297,7 +298,12 @@
     "allRatings": "Alle",
     "entries": "Reacties voor {{name}}",
     "backToSummary": "Terug naar overzicht",
-    "anonymous": "Anoniem"
+    "anonymous": "Anoniem",
+    "leaveFeedback": "Feedback geven",
+    "editFeedback": "Feedback bewerken",
+    "yourFeedback": "Jouw feedback",
+    "commentPlaceholder": "Deel je gedachten (optioneel)...",
+    "courseCompletePrompt": "Je hebt deze cursus voltooid! Hoe beoordeel je hem?"
   },
   "lessonProgress": {
     "title": "Lesvoortgang",
@@ -357,6 +363,26 @@
       "lowestCompletion": "Laagste Voltooiingspercentage"
     }
   },
+  "suggestContent": {
+    "title": "Inhoud Voorstellen",
+    "subtitle": "Stel een resource of onderwerp voor dat je aan het platform wilt zien toegevoegd.",
+    "formTitle": "Titel",
+    "formDescription": "Beschrijving",
+    "formUrl": "URL (optioneel)",
+    "formTopic": "Onderwerp (optioneel)",
+    "formRelatedCourse": "Gerelateerde cursus (optioneel)",
+    "submit": "Voorstel Indienen",
+    "submitting": "Bezig met indienen...",
+    "successMessage": "Je voorstel is ingediend. Bedankt!",
+    "mySuggestions": "Mijn Voorstellen",
+    "noSuggestions": "Je hebt nog geen voorstellen ingediend.",
+    "status": {
+      "Pending": "In afwachting",
+      "Approved": "Goedgekeurd",
+      "Rejected": "Afgewezen"
+    },
+    "reviewNote": "Beoordelingsnotitie"
+  },
   "managerCourses": {
     "title": "Cursusbeheer",
     "newCourse": "Nieuwe Cursus",
@@ -374,5 +400,16 @@
       "published": "Gepubliceerd",
       "archived": "Gearchiveerd"
     }
+  },
+  "annotations": {
+    "title": "Community Notities",
+    "addNote": "Notitie Toevoegen",
+    "shareExperience": "Deel je ervaring of context met andere leerlingen",
+    "contentPlaceholder": "Schrijf je ervaring, context of tips...",
+    "ratingOptional": "Inhoudsbeoordeling (optioneel):",
+    "post": "Plaatsen",
+    "noAnnotations": "Nog geen community notities. Wees de eerste die deelt!",
+    "confirmDelete": "Deze annotatie verwijderen?",
+    "showingOf": "{{shown}} van {{total}} getoond"
   }
 }

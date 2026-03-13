@@ -39,7 +39,8 @@
     "completion": "Completion",
     "feedback": "Feedback",
     "settingsSection": "Settings",
-    "certificateTemplates": "Certificate Templates"
+    "certificateTemplates": "Certificate Templates",
+    "suggestContent": "Suggest Content"
   },
   "auth": {
     "signIn": "Sign In",
@@ -297,7 +298,12 @@
     "allRatings": "All",
     "entries": "Entries for {{name}}",
     "backToSummary": "Back to summary",
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "leaveFeedback": "Leave feedback",
+    "editFeedback": "Edit your feedback",
+    "yourFeedback": "Your feedback",
+    "commentPlaceholder": "Share your thoughts (optional)...",
+    "courseCompletePrompt": "You've completed this course! How would you rate it?"
   },
   "lessonProgress": {
     "title": "Lesson Progress",
@@ -357,6 +363,26 @@
       "lowestCompletion": "Lowest Completion Rates"
     }
   },
+  "suggestContent": {
+    "title": "Suggest Content",
+    "subtitle": "Suggest a resource or topic you'd like to see added to the platform.",
+    "formTitle": "Title",
+    "formDescription": "Description",
+    "formUrl": "URL (optional)",
+    "formTopic": "Topic (optional)",
+    "formRelatedCourse": "Related Course (optional)",
+    "submit": "Submit Suggestion",
+    "submitting": "Submitting...",
+    "successMessage": "Your suggestion has been submitted. Thank you!",
+    "mySuggestions": "My Suggestions",
+    "noSuggestions": "You haven't submitted any suggestions yet.",
+    "status": {
+      "Pending": "Pending",
+      "Approved": "Approved",
+      "Rejected": "Rejected"
+    },
+    "reviewNote": "Review note"
+  },
   "managerCourses": {
     "title": "Course Management",
     "newCourse": "New Course",
@@ -374,5 +400,16 @@
       "published": "Published",
       "archived": "Archived"
     }
+  },
+  "annotations": {
+    "title": "Community Notes",
+    "addNote": "Add Note",
+    "shareExperience": "Share your experience or context with other learners",
+    "contentPlaceholder": "Write your experience, context or tips...",
+    "ratingOptional": "Content rating (optional):",
+    "post": "Post",
+    "noAnnotations": "No community notes yet. Be the first to share!",
+    "confirmDelete": "Delete this annotation?",
+    "showingOf": "Showing {{shown}} of {{total}}"
   }
 }

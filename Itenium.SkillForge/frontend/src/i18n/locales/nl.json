@@ -368,5 +368,16 @@
       "published": "Gepubliceerd",
       "archived": "Gearchiveerd"
     }
+  },
+  "annotations": {
+    "title": "Community Notities",
+    "addNote": "Notitie Toevoegen",
+    "shareExperience": "Deel je ervaring of context met andere leerlingen",
+    "contentPlaceholder": "Schrijf je ervaring, context of tips...",
+    "ratingOptional": "Inhoudsbeoordeling (optioneel):",
+    "post": "Plaatsen",
+    "noAnnotations": "Nog geen community notities. Wees de eerste die deelt!",
+    "confirmDelete": "Deze annotatie verwijderen?",
+    "showingOf": "{{shown}} van {{total}} getoond"
   }
 }

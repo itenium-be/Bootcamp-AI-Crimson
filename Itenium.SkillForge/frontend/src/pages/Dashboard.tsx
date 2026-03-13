@@ -61,7 +61,12 @@ export function Dashboard() {
       </div>
 
       <div className="-mx-6 rounded-xl overflow-hidden">
-        <img src="/new-year-2026.jpg" alt="New Year Event January 2026" className="w-full object-cover h-[22rem] object-center" style={{ objectPosition: '50% 45%' }} />
+        <img
+          src="/new-year-2026.jpg"
+          alt="New Year Event January 2026"
+          className="w-full object-cover h-[22rem] object-center"
+          style={{ objectPosition: '50% 45%' }}
+        />
       </div>
 
       <div className="-mx-6 rounded-xl overflow-hidden">

@@ -2,10 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { filterUsers, type User, type UserFilters } from '../Users';
 
 const users: User[] = [
-  { id: '1', name: 'Alice Smith',   email: 'alice@test.com',   role: 'learner',      isActive: true,  lastActiveAt: null },
-  { id: '2', name: 'Bob Jones',     email: 'bob@test.com',     role: 'team_manager', isActive: true,  lastActiveAt: null },
-  { id: '3', name: 'Carol Admin',   email: 'carol@test.com',   role: 'backoffice',   isActive: true,  lastActiveAt: null },
-  { id: '4', name: 'Dave Inactive', email: 'dave@test.com',    role: 'learner',      isActive: false, lastActiveAt: null },
+  { id: '1', name: 'Alice Smith', email: 'alice@test.com', role: 'learner', isActive: true, lastActiveAt: null },
+  { id: '2', name: 'Bob Jones', email: 'bob@test.com', role: 'team_manager', isActive: true, lastActiveAt: null },
+  { id: '3', name: 'Carol Admin', email: 'carol@test.com', role: 'backoffice', isActive: true, lastActiveAt: null },
+  { id: '4', name: 'Dave Inactive', email: 'dave@test.com', role: 'learner', isActive: false, lastActiveAt: null },
 ];
 
 const noFilters: UserFilters = { search: '', role: '', status: '' };

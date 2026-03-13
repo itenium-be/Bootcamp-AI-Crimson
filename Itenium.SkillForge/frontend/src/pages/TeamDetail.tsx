@@ -32,9 +32,7 @@ export function TeamDetail({ teamId, teamName }: TeamDetailProps) {
   const filteredLearners = useMemo(() => {
     const q = searchLearner.toLowerCase().trim();
     return availableLearners.filter(
-      (l) =>
-        !memberIds.has(l.id) &&
-        (l.name.toLowerCase().includes(q) || l.email.toLowerCase().includes(q)),
+      (l) => !memberIds.has(l.id) && (l.name.toLowerCase().includes(q) || l.email.toLowerCase().includes(q)),
     );
   }, [availableLearners, memberIds, searchLearner]);
 
@@ -113,9 +111,7 @@ export function TeamDetail({ teamId, teamName }: TeamDetailProps) {
           {t('teamDetail.members')} ({members.length})
         </div>
         {members.length === 0 ? (
-          <div className="p-6 text-center text-muted-foreground text-sm">
-            {t('teamDetail.noMembers')}
-          </div>
+          <div className="p-6 text-center text-muted-foreground text-sm">{t('teamDetail.noMembers')}</div>
         ) : (
           <table className="w-full">
             <thead>
@@ -132,9 +128,11 @@ export function TeamDetail({ teamId, teamName }: TeamDetailProps) {
                   <td className="p-3 font-medium">{member.name || '-'}</td>
                   <td className="p-3 text-muted-foreground">{member.email}</td>
                   <td className="p-3">
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                      member.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                        member.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}
+                    >
                       {member.isActive ? t('common.active') : t('users.inactive')}
                     </span>
                   </td>

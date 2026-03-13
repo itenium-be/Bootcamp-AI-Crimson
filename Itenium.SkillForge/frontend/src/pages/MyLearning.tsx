@@ -98,11 +98,11 @@ export function MyLearning() {
             >
               <div className="flex items-start justify-between gap-2">
                 <h3 className="font-semibold leading-tight">{enrollment.courseName}</h3>
-                <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
-                  enrollment.status === 'Completed'
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-blue-100 text-blue-800'
-                }`}>
+                <span
+                  className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
+                    enrollment.status === 'Completed' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
+                  }`}
+                >
                   {t(`myLearning.status${enrollment.status}`)}
                 </span>
               </div>

@@ -286,7 +286,12 @@
     "allRatings": "Alle",
     "entries": "Reacties voor {{name}}",
     "backToSummary": "Terug naar overzicht",
-    "anonymous": "Anoniem"
+    "anonymous": "Anoniem",
+    "leaveFeedback": "Feedback geven",
+    "editFeedback": "Feedback bewerken",
+    "yourFeedback": "Jouw feedback",
+    "commentPlaceholder": "Deel je gedachten (optioneel)...",
+    "courseCompletePrompt": "Je hebt deze cursus voltooid! Hoe beoordeel je hem?"
   },
   "lessonProgress": {
     "title": "Lesvoortgang",

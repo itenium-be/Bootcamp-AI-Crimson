@@ -29,7 +29,7 @@ public class FeedbackController : ControllerBase
     }
 
     /// <summary>
-    /// Submit feedback for a course.
+    /// Submit feedback for a course. Returns 409 if already submitted.
     /// </summary>
     [HttpPost("api/courses/{courseId:int}/feedback")]
     public async Task<ActionResult<FeedbackEntryDto>> SubmitFeedback(int courseId, [FromBody] SubmitFeedbackRequest request)
@@ -40,6 +40,11 @@ public class FeedbackController : ControllerBase
 
         if (request.Rating < 1 || request.Rating > 5)
             return BadRequest("Rating must be between 1 and 5.");
+
+        var existing = await _db.CourseFeedbacks
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.CourseId == courseId && f.LessonId == null);
+        if (existing != null)
+            return Conflict("Feedback already submitted. Use PUT to update.");
 
         var fb = new CourseFeedbackEntity
         {
@@ -52,6 +57,109 @@ public class FeedbackController : ControllerBase
         _db.CourseFeedbacks.Add(fb);
         await _db.SaveChangesAsync();
 
+        return Ok(ToDto(fb, anonymize: false));
+    }
+
+    /// <summary>
+    /// Update existing course feedback.
+    /// </summary>
+    [HttpPut("api/courses/{courseId:int}/feedback")]
+    public async Task<IActionResult> UpdateCourseFeedback(int courseId, [FromBody] SubmitFeedbackRequest request)
+    {
+        if (request.Rating < 1 || request.Rating > 5)
+            return BadRequest("Rating must be between 1 and 5.");
+
+        var fb = await _db.CourseFeedbacks
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.CourseId == courseId && f.LessonId == null);
+        if (fb == null)
+            return NotFound();
+
+        fb.Rating = request.Rating;
+        fb.Comment = request.Comment;
+        fb.UpdatedAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Get the current user's own feedback for a course.
+    /// </summary>
+    [HttpGet("api/courses/{courseId:int}/feedback/me")]
+    public async Task<ActionResult<FeedbackEntryDto>> GetMyCourseFeedback(int courseId)
+    {
+        var fb = await _db.CourseFeedbacks
+            .AsNoTracking()
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.CourseId == courseId && f.LessonId == null);
+        if (fb == null)
+            return NotFound();
+        return Ok(ToDto(fb, anonymize: false));
+    }
+
+    /// <summary>
+    /// Submit feedback for a lesson. Returns 409 if already submitted.
+    /// </summary>
+    [HttpPost("api/lessons/{lessonId:int}/feedback")]
+    public async Task<ActionResult<FeedbackEntryDto>> SubmitLessonFeedback(int lessonId, [FromBody] SubmitFeedbackRequest request)
+    {
+        var lesson = await _db.Lessons.AsNoTracking().FirstOrDefaultAsync(l => l.Id == lessonId);
+        if (lesson == null)
+            return NotFound();
+
+        if (request.Rating < 1 || request.Rating > 5)
+            return BadRequest("Rating must be between 1 and 5.");
+
+        var existing = await _db.CourseFeedbacks
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.LessonId == lessonId);
+        if (existing != null)
+            return Conflict("Feedback already submitted. Use PUT to update.");
+
+        var fb = new CourseFeedbackEntity
+        {
+            UserId = _user.Id!,
+            CourseId = lesson.CourseId,
+            LessonId = lessonId,
+            Rating = request.Rating,
+            Comment = request.Comment,
+        };
+
+        _db.CourseFeedbacks.Add(fb);
+        await _db.SaveChangesAsync();
+
+        return Ok(ToDto(fb, anonymize: false));
+    }
+
+    /// <summary>
+    /// Update existing lesson feedback.
+    /// </summary>
+    [HttpPut("api/lessons/{lessonId:int}/feedback")]
+    public async Task<IActionResult> UpdateLessonFeedback(int lessonId, [FromBody] SubmitFeedbackRequest request)
+    {
+        if (request.Rating < 1 || request.Rating > 5)
+            return BadRequest("Rating must be between 1 and 5.");
+
+        var fb = await _db.CourseFeedbacks
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.LessonId == lessonId);
+        if (fb == null)
+            return NotFound();
+
+        fb.Rating = request.Rating;
+        fb.Comment = request.Comment;
+        fb.UpdatedAt = DateTime.UtcNow;
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
+    /// <summary>
+    /// Get the current user's own feedback for a lesson.
+    /// </summary>
+    [HttpGet("api/lessons/{lessonId:int}/feedback/me")]
+    public async Task<ActionResult<FeedbackEntryDto>> GetMyLessonFeedback(int lessonId)
+    {
+        var fb = await _db.CourseFeedbacks
+            .AsNoTracking()
+            .FirstOrDefaultAsync(f => f.UserId == _user.Id && f.LessonId == lessonId);
+        if (fb == null)
+            return NotFound();
         return Ok(ToDto(fb, anonymize: false));
     }
 

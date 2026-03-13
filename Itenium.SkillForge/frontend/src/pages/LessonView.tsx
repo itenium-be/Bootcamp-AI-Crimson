@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from '@tanstack/react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchContentBlocks, completeLesson, type ContentBlock } from '@/api/client';
+import { fetchContentBlocks, completeLesson, getMyLessonFeedback, submitLessonFeedback, updateLessonFeedback, type ContentBlock } from '@/api/client';
+import { FeedbackForm } from '@/components/FeedbackForm';
 
 function parseContent(content: string): Record<string, string> {
   try {
@@ -130,6 +131,14 @@ export function LessonView() {
           ))}
         </div>
       )}
+
+      <hr className="border-muted" />
+      <FeedbackForm
+        queryKey={['lesson-feedback-me', lessonId]}
+        fetchFn={() => getMyLessonFeedback(lessonId)}
+        submitFn={(rating, comment) => submitLessonFeedback(lessonId, rating, comment)}
+        updateFn={(rating, comment) => updateLessonFeedback(lessonId, rating, comment)}
+      />
     </div>
   );
 }

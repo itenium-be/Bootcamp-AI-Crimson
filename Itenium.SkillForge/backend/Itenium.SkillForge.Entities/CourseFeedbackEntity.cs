@@ -25,6 +25,8 @@ public class CourseFeedbackEntity
 
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
     public bool IsFlagged { get; set; }
 
     public bool IsDismissed { get; set; }

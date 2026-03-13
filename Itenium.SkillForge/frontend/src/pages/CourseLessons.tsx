@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate, useParams } from '@tanstack/react-router';
-import { fetchLessons, setLessonStatus, trackLastVisited, fetchResumeLesson, type Lesson, type LessonStatus } from '@/api/client';
+import { fetchLessons, setLessonStatus, trackLastVisited, fetchResumeLesson, getMyCourseFeedback, submitCourseFeedback, updateCourseFeedback, type Lesson, type LessonStatus } from '@/api/client';
+import { FeedbackForm } from '@/components/FeedbackForm';
 
 const STATUS_CYCLE: Record<LessonStatus, LessonStatus> = {
   new: 'done',
@@ -141,6 +142,21 @@ export function CourseLessons() {
         ))}
         {lessons.length === 0 && <div className="p-4 text-center text-muted-foreground">{t('lessons.noLessons')}</div>}
       </div>
+
+      {resume?.isComplete && (
+        <>
+          <hr className="border-muted" />
+          <div className="space-y-2">
+            <p className="text-sm font-medium">{t('feedback.courseCompletePrompt')}</p>
+            <FeedbackForm
+              queryKey={['course-feedback-me', courseId]}
+              fetchFn={() => getMyCourseFeedback(courseId)}
+              submitFn={(rating, comment) => submitCourseFeedback(courseId, rating, comment)}
+              updateFn={(rating, comment) => updateCourseFeedback(courseId, rating, comment)}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }

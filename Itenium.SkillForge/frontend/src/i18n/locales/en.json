@@ -285,6 +285,17 @@
     "backToList": "Back to paths",
     "courseCount": "{{count}} course(s)"
   },
+  "lessonContent": {
+    "title": "Lesson Content",
+    "back": "Back",
+    "backToLessons": "Back to Lessons",
+    "noBlocks": "No content blocks yet.",
+    "addBlock": "Add Content Block",
+    "markdown": "Markdown / Text",
+    "label": "Label",
+    "linkLabel": "Link label",
+    "preview": "Preview"
+  },
   "managerCourses": {
     "title": "Course Management",
     "newCourse": "New Course",

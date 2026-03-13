@@ -10,7 +10,7 @@ namespace Itenium.SkillForge.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Enrollments table is created by the AddEnrollmentEntity migration.
+            // Team membership is stored as user claims — no DB table required.
         }
 
         /// <inheritdoc />

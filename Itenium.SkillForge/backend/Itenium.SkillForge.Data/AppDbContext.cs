@@ -35,6 +35,8 @@ public class AppDbContext : ForgeIdentityDbContext
 
     public DbSet<ModuleEntity> Modules => Set<ModuleEntity>();
 
+    public DbSet<ContentBlockEntity> ContentBlocks => Set<ContentBlockEntity>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

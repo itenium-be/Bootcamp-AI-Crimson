@@ -50,6 +50,7 @@
     "welcome": "Welkom",
     "signInDescription": "Voer uw gegevens in om in te loggen",
     "invalidCredentials": "Ongeldige gebruikersnaam of wachtwoord",
+    "accountDeactivated": "Account gedeactiveerd. Neem contact op met uw beheerder.",
     "usernameRequired": "Gebruikersnaam is verplicht",
     "passwordRequired": "Wachtwoord is verplicht",
     "loginBackground": "Login achtergrond",
@@ -210,8 +211,8 @@
     "changeRole": "Rol Wijzigen",
     "deactivate": "Gebruiker Deactiveren",
     "activate": "Gebruiker Activeren",
-    "confirmDeactivate": "\"{{name}}\" deactiveren? Ze verliezen toegang tot het platform.",
-    "confirmActivate": "\"{{name}}\" activeren? Ze krijgen opnieuw toegang tot het platform."
+    "confirmDeactivate": "Dit voorkomt dat {{name}} kan inloggen. Hun geschiedenis blijft bewaard.",
+    "confirmActivate": "{{name}} activeren? Ze krijgen opnieuw toegang tot het platform."
   },
   "managerCourses": {
     "title": "Cursusbeheer",
